@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Button } from '@mui/material';
 import { setUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import cl from './Header.module.scss';
@@ -26,7 +27,9 @@ export default function Header() {
           <li className={cl.nav__list_item}>
             <NavLink to="/about">About</NavLink>
           </li>
-          <button onClick={testLoginHandler}>{user.id ? 'login' : 'logout'}</button>
+          <Button variant="contained" color="secondary" onClick={testLoginHandler}>
+            {user.id ? 'login' : 'logout'}
+          </Button>
         </ul>
       </nav>
     </header>
