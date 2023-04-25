@@ -1090,10 +1090,10 @@
   resolved "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.7.5.tgz"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@esbuild/win32-x64@0.16.10":
+"@esbuild/linux-x64@0.16.10":
   version "0.16.10"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.16.10.tgz"
-  integrity sha512-qddWullt3sC1EIpfHvCRBq3H4g3L86DZpD6n8k2XFjFVyp01D++uNbN1hT/JRsHxTbyyemZcpwL5aRlJwc/zFw==
+  resolved "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.16.10.tgz"
+  integrity sha512-61lcjVC/RldNNMUzQQdyCWjCxp9YLEQgIxErxU9XluX7juBdGKb0pvddS0vPNuCvotRbzijZ1pzII+26haWzbA==
 
 "@eslint/eslintrc@^1.4.0":
   version "1.4.0"
