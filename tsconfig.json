@@ -18,6 +18,13 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": [
+    "./src/**/*",
+    "styled.d.ts",
+    "vite.config.ts",
+    ".eslintrc",
+    "./node_modules/cypress",
+    "cypress/**/*.js"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
