@@ -1,10 +1,11 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
-import { render } from './test-utils';
+import { describe, it } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders app works text', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/App Works!/i);
-  expect(linkElement).toBeInTheDocument();
+describe('App', () => {
+  it('App <nav> exists', () => {
+    render(<App />);
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
+  });
 });
