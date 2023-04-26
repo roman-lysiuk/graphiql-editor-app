@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@apollo/client": "^3.7.12",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
@@ -23,6 +24,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "antd": "^5.1.0",
     "bootstrap": "^5.2.0",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
