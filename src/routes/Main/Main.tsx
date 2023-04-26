@@ -1,9 +1,12 @@
 import React from 'react';
+import GraphQLRoute from '../../components/GraphQLRoute/GraphQLRoute';
+import GraphQLEditor from '../../components/GraphQLEditor/GraphQLEditor';
 
 export default function Main() {
   return (
     <main className="main">
-      <h1>Main</h1>
+      <GraphQLRoute />
+      <GraphQLEditor />
     </main>
   );
 }

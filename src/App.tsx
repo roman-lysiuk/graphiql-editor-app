@@ -1,16 +1,15 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './store';
+import { ApolloProvider } from '@apollo/client';
 import Router from './routes/Router';
+import apolloClient from './GraphQL/apolloClient';
+import store from './store';
 import './styles/vendors.scss';
 import './styles/index.scss';
-import { ApolloProvider } from '@apollo/client';
-import { createApolloClient } from './GraphQL/apolloClient';
 
-const client = createApolloClient();
 const App = () => (
-  <ApolloProvider client={client}>
+  <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <BrowserRouter>
         <Router />;

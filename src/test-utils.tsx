@@ -7,12 +7,10 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store';
 import { ApolloProvider } from '@apollo/client';
-import { createApolloClient } from './GraphQL/apolloClient';
-
-const client = createApolloClient();
+import apolloClient from './GraphQL/apolloClient';
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <ApolloProvider client={client}>
+  <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <BrowserRouter>{children}</BrowserRouter>
     </Provider>
