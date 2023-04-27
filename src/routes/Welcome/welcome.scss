@@ -1,3 +1,49 @@
 .welcomeWrapper {
+  width: 100%;
+  height: 100vh;
   background: url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg");
+
+  .signButton {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    height: 50px;
+    width: 120px;
+    line-height: 50px;
+    font-size: 120%;
+    background-color: #ffffff00;
+    border-radius: 5px;
+    border: 3px solid aliceblue;
+
+    &:hover {
+      color: cornflowerblue;
+      background-color: #ffffff00;
+      border: 3px solid cornflowerblue;
+    }
+  }
+
+  .welcome {
+    height: 60%;
+    text-shadow: 0 0 5px black;
+    background-color: #0202026f;
+    color: aliceblue;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 50px;
+
+    .welcomeHeadline {
+      font-size: 500%;
+      margin-bottom: 20px;
+    }
+
+    .GitLink {
+      cursor: pointer;
+
+      &:hover {
+        color: cornflowerblue;
+      }
+    }
+  }
 }
