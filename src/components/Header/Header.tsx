@@ -4,6 +4,7 @@ import { Button } from '@mui/material';
 import { setUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import cl from './Header.module.scss';
+import { addMessage } from '../../store/sysMessengerSlice';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -12,8 +13,10 @@ export default function Header() {
   const testLoginHandler = () => {
     if (user.id > 0) {
       dispatch(setUser({ id: 0, login: '', email: '' }));
+      dispatch(addMessage({ type: 'info', message: 'user login' }));
     } else {
       dispatch(setUser({ id: 1, login: 'test', email: 'test@test.test' }));
+      dispatch(addMessage({ type: 'error', message: 'user logout' }));
     }
   };
 

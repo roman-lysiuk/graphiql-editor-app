@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import SysMessenger from '../SysMessenger/SysMessenger';
 
 export default function Layout() {
   return (
@@ -9,6 +10,7 @@ export default function Layout() {
       <Header />
       <Outlet />
       <Footer />
+      <SysMessenger />
     </>
   );
 }

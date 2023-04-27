@@ -1,0 +1,9 @@
+.board {
+  position: fixed;
+  top: 70px;
+  transition: all 500ms;
+
+  &__row {
+    margin: 2px 0;
+  }
+}

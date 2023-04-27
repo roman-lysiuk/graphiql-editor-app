@@ -1,0 +1,44 @@
+import React, { useEffect } from 'react';
+import { Check, Error } from '@mui/icons-material';
+import { Alert, Collapse, Grid } from '@mui/material';
+import { TransitionGroup } from 'react-transition-group';
+import cl from './SysMessenger.module.scss';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { ISysMessageState, delMessage } from '../../store/sysMessengerSlice';
+
+export default function SysMessenger() {
+  const messages = useAppSelector((state) => state.sysMessenger) as ISysMessageState[];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(delMessage());
+    }, 3000 / (messages.length * 2));
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [messages, dispatch]);
+
+  return (
+    <Grid container className={cl.board}>
+      <Grid item xs={0} md={6} />
+      <Grid item xs={12} md={6}>
+        <TransitionGroup>
+          {messages.map((msg: ISysMessageState) => {
+            let icon = <Check fontSize="inherit" />;
+            if (msg.type === 'error') icon = <Error fontSize="inherit" />;
+
+            return (
+              <Collapse key={msg.id}>
+                <Alert icon={icon} severity={msg.type} className={cl.board__row}>
+                  {msg.message}
+                </Alert>
+              </Collapse>
+            );
+          })}
+        </TransitionGroup>
+      </Grid>
+    </Grid>
+  );
+}
