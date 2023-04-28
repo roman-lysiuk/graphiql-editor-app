@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Check, Error, Warning, Info } from '@mui/icons-material';
 import { Alert, Collapse, Grid } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
-import cl from './SysMessenger.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ISysMessageState, delMessage } from '../../store/sysMessengerSlice';
 
@@ -21,7 +20,7 @@ export default function SysMessenger() {
   }, [messages, dispatch]);
 
   return (
-    <Grid container className={cl.board}>
+    <Grid container sx={{ position: 'fixed', top: '70px' }}>
       <Grid item xs={0} md={6} />
       <Grid item xs={12} md={6}>
         <TransitionGroup>
@@ -34,7 +33,12 @@ export default function SysMessenger() {
 
             return (
               <Collapse key={msg.id}>
-                <Alert icon={icon} severity={msg.type} className={cl.board__row}>
+                <Alert
+                  sx={{ m: 0.2, opacity: 0.9 }}
+                  icon={icon}
+                  severity={msg.type}
+                  variant="standard"
+                >
                   {msg.message}
                 </Alert>
               </Collapse>
