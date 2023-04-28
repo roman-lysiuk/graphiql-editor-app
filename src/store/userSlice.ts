@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IUserState {
-  id: number;
-  login: string;
+  id: string | undefined;
+  token: string;
   email: string;
 }
 
-const initialState: IUserState = {
-  id: 0,
-  login: '',
+export const initialState: IUserState = {
+  id: undefined,
+  token: '',
   email: '',
 };
 
@@ -19,8 +19,11 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<IUserState>) {
       return { ...action.payload };
     },
+    removeUser() {
+      return initialState;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, removeUser } = userSlice.actions;
 export default userSlice.reducer;

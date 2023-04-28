@@ -1,20 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { setUser } from '../../store/userSlice';
+import { removeUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import cl from './Header.module.scss';
+import { logout } from '../../firebase';
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
   const testLoginHandler = () => {
-    if (user.id > 0) {
-      dispatch(setUser({ id: 0, login: '', email: '' }));
-    } else {
-      dispatch(setUser({ id: 1, login: 'test', email: 'test@test.test' }));
-    }
+    logout();
+    dispatch(removeUser());
   };
 
   return (
