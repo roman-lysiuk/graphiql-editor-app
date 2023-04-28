@@ -1,3 +1,5 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable no-console */
 import { initializeApp } from 'firebase/app';
 import {
   GoogleAuthProvider,
@@ -9,6 +11,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
+import { IUserState, initialState } from './store/userSlice';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDA-RF3yn2rnhikYzrA9IKzWYH5V33QYwE',
@@ -25,6 +28,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
@@ -40,43 +44,46 @@ const signInWithGoogle = async () => {
       });
     }
   } catch (err) {
-    console.error(err);
-    alert(err.message);
+    // console.error(err);
+    // alert(err.message);
   }
 };
 
-const logInWithEmailAndPassword = async (email, password) => {
+const logInWithEmailAndPassword = async (email: string, password: string) => {
+  let user: IUserState = initialState;
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
-
-const registerWithEmailAndPassword = async (name, email, password) => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await addDoc(collection(db, 'users'), {
-      uid: user.uid,
-      name,
-      authProvider: 'local',
-      email,
+    await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      const usr = userCredential.user;
+      user = { id: usr.uid, token: usr.refreshToken, email: usr.email as string };
     });
   } catch (err) {
-    console.error(err);
-    alert(err.message);
+    // console.error(err);
+    // alert(err.message);
   }
+  return user;
 };
 
-const sendPasswordReset = async (email) => {
+const registerWithEmailAndPassword = async (email: string, password: string) => {
+  let user: IUserState = initialState;
+  try {
+    console.log(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      const usr = userCredential.user;
+      user = { id: usr.uid, token: usr.refreshToken, email: usr.email as string };
+    });
+  } catch (err) {
+    // console.error(err);
+    // alert(err.message);
+  }
+  return user;
+};
+
+const sendPasswordReset = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    alert('Password reset link sent!');
   } catch (err) {
-    console.error(err);
-    alert(err.message);
+    // console.error(err);
+    // alert(err.message);
   }
 };
 

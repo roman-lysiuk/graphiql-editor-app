@@ -38,12 +38,21 @@
       margin-bottom: 20px;
     }
 
-    .GitLink {
-      cursor: pointer;
+    .devs {
+      display: flex;
+      flex-direction: column;
 
-      &:hover {
-        color: cornflowerblue;
+      .GitLink {
+        color: aliceblue;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          color: cornflowerblue;
+        }
       }
     }
+
+
   }
 }
