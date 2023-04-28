@@ -16,7 +16,7 @@ export default function Header() {
       dispatch(addMessage({ type: 'info', message: 'user login' }));
     } else {
       dispatch(setUser({ id: 1, login: 'test', email: 'test@test.test' }));
-      dispatch(addMessage({ type: 'error', message: 'user logout' }));
+      dispatch(addMessage({ type: 'warning', message: 'user logout' }));
     }
   };
 

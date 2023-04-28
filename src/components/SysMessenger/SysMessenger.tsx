@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Check, Error } from '@mui/icons-material';
+import { Check, Error, Warning, Info } from '@mui/icons-material';
 import { Alert, Collapse, Grid } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import cl from './SysMessenger.module.scss';
@@ -13,7 +13,7 @@ export default function SysMessenger() {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(delMessage());
-    }, 3000 / (messages.length * 2));
+    }, 3000 / messages.length);
 
     return () => {
       clearTimeout(timer);
@@ -26,8 +26,11 @@ export default function SysMessenger() {
       <Grid item xs={12} md={6}>
         <TransitionGroup>
           {messages.map((msg: ISysMessageState) => {
-            let icon = <Check fontSize="inherit" />;
+            let icon: JSX.Element;
             if (msg.type === 'error') icon = <Error fontSize="inherit" />;
+            else if (msg.type === 'warning') icon = <Warning fontSize="inherit" />;
+            else if (msg.type === 'info') icon = <Info fontSize="inherit" />;
+            else icon = <Check fontSize="inherit" />;
 
             return (
               <Collapse key={msg.id}>
