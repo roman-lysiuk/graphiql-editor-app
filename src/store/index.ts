@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './userSlice';
+import sysMessengerSlice from './sysMessengerSlice';
 
 const store = configureStore({
   reducer: {
     user: userSlice,
+    sysMessenger: sysMessengerSlice,
   },
   middleware: [],
 });
