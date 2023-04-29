@@ -20,13 +20,13 @@ export default function Header() {
       <nav className={cl.nav}>
         <ul className={cl.nav__list}>
           <li className={cl.nav__list_item}>
-            <NavLink to="/">Main</NavLink>
+            <NavLink to={user.id ? '/main' : '/'}>Main</NavLink>
           </li>
           <li className={cl.nav__list_item}>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/">About</NavLink>
           </li>
           <Button variant="contained" color="secondary" onClick={testLoginHandler}>
-            {user.id ? 'login' : 'logout'}
+            {!user.id ? 'login' : 'logout'}
           </Button>
         </ul>
       </nav>
