@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { removeUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -9,10 +9,12 @@ import { logout } from '../../firebase';
 export default function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const testLoginHandler = () => {
     logout();
     dispatch(removeUser());
+    navigate('/');
   };
 
   return (
