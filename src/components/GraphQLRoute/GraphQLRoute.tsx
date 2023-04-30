@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import cl from './graphQLRoute.module.scss';
-
-const defaultRoute: string = import.meta.env.VITE_API_DEFAULT_GRAPHQL;
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { changeRoute } from '../../store/graphQLRouteSlice';
 
 export default function GraphQLRoute() {
-  const [route, setRoute] = useState<string>(defaultRoute);
+  const { url } = useAppSelector((state) => state.graphQLRoute);
+  const dispatch = useAppDispatch();
+  const [route, setRoute] = useState<string>(url);
+
+  function handlerChangeRoute() {
+    dispatch(changeRoute(route));
+  }
   return (
     <div className={cl.routeRow}>
-      <label htmlFor="route-graphql">
+      <label className={cl.routeRow__label} htmlFor="route-graphql">
         Route:
         <input
           className={cl.routeRow__input}
@@ -18,7 +24,7 @@ export default function GraphQLRoute() {
           onChange={(e) => setRoute(e.target.value)}
         />
       </label>
-      <button>Change Route</button>
+      <button onClick={handlerChangeRoute}>Change Route</button>
     </div>
   );
 }
