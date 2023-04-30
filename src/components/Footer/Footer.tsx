@@ -1,5 +1,4 @@
 import React from 'react';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
 import GitHub from '@mui/icons-material/GitHub';
 import {
   AppBar,
@@ -44,7 +43,6 @@ export default function Footer() {
         bottom: 0,
         left: 0,
         height: 30,
-        background: 'rgba(256, 256, 256, 0.2)',
       }}
     >
       <Toolbar
@@ -140,9 +138,6 @@ export default function Footer() {
             checked={isDarkMode}
             color="default"
           />
-          <IconButton sx={{ ml: 1 }} onClick={switchTheme} color="inherit">
-            {isDarkMode ? <Brightness4 color="inherit" /> : <Brightness7 color="inherit" />}
-          </IconButton>
           <Typography variant="body1">{isDarkMode ? 'Dark' : 'Light'}</Typography>
         </div>
       </Toolbar>
