@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
 import path from 'path';
 import monacoEditorPlugin from 'vite-plugin-monaco-editor';
-
 import type { InlineConfig } from 'vitest';
 import type { UserConfig } from 'vite';
 
@@ -21,7 +20,7 @@ export default defineConfig({
       customWorkers: [
         {
           label: 'graphql',
-          entry: 'monaco-graphql/dist/graphql.worker',
+          entry: 'monaco-graphql/esm/graphql.worker',
         },
       ],
     }),
