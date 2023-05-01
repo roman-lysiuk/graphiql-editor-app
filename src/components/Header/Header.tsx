@@ -97,30 +97,36 @@ export default function Header() {
                 }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Tab color="default" label="Main" value="/" to="/" component={NavLink} />
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
                   <Tab
                     color="default"
-                    label="About"
-                    value="/sign"
-                    to="/about"
+                    label="Main"
+                    value="/"
+                    to={user.id ? '/main' : '/'}
                     component={NavLink}
                   />
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} />
+                  <Tab color="default" label="About" value="/sign" to="/" component={NavLink} />
                 </MenuItem>
+                {/* <MenuItem onClick={handleCloseNavMenu}>
+                  <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} />
+                </MenuItem> */}
               </Menu>
             </Box>
             <Button variant="contained" color="secondary" onClick={testLoginHandler}>
-              {user.id ? 'login' : 'logout'}
+              {!user.id ? 'login' : 'logout'}
             </Button>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Tab color="default" label="Main" value="/" to="/" component={NavLink} />
-              <Tab color="default" label="About" value="/sign" to="/about" component={NavLink} />
-              <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} />
+              <Tab
+                color="default"
+                label="Main"
+                value="/"
+                to={user.id ? '/main' : '/'}
+                component={NavLink}
+              />
+              <Tab color="default" label="About" value="/sign" to="/" component={NavLink} />
+              {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}
             </Box>
             <IconButton sx={{ ml: 1 }} onClick={switchTheme} color="inherit">
               {isDarkMode ? <Brightness4 color="inherit" /> : <Brightness7 color="inherit" />}
