@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { changeRoute } from '../../store/graphQLRouteSlice';
+import { changeData, changeRoute, changeVariables } from '../../store/graphQLSlice';
 
 export default function GraphQLRoute() {
-  const { url } = useAppSelector((state) => state.graphQLRoute);
+  const { url } = useAppSelector((state) => state.graphQL);
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
 
   function handlerChangeRoute() {
     dispatch(changeRoute(route));
+    dispatch(changeData(null));
+    dispatch(
+      changeVariables(`{
+
+}`),
+    );
   }
   return (
     <div className={cl.routeRow}>
