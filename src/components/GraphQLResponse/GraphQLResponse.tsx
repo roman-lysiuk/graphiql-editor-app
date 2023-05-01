@@ -13,7 +13,12 @@ export default function GraphQLResponse() {
         theme="vs-dark"
         height="80vh"
         language="json"
-        options={{ readOnly: true }}
+        options={{
+          readOnly: true,
+          lineDecorationsWidth: 0,
+          lineNumbersMinChars: 0,
+          lineNumbers: 'off',
+        }}
       />
     </section>
   );
