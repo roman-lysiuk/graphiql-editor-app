@@ -12,7 +12,7 @@ const App = () => (
   <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <BrowserRouter>
-        <Router />;
+        <Router />
       </BrowserRouter>
     </Provider>
   </ApolloProvider>
