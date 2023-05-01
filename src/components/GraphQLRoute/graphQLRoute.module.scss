@@ -1,0 +1,13 @@
+.routeRow {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    &__input {
+        min-width: 300px;
+    }
+    &__label {
+        padding-right: 10px;
+    }
+}
