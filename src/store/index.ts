@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './userSlice';
 import sysMessengerSlice from './sysMessengerSlice';
-import graphQLRouteSlice from './graphQLRouteSlice';
+import graphQLSlice from './graphQLSlice';
 
 const store = configureStore({
   reducer: {
     user: userSlice,
     sysMessenger: sysMessengerSlice,
-    graphQLRoute: graphQLRouteSlice,
+    graphQL: graphQLSlice,
   },
   middleware: [],
 });
