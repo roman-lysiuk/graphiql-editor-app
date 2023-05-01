@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Button, Tab } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,11 +22,13 @@ import { changeTheme } from '../../store/themeSlice';
 export default function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   const testLoginHandler = () => {
     logout();
     dispatch(removeUser());
+    navigate('/');
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
