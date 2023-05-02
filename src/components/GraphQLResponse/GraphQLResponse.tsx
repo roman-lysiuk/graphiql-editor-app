@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import MonacoEditor from '@monaco-editor/react';
 import cl from './graphQLResponse.module.scss';
+import { useAppSelector } from '../../hooks/redux';
 
-interface GraphQLResponseProps {
-  response: string;
-}
-export default function GraphQLResponse({ response }: GraphQLResponseProps) {
-  const [data, setData] = useState<string>('');
-
-  useEffect(() => {
-    setData(response);
-  }, [response]);
+export default function GraphQLResponse() {
+  const { data } = useAppSelector((state) => state.graphQL);
   return (
     <section className={cl.response}>
-      <h4>GraphQLResponse</h4>
-      <div>{data}</div>
+      <MonacoEditor
+        value={JSON.stringify(data, null, '\t').replace('null', '')}
+        width="100%"
+        theme="vs-dark"
+        height="80vh"
+        language="json"
+        options={{
+          readOnly: true,
+          lineDecorationsWidth: 0,
+          lineNumbersMinChars: 0,
+          lineNumbers: 'off',
+        }}
+      />
     </section>
   );
 }

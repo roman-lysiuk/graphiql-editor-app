@@ -1,28 +1,52 @@
-import { DocumentNode, gql } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from '@monaco-editor/react';
 import { initializeMode } from 'monaco-graphql/esm/initializeMode';
 import validateGraphQLRequest from '../../helpers/validateGraphQLRequest';
 import cl from './graphQLEditor.module.scss';
 import getSchema from '../../helpers/getSchema';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import GraphQLVariables from '../GraphQLVariables/GraphQLVariables';
+import sendQueryRequestGraphQL from '../../GraphQL/RequestGraphQL';
+import { changeData } from '../../store/graphQLSlice';
+import GraphQLHeaders from '../GraphQLHeaders/GraphQLHeaders';
 
-interface GraphQLEditorProps {
-  setValidRequest: (value: DocumentNode) => void;
-}
-
-export default function GraphQLEditor({ setValidRequest }: GraphQLEditorProps) {
-  const { url: GraphQLRoute } = useAppSelector((state) => state.graphQLRoute);
-  const [initialValue, setInitialValue] = useState(`query {
-    countries {
-      code,code,capital
+const initialValueGraphQL = `query($page:Int,$name:String) {
+  characters(page: $page, filter: { name: $name}) {
+    info {
+      count
     }
-  }`);
+    results {
+      name
+    }
+  }
+}`;
+const defaultInitialValueGraphQL = `query{
+  __schema {
+    types {
+      name
+    }
 
-  const [valueMonaco, setValueMonaco] = useState(initialValue);
+  }
+}
+`;
+
+export default function GraphQLEditor() {
+  const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
+  const [validRequest, setValidRequest] = useState<string>('');
+  const [valueMonaco, setValueMonaco] = useState<string | undefined>(initialValueGraphQL);
+  const dispatch = useAppDispatch();
+
+  const handlerGetResponseBtn = () => {
+    if (validateGraphQLRequest(valueMonaco)) {
+      setValidRequest(`
+        ${valueMonaco}
+      `);
+    }
+  };
   useEffect(() => {
     const initializeSchema = async () => {
       const currentSchema = await getSchema(GraphQLRoute);
+
       initializeMode({
         schemas: [
           {
@@ -32,51 +56,46 @@ export default function GraphQLEditor({ setValidRequest }: GraphQLEditorProps) {
         ],
       });
     };
+    if (GraphQLRoute !== import.meta.env.VITE_API_DEFAULT_GRAPHQL) {
+      setValueMonaco(defaultInitialValueGraphQL);
+    }
     initializeSchema();
   }, [GraphQLRoute]);
 
   useEffect(() => {
-    if (GraphQLRoute !== import.meta.env.VITE_API_DEFAULT_GRAPHQL) {
-      setInitialValue(`
-      {
-        __schema {
-          types {
-            name
-          }
-
-        }
-      }
-    `);
+    async function getData() {
+      const data = await sendQueryRequestGraphQL({
+        url: GraphQLRoute,
+        queryRequest: validRequest,
+        variables: JSON.parse(variables),
+        headers: JSON.parse(headers),
+      });
+      dispatch(changeData(data));
     }
-  }, [GraphQLRoute]);
-  useEffect(() => {
-    setValueMonaco(initialValue);
-  }, [initialValue]);
+    if (validRequest !== '') {
+      getData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validRequest, variables, headers]);
 
   return (
     <section className={cl.editor} id="graphql-editor">
-      <h4>GraphQLEditor</h4>
-
       <MonacoEditor
         value={valueMonaco}
         width="100%"
-        height="50vh"
+        height="80vh"
         theme="vs-dark"
         language="graphql"
+        options={{ tabCompletion: 'on' }}
         onChange={(value) => setValueMonaco(value)}
       />
-
-      <button
-        onClick={() => {
-          if (validateGraphQLRequest(valueMonaco)) {
-            setValidRequest(gql`
-              ${valueMonaco}
-            `);
-          }
-        }}
-      >
+      <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
         GetResponse
       </button>
+      <div className={cl.editor__settingRow}>
+        <GraphQLVariables />
+        <GraphQLHeaders />
+      </div>
     </section>
   );
 }

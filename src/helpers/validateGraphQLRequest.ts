@@ -14,7 +14,8 @@ function checkСountBrackets(str: string): boolean {
   return countBracket === 0;
 }
 
-export default function validateGraphQLRequest(query: string): boolean {
+export default function validateGraphQLRequest(query: string | undefined): boolean {
+  if (!query) return false;
   if (!query.match(/query/i)) {
     return false;
   }
