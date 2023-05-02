@@ -11,7 +11,6 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
-// import env from 'process';
 import { IUserState, initialState } from './store/userSlice';
 
 const firebaseConfig = {

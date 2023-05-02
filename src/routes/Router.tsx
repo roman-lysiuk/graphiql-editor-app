@@ -13,7 +13,7 @@ const Router: FunctionComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="main" element={<Main />} />
+        <Route path="main" element={user.id ? <Main /> : <WelcomePage />} />
         <Route index element={<WelcomePage />} />
         <Route path="*" element={<ErrorPage />} />
         <Route path="sign" element={user.id ? <WelcomePage /> : <SignPage />} />
