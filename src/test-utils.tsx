@@ -6,15 +6,11 @@ import { render, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store';
-import { ApolloProvider } from '@apollo/client';
-import apolloClient from './GraphQL/apolloClient';
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <ApolloProvider client={apolloClient}>
-    <Provider store={store}>
-      <BrowserRouter>{children}</BrowserRouter>
-    </Provider>
-  </ApolloProvider>
+  <Provider store={store}>
+    <BrowserRouter>{children}</BrowserRouter>
+  </Provider>
 );
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>

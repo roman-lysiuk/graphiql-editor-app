@@ -7,15 +7,19 @@ import Layout from '../components/Layout/Layout';
 import WelcomePage from './Welcome/Welcome';
 import SignPage from './SignPage/SignPage';
 
-const Router: FunctionComponent = () => (
-  <Routes>
-    <Route path="/" element={<Layout />}>
-      <Route path="main" element={<Main />} />
-      <Route index element={<WelcomePage />} />
-      <Route path="*" element={<ErrorPage />} />
-      <Route path="sign" element={<SignPage />} />
-    </Route>
-  </Routes>
-);
+const Router: FunctionComponent = () => {
+  const user = useAppSelector((state) => state.user);
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="main" element={user.id ? <Main /> : <WelcomePage />} />
+        <Route index element={<WelcomePage />} />
+        <Route path="*" element={<ErrorPage />} />
+        <Route path="sign" element={user.id ? <WelcomePage /> : <SignPage />} />
+      </Route>
+    </Routes>
+  );
+};
+
 
 export default Router;

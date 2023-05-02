@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './userSlice';
 import sysMessengerSlice from './sysMessengerSlice';
 import graphQLSlice from './graphQLSlice';
+import themeSlice from './themeSlice';
 
 const rootReducer = combineReducers({
   user: userSlice,
   sysMessenger: sysMessengerSlice,
   graphQL: graphQLSlice,
+  theme: themeSlice,
 });
 
 export const setupStore = () =>
