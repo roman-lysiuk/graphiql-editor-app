@@ -5,8 +5,8 @@ import React, { FC, ReactElement } from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import store from './store';
 import { ApolloProvider } from '@apollo/client';
+import store from './store';
 import apolloClient from './GraphQL/apolloClient';
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => (
