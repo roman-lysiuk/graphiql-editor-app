@@ -9,7 +9,7 @@ import './styles/index.scss';
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <Router />;
+      <Router />
     </BrowserRouter>
   </Provider>
 );

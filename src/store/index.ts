@@ -3,6 +3,7 @@ import userSlice from './userSlice';
 import sysMessengerSlice from './sysMessengerSlice';
 import graphQLSlice from './graphQLSlice';
 import themeSlice from './themeSlice';
+import spinnerSlice from './spinnerSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     sysMessenger: sysMessengerSlice,
     theme: themeSlice,
     graphQL: graphQLSlice,
+    spinner: spinnerSlice,
   },
   middleware: [],
 });
