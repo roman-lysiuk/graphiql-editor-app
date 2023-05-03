@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import ErrorPage from './ErrorPage/ErrorPage';
 import Main from './Main/Main';
 import Layout from '../components/Layout/Layout';

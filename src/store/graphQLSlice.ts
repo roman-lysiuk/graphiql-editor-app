@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import sendQueryRequestGraphQL from '../GraphQL/RequestGraphQL';
 
 export interface IGraphQL {
   url: string;
   variables: string;
   headers: string;
   data: JSON | null;
+  error: string;
+  isLoading: boolean;
 }
 
 const initialState: IGraphQL = {
@@ -16,6 +19,8 @@ const initialState: IGraphQL = {
   }),
 
   data: null,
+  error: '',
+  isLoading: false,
 };
 
 const graphQLSlice = createSlice({
@@ -27,19 +32,36 @@ const graphQLSlice = createSlice({
       state.url = action.payload;
     },
     changeVariables(state, action: PayloadAction<string>) {
-      /* eslint no-param-reassign: "error" */
       state.variables = action.payload;
     },
     changeHeaders(state, action: PayloadAction<string>) {
-      /* eslint no-param-reassign: "error" */
       state.headers = action.payload;
     },
-    changeData(state, action: PayloadAction<JSON | null>) {
-      /* eslint no-param-reassign: "error" */
-      state.data = action.payload;
+    changeErrors(state, action: PayloadAction<string>) {
+      state.error = action.payload;
     },
+    clearData(state) {
+      state.data = null;
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(sendQueryRequestGraphQL.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.error = '';
+        state.isLoading = false;
+      })
+      .addCase(sendQueryRequestGraphQL.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(sendQueryRequestGraphQL.rejected, (state, action: PayloadAction<unknown>) => {
+        state.error =
+          action.payload instanceof Error ? action.payload.message : 'API loading error ';
+        state.isLoading = false;
+      });
   },
 });
 
-export const { changeRoute, changeVariables, changeData, changeHeaders } = graphQLSlice.actions;
+export const { changeRoute, changeVariables, clearData, changeHeaders, changeErrors } =
+  graphQLSlice.actions;
 export default graphQLSlice.reducer;

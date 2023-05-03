@@ -6,8 +6,8 @@ import Header from '../Header/Header';
 import SysMessenger from '../SysMessenger/SysMessenger';
 import lightTheme from '../../styles/lightTheme';
 import darkTheme from '../../styles/darkTheme';
-import { useAppSelector } from '../../hooks/redux';
 import Spinner from '../Spinner/Spinner';
+import { useAppSelector } from '../../hooks/redux';
 
 export default function Layout() {
   const { isDarkMode } = useAppSelector((state) => state.theme);
@@ -18,8 +18,8 @@ export default function Layout() {
       <Header />
       <Outlet />
       <Footer />
-      <SysMessenger />
       <Spinner />
+      <SysMessenger />
     </ThemeProvider>
   );
 }
