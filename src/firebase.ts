@@ -1,5 +1,7 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable no-console */
+/* eslint-disable no-alert */
+
 import { initializeApp } from 'firebase/app';
 import {
   GoogleAuthProvider,
@@ -14,13 +16,13 @@ import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebas
 import { IUserState, initialState } from './store/userSlice';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDA-RF3yn2rnhikYzrA9IKzWYH5V33QYwE',
-  authDomain: 'graphiql-9c957.firebaseapp.com',
-  projectId: 'graphiql-9c957',
-  storageBucket: 'graphiql-9c957.appspot.com',
-  messagingSenderId: '542539761661',
-  appId: '1:542539761661:web:1c85728b879649c68b7b94',
-  measurementId: 'G-504BK7RGRZ',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -44,8 +46,9 @@ const signInWithGoogle = async () => {
       });
     }
   } catch (err) {
+    const e = err as Error;
     // console.error(err);
-    // alert(err.message);
+    alert(e.message as string);
   }
 };
 
@@ -57,8 +60,9 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
       user = { id: usr.uid, token: usr.refreshToken, email: usr.email as string };
     });
   } catch (err) {
+    const e = err as Error;
     // console.error(err);
-    // alert(err.message);
+    alert(e.message as string);
   }
   return user;
 };
@@ -72,8 +76,9 @@ const registerWithEmailAndPassword = async (email: string, password: string) => 
       user = { id: usr.uid, token: usr.refreshToken, email: usr.email as string };
     });
   } catch (err) {
+    const e = err as Error;
     // console.error(err);
-    // alert(err.message);
+    alert(e.message as string);
   }
   return user;
 };
@@ -82,8 +87,9 @@ const sendPasswordReset = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
   } catch (err) {
+    const e = err as Error;
     // console.error(err);
-    // alert(err.message);
+    alert(e.message as string);
   }
 };
 
