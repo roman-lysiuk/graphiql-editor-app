@@ -18,6 +18,7 @@ import { removeUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../firebase';
 import { changeTheme } from '../../store/themeSlice';
+import { setOff, setOn } from '../../store/spinnerSlice';
 import getDict from '../../data/dictionary';
 
 export default function Header() {
@@ -54,6 +55,10 @@ export default function Header() {
   const { isDarkMode } = useAppSelector((state) => state.theme);
   const switchTheme = () => {
     dispatch(changeTheme());
+
+    // TODO remove test fnc
+    dispatch(setOn());
+    setTimeout(() => dispatch(setOff()), 2000);
   };
 
   return (
@@ -63,6 +68,7 @@ export default function Header() {
           position: 'fixed',
           top: 0,
           left: 0,
+          zIndex: 500,
         }}
         color="inherit"
       >
