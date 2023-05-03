@@ -3,12 +3,14 @@ import userSlice from './userSlice';
 import sysMessengerSlice from './sysMessengerSlice';
 import graphQLSlice from './graphQLSlice';
 import themeSlice from './themeSlice';
+import multiLangSlice from './multiLangSlice';
 
 const rootReducer = combineReducers({
   user: userSlice,
   sysMessenger: sysMessengerSlice,
   graphQL: graphQLSlice,
   theme: themeSlice,
+  multiLang: multiLangSlice,
 });
 
 export const setupStore = () =>
