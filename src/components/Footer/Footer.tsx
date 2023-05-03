@@ -13,12 +13,17 @@ import {
   Typography,
 } from '@mui/material';
 import Logo from '@/assets/images/rs.svg';
+import UaLogo from '@/assets/images/ua_flag.png';
+import GbLogo from '@/assets/images/gb_flag.png';
 import { changeTheme } from '../../store/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setLang } from '../../store/multiLangSlice';
+import getDict from '../../data/dictionary';
 
 export default function Footer() {
   const dispatch = useAppDispatch();
   const { isDarkMode } = useAppSelector((state) => state.theme);
+  const { lang } = useAppSelector((state) => state.multiLang);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -54,7 +59,7 @@ export default function Footer() {
           2023 &copy;
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-          <Tooltip title="Authors">
+          <Tooltip title={getDict(lang, 'authors')}>
             <IconButton
               onClick={handleClick}
               size="small"
@@ -138,8 +143,30 @@ export default function Footer() {
             checked={isDarkMode}
             color="default"
           />
-          <Typography variant="body1">{isDarkMode ? 'Dark' : 'Light'}</Typography>
+          <Typography variant="body1">
+            {isDarkMode ? getDict(lang, 'dark') : getDict(lang, 'light')}
+          </Typography>
         </div>
+        <IconButton
+          size="small"
+          sx={{ ml: 2, opacity: lang !== 'UA' ? 0.5 : 1 }}
+          color="inherit"
+          onClick={() => dispatch(setLang('UA'))}
+        >
+          <img style={{ width: 28, height: 28, borderRadius: 14 }} src={UaLogo} alt="UA" />
+        </IconButton>
+        <IconButton
+          size="small"
+          sx={{ ml: 2, opacity: lang !== 'EN' ? 0.5 : 1 }}
+          color="inherit"
+          onClick={() => dispatch(setLang('EN'))}
+        >
+          <img
+            style={{ width: 28, height: 28, borderRadius: 14, padding: '0 -15%' }}
+            src={GbLogo}
+            alt="GB"
+          />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

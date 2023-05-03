@@ -18,10 +18,12 @@ import { removeUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../firebase';
 import { changeTheme } from '../../store/themeSlice';
+import getDict from '../../data/dictionary';
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const { lang } = useAppSelector((state) => state.multiLang);
   const navigate = useNavigate();
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -99,14 +101,20 @@ export default function Header() {
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Tab
                     color="default"
-                    label="Main"
+                    label={getDict(lang, 'menu')}
                     value="/"
                     to={user.id ? '/main' : '/'}
                     component={NavLink}
                   />
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Tab color="default" label="About" value="/sign" to="/" component={NavLink} />
+                  <Tab
+                    color="default"
+                    label={getDict(lang, 'about')}
+                    value="/about"
+                    to="/"
+                    component={NavLink}
+                  />
                 </MenuItem>
                 {/* <MenuItem onClick={handleCloseNavMenu}>
                   <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} />
@@ -120,12 +128,18 @@ export default function Header() {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Tab
                 color="default"
-                label="Main"
+                label={getDict(lang, 'menu')}
                 value="/"
                 to={user.id ? '/main' : '/'}
                 component={NavLink}
               />
-              <Tab color="default" label="About" value="/sign" to="/" component={NavLink} />
+              <Tab
+                color="default"
+                label={getDict(lang, 'about')}
+                value="/about"
+                to="/about"
+                component={NavLink}
+              />
               {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}
             </Box>
             <IconButton sx={{ ml: 1 }} onClick={switchTheme} color="inherit">
