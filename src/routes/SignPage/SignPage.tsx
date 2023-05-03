@@ -34,7 +34,7 @@ const SignPage: React.FC = () => {
       logInWithEmailAndPassword(data.email, data.password).then((user) => {
         dispatch(setUser(user));
         console.log(user);
-        if (user.token) navigate('/');
+        if (user.token) navigate('/main');
       });
     } else {
       registerWithEmailAndPassword(data.email, data.password).then((user) => {

@@ -11,7 +11,7 @@ export default function WelcomePage() {
 
   return (
     <main className="welcomeWrapper">
-      <NavLink to={user.id ? '/main' : '/sign'}>
+      <NavLink to="/sign">
         <Button className="signButton" variant="contained" color="secondary" onClick={signHandler}>
           {user.id ? getDict(lang, 'main') : getDict(lang, 'signin')}
         </Button>
