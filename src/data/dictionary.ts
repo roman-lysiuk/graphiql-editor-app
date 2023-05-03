@@ -45,8 +45,8 @@ const dictionary: IDictionary = {
     main: 'ГОЛОВНА',
     developers: 'Розробники',
     andriiholubkov: 'Андрiй Голубков',
-    romanlysiuk: 'Роман Lисюк',
-    olehsadrytskyi: 'Oleг Садрицький',
+    romanlysiuk: 'Роман Лисюк',
+    olehsadrytskyi: 'Oлeг Садрицький',
     playgroundText: 'Майданчик для запитів graphQL',
     projectText: 'Цей проект був створений як фінальне завдання RSSchool React',
 
