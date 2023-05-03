@@ -9,9 +9,9 @@ export default function WelcomePage() {
 
   return (
     <main className="welcomeWrapper">
-      <NavLink to={user.id ? '/main' : '/sign'}>
+      <NavLink to="/sign">
         <Button className="signButton" variant="contained" color="secondary" onClick={signHandler}>
-          {user.id ? 'MAIN' : 'SIGN IN'}
+          {user.id ? 'Sign In' : 'Sign Up'}
         </Button>
       </NavLink>
       <div className="welcome">

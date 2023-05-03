@@ -7,8 +7,8 @@ import getSchema from '../../helpers/getSchema';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import GraphQLVariables from '../GraphQLVariables/GraphQLVariables';
 import sendQueryRequestGraphQL from '../../GraphQL/RequestGraphQL';
-import { changeData } from '../../store/graphQLSlice';
 import GraphQLHeaders from '../GraphQLHeaders/GraphQLHeaders';
+import { changeErrors } from '../../store/graphQLSlice';
 
 const initialValueGraphQL = `query($page:Int,$name:String) {
   characters(page: $page, filter: { name: $name}) {
@@ -32,17 +32,34 @@ const defaultInitialValueGraphQL = `query{
 
 export default function GraphQLEditor() {
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
-  const [validRequest, setValidRequest] = useState<string>('');
+  const [validRequest, setValidRequest] = useState<string>(initialValueGraphQL);
   const [valueMonaco, setValueMonaco] = useState<string | undefined>(initialValueGraphQL);
   const dispatch = useAppDispatch();
 
-  const handlerGetResponseBtn = () => {
+  const handlerChangeEditor = (value: string | undefined) => {
+    setValueMonaco(value);
     if (validateGraphQLRequest(valueMonaco)) {
       setValidRequest(`
         ${valueMonaco}
       `);
+    } else {
+      dispatch(changeErrors('Error in graphQL query'));
     }
   };
+
+  const handlerGetResponseBtn = () => {
+    if (validRequest !== '') {
+      dispatch(
+        sendQueryRequestGraphQL({
+          url: GraphQLRoute,
+          queryRequest: validRequest,
+          variables: JSON.parse(variables),
+          headers: JSON.parse(headers),
+        }),
+      );
+    }
+  };
+
   useEffect(() => {
     const initializeSchema = async () => {
       const currentSchema = await getSchema(GraphQLRoute);
@@ -62,22 +79,6 @@ export default function GraphQLEditor() {
     initializeSchema();
   }, [GraphQLRoute]);
 
-  useEffect(() => {
-    async function getData() {
-      const data = await sendQueryRequestGraphQL({
-        url: GraphQLRoute,
-        queryRequest: validRequest,
-        variables: JSON.parse(variables),
-        headers: JSON.parse(headers),
-      });
-      dispatch(changeData(data));
-    }
-    if (validRequest !== '') {
-      getData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validRequest, variables, headers]);
-
   return (
     <section className={cl.editor} id="graphql-editor">
       <MonacoEditor
@@ -87,7 +88,7 @@ export default function GraphQLEditor() {
         theme="vs-dark"
         language="graphql"
         options={{ tabCompletion: 'on' }}
-        onChange={(value) => setValueMonaco(value)}
+        onChange={handlerChangeEditor}
       />
       <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
         GetResponse

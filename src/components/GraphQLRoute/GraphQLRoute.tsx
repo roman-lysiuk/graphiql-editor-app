@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { changeData, changeRoute, changeVariables } from '../../store/graphQLSlice';
+import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
@@ -10,7 +10,7 @@ export default function GraphQLRoute() {
 
   function handlerChangeRoute() {
     dispatch(changeRoute(route));
-    dispatch(changeData(null));
+    dispatch(clearData());
     dispatch(
       changeVariables(`{
 

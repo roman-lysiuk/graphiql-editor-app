@@ -1,19 +1,23 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './userSlice';
 import sysMessengerSlice from './sysMessengerSlice';
 import graphQLSlice from './graphQLSlice';
 import themeSlice from './themeSlice';
 
-const store = configureStore({
-  reducer: {
-    user: userSlice,
-    sysMessenger: sysMessengerSlice,
-    theme: themeSlice,
-    graphQL: graphQLSlice,
-  },
-  middleware: [],
+const rootReducer = combineReducers({
+  user: userSlice,
+  sysMessenger: sysMessengerSlice,
+  graphQL: graphQLSlice,
+  theme: themeSlice,
 });
 
-export default store;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const setupStore = () =>
+  configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  });
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppState = ReturnType<typeof setupStore>;
+export type AppDispatch = AppState['dispatch'];
+
+export default setupStore();

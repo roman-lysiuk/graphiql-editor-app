@@ -6,7 +6,6 @@ import Main from './Main/Main';
 import Layout from '../components/Layout/Layout';
 import WelcomePage from './Welcome/Welcome';
 import SignPage from './SignPage/SignPage';
-import { useAppSelector } from '../hooks/redux';
 
 const Router: FunctionComponent = () => {
   const user = useAppSelector((state) => state.user);
@@ -21,5 +20,6 @@ const Router: FunctionComponent = () => {
     </Routes>
   );
 };
+
 
 export default Router;
