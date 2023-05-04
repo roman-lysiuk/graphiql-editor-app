@@ -22,6 +22,23 @@ const lightTheme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff00',
+          fontWeight: '500',
+          color: '#1c1c1c',
+          border: '3px solid #1c1c1c',
+        },
+      },
+    },
+    // MuiInput: {
+    //   styleOverrides: {
+    //     root: {
+    //       border: '2px solid #1c1c1c',
+    //     },
+    //   },
+    // },
   },
 });
 

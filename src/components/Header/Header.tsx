@@ -143,7 +143,7 @@ export default function Header() {
                 color="default"
                 label={getDict(lang, 'about')}
                 value="/about"
-                to="/about"
+                to="/"
                 component={NavLink}
               />
               {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}

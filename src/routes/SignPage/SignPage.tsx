@@ -15,13 +15,14 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from '../../firebase';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setUser } from '../../store/userSlice';
 
 const SignPage: React.FC = () => {
   const navigate = useNavigate();
   const [isUser, setIsUser] = useState(true);
   const dispatch = useAppDispatch();
+  const theme = useAppSelector((state) => state.theme);
   const {
     register,
     handleSubmit,
@@ -50,13 +51,40 @@ const SignPage: React.FC = () => {
   }
   const toggleLink = () => (isUser ? setIsUser(false) : setIsUser(true));
   return (
-    <div className="formPage">
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <div
+      className="formPage"
+      style={
+        theme.isDarkMode
+          ? {
+              background:
+                'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg")',
+            }
+          : {
+              background:
+                'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpeg")',
+            }
+      }
+    >
+      <form
+        className="form"
+        onSubmit={handleSubmit(onSubmit)}
+        style={
+          theme.isDarkMode
+            ? {}
+            : {
+                border: '3px solid #1c1c1c',
+                backgroundColor: '#0000004d',
+                textShadow: '0 0 5px white',
+                fontWeight: '800',
+              }
+        }
+      >
         <h2 className="formHead">{isUser ? 'SIGN IN' : 'SIGN UP'}</h2>
         <label className="label">
           Email:
           <input
             className="input"
+            style={theme.isDarkMode ? { border: '2px solid white' } : { border: '2px solid dark' }}
             type="text"
             {...register('email', {
               required: {
@@ -77,6 +105,7 @@ const SignPage: React.FC = () => {
           Password:
           <input
             className="input"
+            style={theme.isDarkMode ? { border: '2px solid white' } : { border: '2px solid dark' }}
             type="text"
             {...register('password', {
               required: {
@@ -94,9 +123,14 @@ const SignPage: React.FC = () => {
           {errors.password?.message}
         </p>
         <button className="googleBtn" onClick={googleAuth} />
-        <input className="submit" type="submit" value="SEND" />
+        <input
+          className="submit"
+          type="submit"
+          value="SEND"
+          style={theme.isDarkMode ? { border: '3px solid white' } : { fontWeight: '600' }}
+        />
         <p
-          className="upLink"
+          className={theme.isDarkMode ? 'upLink' : 'linkLight'}
           onClick={() => {
             toggleLink();
           }}

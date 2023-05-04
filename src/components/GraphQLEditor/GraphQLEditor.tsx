@@ -87,7 +87,7 @@ export default function GraphQLEditor() {
         value={valueMonaco}
         width="100%"
         height="52vh"
-        theme={isDarkMode ? 'vs-dark' : 'light'}
+        theme={isDarkMode ? 'vs-dark' : 'vs-lights'}
         language="graphql"
         options={{
           tabCompletion: 'on',

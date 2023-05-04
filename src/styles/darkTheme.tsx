@@ -22,6 +22,15 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff00',
+          color: 'white',
+          border: '3px solid white',
+        },
+      },
+    },
   },
 });
 
