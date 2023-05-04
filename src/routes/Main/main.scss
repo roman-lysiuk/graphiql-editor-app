@@ -1,5 +1,6 @@
 .main {
-    max-width: 1280px;
+    max-width: 90%;
+    margin-top: 100px;
     margin: 100px auto 40px auto;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -7,4 +8,5 @@
     justify-content: space-between;
     height: 83vh;
     column-gap: 20px;
+    // background: url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg");
 }

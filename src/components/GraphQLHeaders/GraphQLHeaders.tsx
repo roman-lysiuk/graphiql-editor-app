@@ -19,8 +19,8 @@ export default function GraphQLHeaders() {
       <VariablesEditor
         value={headers}
         width="100%"
-        options={{ formatOnPaste: true, formatOnType: true }}
-        height={isOpenHeaders ? '20vh' : '0'}
+        options={{ formatOnPaste: true, formatOnType: true, fontSize: 20, padding: { top: 35 } }}
+        height={isOpenHeaders ? '12vh' : '12vh'}
         theme="vs-dark"
         language="graphql"
         onChange={(value) => {

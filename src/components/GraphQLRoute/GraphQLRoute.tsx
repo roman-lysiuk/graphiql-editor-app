@@ -30,7 +30,9 @@ export default function GraphQLRoute() {
           onChange={(e) => setRoute(e.target.value)}
         />
       </label>
-      <button onClick={handlerChangeRoute}>Change Route</button>
+      <button className={cl.routeRow__button} onClick={handlerChangeRoute}>
+        Change Route
+      </button>
     </div>
   );
 }

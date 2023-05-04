@@ -19,7 +19,8 @@ export default function GraphQLVariables() {
       <VariablesEditor
         value={variables}
         width="100%"
-        height={isOpenVariables ? '20vh' : '0'}
+        height={isOpenVariables ? '12vh' : '12vh'}
+        options={{ fontSize: 20, padding: { top: 35 } }}
         theme="vs-dark"
         language="graphql"
         onChange={(value) => {

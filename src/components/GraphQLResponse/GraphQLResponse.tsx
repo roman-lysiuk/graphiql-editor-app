@@ -15,13 +15,14 @@ export default function GraphQLResponse() {
           value={error || normalizeData(data)}
           width="100%"
           theme="vs-dark"
-          height="80vh"
+          height="78vh"
           language="json"
           options={{
             readOnly: true,
             lineDecorationsWidth: 0,
             lineNumbersMinChars: 0,
             lineNumbers: 'off',
+            fontSize: 20,
           }}
         />
       </section>

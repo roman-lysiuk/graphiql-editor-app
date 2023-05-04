@@ -31,6 +31,7 @@ const defaultInitialValueGraphQL = `query{
 `;
 
 export default function GraphQLEditor() {
+  const { isDarkMode } = useAppSelector((state) => state.theme);
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [validRequest, setValidRequest] = useState<string>(initialValueGraphQL);
   const [valueMonaco, setValueMonaco] = useState<string | undefined>(initialValueGraphQL);
@@ -82,12 +83,19 @@ export default function GraphQLEditor() {
   return (
     <section className={cl.editor} id="graphql-editor">
       <MonacoEditor
+        className={cl.editor__edit}
         value={valueMonaco}
         width="100%"
-        height="80vh"
-        theme="vs-dark"
+        height="52vh"
+        theme={isDarkMode ? 'vs-dark' : 'light'}
         language="graphql"
-        options={{ tabCompletion: 'on' }}
+        options={{
+          tabCompletion: 'on',
+          fontSize: 20,
+          scrollbar: {
+            vertical: 'hidden',
+          },
+        }}
         onChange={handlerChangeEditor}
       />
       <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
