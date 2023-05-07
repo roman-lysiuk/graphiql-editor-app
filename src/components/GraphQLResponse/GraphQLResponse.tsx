@@ -1,8 +1,10 @@
 import React from 'react';
-import MonacoEditor from '@monaco-editor/react';
-import cl from './graphQLResponse.module.scss';
+import { EditorState } from '@codemirror/state';
+import { EditorView } from '@codemirror/view';
 import { useAppSelector } from '../../hooks/redux';
 import normalizeData from '../../helpers/normalizeData';
+import Codemirror from '../CodeMirror/Codemirror';
+import cl from './graphQLResponse.module.scss';
 
 export default function GraphQLResponse() {
   const { error, data, isLoading } = useAppSelector((state) => state.graphQL);
@@ -11,18 +13,17 @@ export default function GraphQLResponse() {
       {isLoading && <div>Loading...</div>}
 
       <section className={cl.response}>
-        <MonacoEditor
+        <Codemirror
+          editor={false}
+          onChange={() => {}}
           value={error || normalizeData(data)}
-          width="100%"
-          theme="vs-dark"
-          height="80vh"
-          language="json"
-          options={{
-            readOnly: true,
-            lineDecorationsWidth: 0,
-            lineNumbersMinChars: 0,
-            lineNumbers: 'off',
-          }}
+          extensions={[
+            EditorState.readOnly.of(true),
+            EditorView.theme({
+              '&': { height: '80vh' },
+              '.cm-scroller': { overflow: 'auto' },
+            }),
+          ]}
         />
       </section>
     </>

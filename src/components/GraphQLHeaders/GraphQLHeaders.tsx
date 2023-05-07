@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import VariablesEditor from '@monaco-editor/react';
+import React from 'react';
+import { EditorView } from '@codemirror/view';
 import cl from './GraphQLHeaders.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeHeaders } from '../../store/graphQLSlice';
+import Codemirror from '../CodeMirror/Codemirror';
+
+const fixedHeightEditor = EditorView.theme({
+  '&': { height: '10vh' },
+  '.cm-scroller': { overflow: 'auto' },
+});
 
 export default function GraphQLHeaders() {
   const { headers } = useAppSelector((state) => state.graphQL);
-  const [isOpenHeaders, setIsOpenHeaders] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  function toggleOpenHeaders() {
-    setIsOpenHeaders((prev) => !prev);
-  }
+
+  const handlerClick = (value: string | undefined) => {
+    if (value) {
+      dispatch(changeHeaders(value));
+    }
+  };
+
   return (
     <section className={cl.headers}>
-      <button onClick={toggleOpenHeaders} className={cl.headers__btn}>
-        Headers
-      </button>
-      <VariablesEditor
+      <h5 className={cl.headers__btn}>Headers</h5>
+      <Codemirror
+        editor={false}
+        onChange={handlerClick}
         value={headers}
-        width="100%"
-        options={{ formatOnPaste: true, formatOnType: true }}
-        height={isOpenHeaders ? '20vh' : '0'}
-        theme="vs-dark"
-        language="graphql"
-        onChange={(value) => {
-          if (value) {
-            dispatch(changeHeaders(value));
-          }
-        }}
+        extensions={[fixedHeightEditor]}
       />
     </section>
   );

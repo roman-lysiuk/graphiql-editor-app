@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import MonacoEditor from '@monaco-editor/react';
-import { initializeMode } from 'monaco-graphql/esm/initializeMode';
-import validateGraphQLRequest from '../../helpers/validateGraphQLRequest';
+import { EditorView } from 'codemirror';
 import cl from './graphQLEditor.module.scss';
-import getSchema from '../../helpers/getSchema';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import GraphQLVariables from '../GraphQLVariables/GraphQLVariables';
 import sendQueryRequestGraphQL from '../../GraphQL/RequestGraphQL';
 import GraphQLHeaders from '../GraphQLHeaders/GraphQLHeaders';
-import { changeErrors } from '../../store/graphQLSlice';
+import Codemirror from '../CodeMirror/Codemirror';
 
 const initialValueGraphQL = `query($page:Int,$name:String) {
   characters(page: $page, filter: { name: $name}) {
@@ -29,66 +26,43 @@ const defaultInitialValueGraphQL = `query{
   }
 }
 `;
+const fixedHeightEditor = EditorView.theme({
+  '&': { height: '80vh' },
+  '.cm-scroller': { overflow: 'auto' },
+});
 
 export default function GraphQLEditor() {
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
-  const [validRequest, setValidRequest] = useState<string>(initialValueGraphQL);
-  const [valueMonaco, setValueMonaco] = useState<string | undefined>(initialValueGraphQL);
+  const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
   const dispatch = useAppDispatch();
 
-  const handlerChangeEditor = (value: string | undefined) => {
-    setValueMonaco(value);
-    if (validateGraphQLRequest(valueMonaco)) {
-      setValidRequest(`
-        ${valueMonaco}
-      `);
-    } else {
-      dispatch(changeErrors('Error in graphQL query'));
-    }
-  };
-
-  const handlerGetResponseBtn = () => {
-    if (validRequest !== '') {
-      dispatch(
-        sendQueryRequestGraphQL({
-          url: GraphQLRoute,
-          queryRequest: validRequest,
-          variables: JSON.parse(variables),
-          headers: JSON.parse(headers),
-        }),
-      );
-    }
-  };
-
   useEffect(() => {
-    const initializeSchema = async () => {
-      const currentSchema = await getSchema(GraphQLRoute);
-
-      initializeMode({
-        schemas: [
-          {
-            schema: currentSchema,
-            uri: GraphQLRoute,
-          },
-        ],
-      });
-    };
     if (GraphQLRoute !== import.meta.env.VITE_API_DEFAULT_GRAPHQL) {
       setValueMonaco(defaultInitialValueGraphQL);
     }
-    initializeSchema();
   }, [GraphQLRoute]);
+
+  const handlerChangeEditor = (value: string = '') => {
+    setValueMonaco(value);
+  };
+  const handlerGetResponseBtn = () => {
+    // TODO:validation
+    dispatch(
+      sendQueryRequestGraphQL({
+        url: GraphQLRoute,
+        queryRequest: valueMonaco as string,
+        variables: JSON.parse(variables),
+        headers: JSON.parse(headers),
+      }),
+    );
+  };
 
   return (
     <section className={cl.editor} id="graphql-editor">
-      <MonacoEditor
+      <Codemirror
         value={valueMonaco}
-        width="100%"
-        height="80vh"
-        theme="vs-dark"
-        language="graphql"
-        options={{ tabCompletion: 'on' }}
         onChange={handlerChangeEditor}
+        extensions={[fixedHeightEditor]}
       />
       <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
         GetResponse
