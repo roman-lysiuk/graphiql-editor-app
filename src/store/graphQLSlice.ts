@@ -15,9 +15,7 @@ const initialState: IGraphQL = {
   variables: JSON.stringify({ page: 2, name: 'rick' }),
   headers: JSON.stringify({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   }),
-
   data: null,
   error: '',
   isLoading: false,
@@ -37,6 +35,7 @@ const graphQLSlice = createSlice({
     changeHeaders(state, action: PayloadAction<string>) {
       state.headers = action.payload;
     },
+
     changeErrors(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
@@ -44,6 +43,7 @@ const graphQLSlice = createSlice({
       state.data = null;
     },
   },
+
   extraReducers(builder) {
     builder
       .addCase(sendQueryRequestGraphQL.fulfilled, (state, action) => {
