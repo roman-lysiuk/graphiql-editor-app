@@ -1,5 +1,3 @@
-import { Langs } from '../store/multiLangSlice';
-
 interface IDictionary {
   [index: string]: {
     [index: string]: string;
@@ -29,6 +27,18 @@ const dictionary: IDictionary = {
 
     // 404
     error404: 'page not found...',
+
+    // sign page
+    signup: 'SIGN UP',
+    signup2: 'Sign up',
+    signin2: 'Sign in',
+    email: 'Email',
+    password: 'password',
+    send: 'SEND',
+    enterEmail: 'Please enter your Email',
+    correctEmail: 'Please enter correct Email',
+    enterPassword: 'Please enter your Password',
+    correctPassword: 'Please enter correct Password',
   },
   UA: {
     // header
@@ -41,7 +51,7 @@ const dictionary: IDictionary = {
     light: 'Свiтла',
 
     // welcome page
-    signin: 'ВХIД',
+    signin: 'УВIЙТИ',
     main: 'ГОЛОВНА',
     developers: 'Розробники',
     andriiholubkov: 'Андрiй Голубков',
@@ -52,11 +62,19 @@ const dictionary: IDictionary = {
 
     // 404
     error404: 'сторiнка не знайдена...',
+
+    // sign page
+    signup: 'ЗАРЕЄСТРУВАТИСЬ',
+    signup2: 'Зареєструватися',
+    signin2: 'Увiйти',
+    email: 'Пошта',
+    password: 'Пароль',
+    send: 'НАДIСЛАТИ',
+    enterEmail: 'Будь ласка, введіть Email',
+    correctEmail: 'Будь ласка, введіть валiдний Email',
+    enterPassword: 'Будь ласка, введіть свій пароль',
+    correctPassword: 'Будь ласка, введіть валiдний пароль',
   },
 };
 
-export default function getDict(lang: Langs, name: string): string {
-  let res = '???';
-  if (lang in dictionary && name in dictionary[lang]) res = dictionary[lang][name];
-  return res;
-}
+export default dictionary;

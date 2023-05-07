@@ -18,7 +18,7 @@ import GbLogo from '@/assets/images/gb_flag.png';
 import { changeTheme } from '../../store/themeSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setLang } from '../../store/multiLangSlice';
-import getDict from '../../data/dictionary';
+import useDict from '../../hooks/useDict';
 
 export default function Footer() {
   const dispatch = useAppDispatch();
@@ -26,6 +26,7 @@ export default function Footer() {
   const { lang } = useAppSelector((state) => state.multiLang);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const getDictVal = useDict();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -59,7 +60,7 @@ export default function Footer() {
           2023 &copy;
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-          <Tooltip title={getDict(lang, 'authors')}>
+          <Tooltip title={getDictVal('authors')}>
             <IconButton
               onClick={handleClick}
               size="small"
@@ -144,7 +145,7 @@ export default function Footer() {
             color="default"
           />
           <Typography variant="body1">
-            {isDarkMode ? getDict(lang, 'dark') : getDict(lang, 'light')}
+            {isDarkMode ? getDictVal('dark') : getDictVal('light')}
           </Typography>
         </div>
         <IconButton
