@@ -7,7 +7,9 @@ import sendQueryRequestGraphQL from '../../GraphQL/RequestGraphQL';
 import GraphQLHeaders from '../GraphQLHeaders/GraphQLHeaders';
 import Codemirror from '../CodeMirror/Codemirror';
 
-const initialValueGraphQL = `query($page:Int,$name:String) {
+const initialValueGraphQL = `
+#   Auto Complete:  Ctrl-Space (or just start typing)
+query($page:Int,$name:String) {
   characters(page: $page, filter: { name: $name}) {
     info {
       count
@@ -17,7 +19,8 @@ const initialValueGraphQL = `query($page:Int,$name:String) {
     }
   }
 }`;
-const defaultInitialValueGraphQL = `query{
+const defaultInitialValueGraphQL = `#   Auto Complete:  Ctrl-Space (or just start typing)
+query{
   __schema {
     types {
       name
