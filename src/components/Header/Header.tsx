@@ -19,14 +19,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { logout } from '../../firebase';
 import { changeTheme } from '../../store/themeSlice';
 import { setOff, setOn } from '../../store/spinnerSlice';
-import getDict from '../../data/dictionary';
+import useDict from '../../hooks/useDict';
 
 export default function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-  const { lang } = useAppSelector((state) => state.multiLang);
   const navigate = useNavigate();
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  const getDictVal = useDict();
 
   const testLoginHandler = () => {
     logout();
@@ -107,7 +107,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Tab
                     color="default"
-                    label={getDict(lang, 'menu')}
+                    label={getDictVal('menu')}
                     value="/"
                     to={user.id ? '/main' : '/'}
                     component={NavLink}
@@ -116,7 +116,7 @@ export default function Header() {
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Tab
                     color="default"
-                    label={getDict(lang, 'about')}
+                    label={getDictVal('about')}
                     value="/about"
                     to="/"
                     component={NavLink}
@@ -134,14 +134,14 @@ export default function Header() {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Tab
                 color="default"
-                label={getDict(lang, 'menu')}
+                label={getDictVal('menu')}
                 value="/"
                 to={user.id ? '/main' : '/'}
                 component={NavLink}
               />
               <Tab
                 color="default"
-                label={getDict(lang, 'about')}
+                label={getDictVal('about')}
                 value="/about"
                 to="/"
                 component={NavLink}

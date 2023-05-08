@@ -1,6 +1,7 @@
 .variables {
   border-bottom: 1px solid rgb(15, 93, 162);
   border-right: 1px solid rgb(15, 92, 159);
+  display: block;
 
     &__btn {
       border: none;
@@ -11,5 +12,7 @@
       text-align: start;
       padding-left: 20px;
       cursor: pointer;
+      color: black;
+      text-align: center;
     }
 }

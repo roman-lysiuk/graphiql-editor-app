@@ -1,11 +1,10 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
-import { useAppSelector } from '../../hooks/redux';
-import getDict from '../../data/dictionary';
+import useDict from '../../hooks/useDict';
 
 export default function ErrorPage() {
-  const { lang } = useAppSelector((state) => state.multiLang);
+  const getDictVal = useDict();
 
   return (
     <main className="main">
@@ -17,7 +16,7 @@ export default function ErrorPage() {
           justifyContent: 'center',
         }}
       >
-        <Typography variant="h2">404: {getDict(lang, 'error404')}</Typography>
+        <Typography variant="h2">404: {getDictVal('error404')}</Typography>
       </Container>
     </main>
   );

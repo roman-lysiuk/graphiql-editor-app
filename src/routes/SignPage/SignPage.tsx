@@ -18,6 +18,7 @@ import {
 } from '../../firebase';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setUser } from '../../store/userSlice';
+import useDict from '../../hooks/useDict';
 
 const SignPage: React.FC = () => {
   const navigate = useNavigate();
@@ -30,6 +31,8 @@ const SignPage: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm<Sign>();
+
+  const getDictVal = useDict();
 
   function onSubmit(data: Sign) {
     if (isUser) {
@@ -84,18 +87,18 @@ const SignPage: React.FC = () => {
           {isUser ? 'SIGN IN' : 'SIGN UP'}
         </h2>
         <label className="label">
-          Email:
+          {getDictVal('email')}:
           <InputBase
             className="input"
             type="text"
             {...register('email', {
               required: {
                 value: true,
-                message: 'Please enter your Email',
+                message: getDictVal('enterEmail'),
               },
               pattern: {
                 value: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                message: 'Please enter correct Email',
+                message: getDictVal('correctEMail'),
               },
             })}
           />
@@ -104,18 +107,19 @@ const SignPage: React.FC = () => {
           {errors.email?.message}
         </p>
         <label className="label">
-          Password:
+          {getDictVal('password')}:
           <InputBase
+          {getDictVal('password')}:
             className="input"
             type="text"
             {...register('password', {
               required: {
                 value: true,
-                message: 'Please enter your Password',
+                message: getDictVal('enterPassword'),
               },
               pattern: {
                 value: /^(?=.*[A-Za-z])(?=.*[0-9])(?=.{8,})/g,
-                message: 'Please enter correct Password',
+                message: getDictVal('correctPassword'),
               },
             })}
           />
@@ -125,13 +129,14 @@ const SignPage: React.FC = () => {
         </p>
         <button className="googleBtn" onClick={googleAuth} />
         <Input className="submit" type="submit" value="SEND" />
+        <input className="submit" type="submit" value={getDictVal('send')} />
         <p
           className={theme.isDarkMode ? 'upLink' : 'linkLight'}
           onClick={() => {
             toggleLink();
           }}
         >
-          {isUser ? 'Sign up' : 'Sign in'}
+          {isUser ? getDictVal('signup2') : getDictVal('signin2')}
         </p>
       </form>
     </div>

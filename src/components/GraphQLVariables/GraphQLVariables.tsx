@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
-import VariablesEditor from '@monaco-editor/react';
+import React from 'react';
+import { EditorView } from 'codemirror';
 import cl from './graphQLVariables.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeVariables } from '../../store/graphQLSlice';
+import Codemirror from '../CodeMirror/Codemirror';
+
+const fixedHeightEditor = EditorView.theme({
+  '&': { height: '10vh' },
+  '.cm-scroller': { overflow: 'auto' },
+});
 
 export default function GraphQLVariables() {
   const { variables } = useAppSelector((state) => state.graphQL);
-  const [isOpenVariables, setIsOpenVariables] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  function toggleOpenVariables() {
-    setIsOpenVariables((prev) => !prev);
-  }
+
+  const handlerClick = (value: string | undefined) => {
+    if (value) {
+      dispatch(changeVariables(value));
+    }
+  };
   return (
     <section className={cl.variables}>
-      <button onClick={toggleOpenVariables} className={cl.variables__btn}>
-        Query Variables
-      </button>
-      <VariablesEditor
+      <h5 className={cl.variables__btn}>Query Variables</h5>
+      <Codemirror
+        editor={false}
+        onChange={handlerClick}
         value={variables}
-        width="100%"
-        height={isOpenVariables ? '12vh' : '12vh'}
-        options={{ fontSize: 20, padding: { top: 35 } }}
-        theme="vs-dark"
-        language="graphql"
-        onChange={(value) => {
-          if (value) {
-            dispatch(changeVariables(value));
-          }
-        }}
+        extensions={[fixedHeightEditor]}
       />
     </section>
   );
