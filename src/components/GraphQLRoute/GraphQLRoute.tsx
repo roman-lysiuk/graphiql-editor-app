@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
@@ -32,17 +33,13 @@ export default function GraphQLRoute() {
           onChange={(e) => setRoute(e.target.value)}
         />
       </label>
-      <button
+      <Button
         className={cl.routeRow__button}
         onClick={handlerChangeRoute}
-        style={
-          theme.isDarkMode
-            ? { color: 'white', border: '3px solid white' }
-            : { color: 'black', border: '3px solid black' }
-        }
+        style={{ fontSize: '100%' }}
       >
         CHANGE ROUTE
-      </button>
+      </Button>
     </div>
   );
 }
