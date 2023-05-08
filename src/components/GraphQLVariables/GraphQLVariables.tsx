@@ -22,12 +22,14 @@ export default function GraphQLVariables() {
   return (
     <section className={cl.variables}>
       <h5 className={cl.variables__btn}>Query Variables</h5>
-      <Codemirror
-        editor={false}
-        onChange={handlerClick}
-        value={variables}
-        extensions={[fixedHeightEditor]}
-      />
+      <div className="wrapVar">
+        <Codemirror
+          editor={false}
+          onChange={handlerClick}
+          value={variables}
+          extensions={[fixedHeightEditor]}
+        />
+      </div>
     </section>
   );
 }

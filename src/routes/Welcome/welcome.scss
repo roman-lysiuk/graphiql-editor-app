@@ -1,7 +1,6 @@
 .welcomeWrapper {
   width: 100%;
   height: 100vh;
-  // background: url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg");
 
   .signButton {
     position: absolute;
@@ -14,20 +13,13 @@
     font-weight: 600;
     background-color: #ffffff00;
     border-radius: 5px;
-    &:hover {
-      color: cornflowerblue;
-      background-color: #ffffff00;
-      border: 3px solid cornflowerblue;
-    }
   }
 
   .welcome {
     height: 60%;
     text-shadow: 0 0 5px white;
-    // background-color: #0202026f;
     font-size: 120%;
     font-weight: 600;
-    // color: aliceblue;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -53,8 +45,8 @@
         cursor: pointer;
 
         &:hover {
-          color: cornflowerblue;
-          text-shadow: 0 0 5px black;
+          color: #052157;
+          text-shadow: 0 0 5px white;
         }
       }
       .LinkDark {

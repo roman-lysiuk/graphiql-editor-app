@@ -7,7 +7,7 @@ import useDict from '../../hooks/useDict';
 export default function WelcomePage() {
   const user = useAppSelector((state) => state.user);
   const signHandler = () => {};
-  const { lang } = useAppSelector((state) => state.multiLang);
+  // const { lang } = useAppSelector((state) => state.multiLang);
   const theme = useAppSelector((state) => state.theme);
   const getDictVal = useDict();
 
@@ -23,10 +23,11 @@ export default function WelcomePage() {
           : {
               background:
                 'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpeg")',
+              backgroundSize: 'cover',
             }
       }
     >
-      <NavLink to="/sign">
+      <NavLink to={user.id ? '/main' : '/sign'}>
         <Button className="signButton" variant="contained" color="secondary" onClick={signHandler}>
           {user.id ? getDictVal('main') : getDictVal('signin')}
         </Button>

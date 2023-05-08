@@ -4,7 +4,6 @@ import { EditorView } from '@codemirror/view';
 import { useAppSelector } from '../../hooks/redux';
 import normalizeData from '../../helpers/normalizeData';
 import Codemirror from '../CodeMirror/Codemirror';
-import cl from './graphQLResponse.module.scss';
 
 export default function GraphQLResponse() {
   const { error, data, isLoading } = useAppSelector((state) => state.graphQL);
@@ -12,7 +11,7 @@ export default function GraphQLResponse() {
     <>
       {isLoading && <div>Loading...</div>}
 
-      <section className={cl.response}>
+      <section className="response">
         <Codemirror
           editor={false}
           onChange={() => {}}

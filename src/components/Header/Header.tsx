@@ -122,9 +122,6 @@ export default function Header() {
                     component={NavLink}
                   />
                 </MenuItem>
-                {/* <MenuItem onClick={handleCloseNavMenu}>
-                  <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} />
-                </MenuItem> */}
               </Menu>
             </Box>
             <Button variant="contained" color="inherit" onClick={testLoginHandler}>
@@ -133,7 +130,7 @@ export default function Header() {
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Tab
-                color="default"
+                // color="default"
                 label={getDictVal('menu')}
                 value="/"
                 to={user.id ? '/main' : '/'}

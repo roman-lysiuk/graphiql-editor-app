@@ -66,6 +66,7 @@ const SignPage: React.FC = () => {
           : {
               background:
                 'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpeg")',
+              backgroundSize: 'cover',
             }
       }
     >
@@ -109,7 +110,6 @@ const SignPage: React.FC = () => {
         <label className="label">
           {getDictVal('password')}:
           <InputBase
-          {getDictVal('password')}:
             className="input"
             type="text"
             {...register('password', {
@@ -128,8 +128,7 @@ const SignPage: React.FC = () => {
           {errors.password?.message}
         </p>
         <button className="googleBtn" onClick={googleAuth} />
-        <Input className="submit" type="submit" value="SEND" />
-        <input className="submit" type="submit" value={getDictVal('send')} />
+        <Input className="submit" type="submit" value={getDictVal('send')} />
         <p
           className={theme.isDarkMode ? 'upLink' : 'linkLight'}
           onClick={() => {

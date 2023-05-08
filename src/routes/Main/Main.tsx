@@ -17,7 +17,8 @@ export default function Main() {
             }
           : {
               background:
-                'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpg")',
+                'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpeg")',
+              backgroundSize: 'cover',
             }
       }
     >
