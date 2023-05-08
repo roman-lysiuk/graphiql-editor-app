@@ -20,7 +20,7 @@ export default function GraphQLResponse() {
           extensions={[
             EditorState.readOnly.of(true),
             EditorView.theme({
-              '&': { height: '80vh' },
+              '&': { height: '78vh' },
               '.cm-scroller': { overflow: 'auto' },
             }),
           ]}

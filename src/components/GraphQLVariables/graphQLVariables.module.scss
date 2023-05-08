@@ -1,8 +1,18 @@
 .variables {
-    display: block;
+  border-bottom: 1px solid rgb(15, 93, 162);
+  border-right: 1px solid rgb(15, 92, 159);
+  display: block;
+
     &__btn {
-        width: 100%;
-        color: black;
-        text-align: center;
+      border: none;
+      position: absolute;
+      z-index: 1;
+      background-color: rgba(30, 30, 30, 0);
+      width: 50%;
+      text-align: start;
+      padding-left: 20px;
+      cursor: pointer;
+      color: black;
+      text-align: center;
     }
 }

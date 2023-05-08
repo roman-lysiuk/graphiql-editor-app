@@ -127,7 +127,7 @@ export default function Header() {
                 </MenuItem> */}
               </Menu>
             </Box>
-            <Button variant="contained" color="secondary" onClick={testLoginHandler}>
+            <Button variant="contained" color="inherit" onClick={testLoginHandler}>
               {!user.id ? 'login' : 'logout'}
             </Button>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -143,7 +143,7 @@ export default function Header() {
                 color="default"
                 label={getDictVal('about')}
                 value="/about"
-                to="/about"
+                to="/"
                 component={NavLink}
               />
               {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}

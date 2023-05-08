@@ -35,6 +35,7 @@ const fixedHeightEditor = EditorView.theme({
 });
 
 export default function GraphQLEditor() {
+  const { isDarkMode } = useAppSelector((state) => state.theme);
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
   const dispatch = useAppDispatch();

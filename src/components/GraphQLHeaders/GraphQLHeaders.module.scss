@@ -1,8 +1,14 @@
 .headers {
+  border-bottom: 1px solid rgb(15, 93, 162);
+  border-right: 1px solid rgb(15, 92, 159);
     &__btn {
-        width: 100%;
-        color: black;
-        text-align: center;
-        cursor: pointer;
+      padding-left: 20px;
+      position: absolute;
+      z-index: 1;
+      background-color: #ffffff00;
+      width: 100%;
+      text-align: start;
+      cursor: pointer;
+      border: none;
     }
 }
