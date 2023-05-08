@@ -127,7 +127,7 @@ export default function Header() {
                 </MenuItem> */}
               </Menu>
             </Box>
-            <Button variant="contained" color="secondary" onClick={testLoginHandler}>
+            <Button variant="contained" color="inherit" onClick={testLoginHandler}>
               {!user.id ? 'login' : 'logout'}
             </Button>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />

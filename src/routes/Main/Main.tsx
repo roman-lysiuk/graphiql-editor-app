@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import GraphQLRoute from '../../components/GraphQLRoute/GraphQLRoute';
 import GraphQLEditor from '../../components/GraphQLEditor/GraphQLEditor';
-// import GraphQLDocs from '../../components/GraphQLDocs/GraphQLDocs';
 import GraphQLResponse from '../../components/GraphQLResponse/GraphQLResponse';
 import { useAppSelector } from '../../hooks/redux';
 

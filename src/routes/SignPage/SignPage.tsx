@@ -9,6 +9,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Input, InputBase } from '@mui/material';
 import { Sign } from '../../interfaces';
 import {
   logInWithEmailAndPassword,
@@ -79,12 +80,13 @@ const SignPage: React.FC = () => {
               }
         }
       >
-        <h2 className="formHead">{isUser ? 'SIGN IN' : 'SIGN UP'}</h2>
+        <h2 className="formHead" style={theme.isDarkMode ? {} : { fontWeight: 600 }}>
+          {isUser ? 'SIGN IN' : 'SIGN UP'}
+        </h2>
         <label className="label">
           Email:
-          <input
+          <InputBase
             className="input"
-            style={theme.isDarkMode ? { border: '2px solid white' } : { border: '2px solid dark' }}
             type="text"
             {...register('email', {
               required: {
@@ -103,9 +105,8 @@ const SignPage: React.FC = () => {
         </p>
         <label className="label">
           Password:
-          <input
+          <InputBase
             className="input"
-            style={theme.isDarkMode ? { border: '2px solid white' } : { border: '2px solid dark' }}
             type="text"
             {...register('password', {
               required: {
@@ -123,12 +124,7 @@ const SignPage: React.FC = () => {
           {errors.password?.message}
         </p>
         <button className="googleBtn" onClick={googleAuth} />
-        <input
-          className="submit"
-          type="submit"
-          value="SEND"
-          style={theme.isDarkMode ? { border: '3px solid white' } : { fontWeight: '600' }}
-        />
+        <Input className="submit" type="submit" value="SEND" />
         <p
           className={theme.isDarkMode ? 'upLink' : 'linkLight'}
           onClick={() => {

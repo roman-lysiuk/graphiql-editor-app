@@ -31,6 +31,26 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          border: '2px solid white',
+          backgroundColor: '#ffffff18',
+        },
+      },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          border: '3px solid white',
+          textDecorationColor: '#ffffff00',
+          ':hover': {
+            color: '#6495ed',
+            border: '3px solid #6495ed',
+          },
+        },
+      },
+    },
   },
 });
 

@@ -19,7 +19,6 @@
       width: 100%;
       text-align: center;
       margin-bottom: 20px;
-      // color: aliceblue;
     }
 
     .label {
@@ -27,17 +26,14 @@
       text-align: end;
       position: relative;
       left: 80px;
-      // color: aliceblue;
 
       .input {
-        // border: 2px solid aliceblue;
         border-radius: 5px;
         background-color: #ffffff18;
         position: relative;
         left: 100px;
         bottom: 25px;
         margin-left: 20px;
-        color: rgb(187, 211, 255);
         font-size: 120%;
         width: 300px;
         height: 35px;
@@ -55,19 +51,13 @@
     .submit {
       position: relative;
       left: 330px;
-      // color: aliceblue;
       height: 50px;
       width: 120px;
-      line-height: 50px;
+      line-height: 30px;
       font-size: 120%;
       background-color: #ffffff00;
       border-radius: 5px;
-      border: 3px solid black;
-
-      &:hover {
-        color: cornflowerblue;
-        border: 3px solid cornflowerblue;
-      }
+      text-decoration-color: #ffffff00;
     }
 
     .googleBtn {
@@ -106,8 +96,7 @@
       text-align: center;
 
       &:hover {
-        color: cornflowerblue;
-        text-shadow: 0 0 5px black;
+        color: #083a96;
       }
     }
   }
