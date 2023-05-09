@@ -15,15 +15,6 @@ export default defineConfig({
   plugins: [
     eslint({ cache: false }),
     react(),
-    monacoEditorPlugin({
-      languageWorkers: ['json', 'editorWorkerService'],
-      customWorkers: [
-        {
-          label: 'graphql',
-          entry: 'monaco-graphql/esm/graphql.worker',
-        },
-      ],
-    }),
   ],
   test: {
     globals: true,

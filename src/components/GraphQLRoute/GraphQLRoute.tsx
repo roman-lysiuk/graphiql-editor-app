@@ -48,7 +48,7 @@ export default function GraphQLRoute() {
         onClick={() => dispatch(setIsDrawerVisible(true))}
         disabled={!mutationName && !queryName}
       >
-        Open Docs
+        Docs
       </Button>
     </div>
   );
