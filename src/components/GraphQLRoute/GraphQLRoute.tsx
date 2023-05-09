@@ -3,9 +3,11 @@ import { Button } from '@mui/material';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
+import { setIsDrawerVisible } from '../../store/docPanelSlice';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
+  const { queryName, mutationName } = useAppSelector((state) => state.docPanel);
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
   const theme = useAppSelector((state) => state.theme);
@@ -39,6 +41,14 @@ export default function GraphQLRoute() {
         style={{ fontSize: '100%' }}
       >
         CHANGE ROUTE
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => dispatch(setIsDrawerVisible(true))}
+        disabled={!mutationName && !queryName}
+      >
+        Open Docs
       </Button>
     </div>
   );

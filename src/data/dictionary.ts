@@ -39,6 +39,17 @@ const dictionary: IDictionary = {
     correctEmail: 'Please enter correct Email',
     enterPassword: 'Please enter your Password',
     correctPassword: 'Please enter correct Password',
+
+    // Doc GraphQL Section
+    docTitle: 'Documentation Explorer',
+    docDesc: 'A GraphQL schema provides a root type for each kind of operation.',
+    docGetRootSchema: 'Get root schema',
+    docNoData: 'No Data...',
+    docFields: 'fields',
+    docName: 'name',
+    docModel: 'model',
+    docDescription: 'description',
+    docType: 'type',
   },
   UA: {
     // header
@@ -74,6 +85,17 @@ const dictionary: IDictionary = {
     correctEmail: 'Будь ласка, введіть валiдний Email',
     enterPassword: 'Будь ласка, введіть свій пароль',
     correctPassword: 'Будь ласка, введіть валiдний пароль',
+
+    // Doc GraphQL Section
+    docTitle: 'Провідник документації',
+    docDesc: 'Схема GraphQL надає кореневий тип для кожного виду операції.',
+    docGetRootSchema: 'Отримати кореневу схему',
+    docNoData: 'Немає даних...',
+    docFields: 'поля',
+    docName: 'назва',
+    docModel: 'модель',
+    docDescription: 'опис',
+    docType: 'тип',
   },
 };
 

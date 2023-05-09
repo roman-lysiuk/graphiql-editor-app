@@ -99,7 +99,7 @@ const SignPage: React.FC = () => {
               },
               pattern: {
                 value: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                message: getDictVal('correctEMail'),
+                message: getDictVal('correctEmail'),
               },
             })}
           />
