@@ -33,7 +33,7 @@ const dictionary: IDictionary = {
     signup2: 'Sign up',
     signin2: 'Sign in',
     email: 'Email',
-    password: 'password',
+    password: 'Password',
     send: 'SEND',
     enterEmail: 'Please enter your Email',
     correctEmail: 'Please enter correct Email',

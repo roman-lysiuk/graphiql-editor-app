@@ -1,14 +1,17 @@
 .headers {
-  border-bottom: 1px solid rgb(15, 93, 162);
-  border-right: 1px solid rgb(15, 92, 159);
-    &__btn {
-      padding-left: 20px;
-      position: absolute;
-      z-index: 1;
-      background-color: #ffffff00;
-      width: 100%;
-      text-align: start;
-      cursor: pointer;
-      border: none;
-    }
+  height: 12vh;
+  display: block;
+  margin: 10px 0;
+  // background-color: #319d3f8c;
+  &__btn {
+    padding-left: 20px;
+    position: relative;
+    border: none;
+    z-index: 1;
+    width: 50%;
+    height: 20px;
+    text-align: start;
+    cursor: pointer;
+    color: black;
+  }
 }

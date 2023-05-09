@@ -9,8 +9,9 @@ const lightTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          fontWeight: '600',
           ':hover': {
-            color: 'black',
+            color: '#052157',
           },
         },
       },
@@ -26,9 +27,14 @@ const lightTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#ffffff00',
-          fontWeight: '500',
+          fontWeight: '600',
           color: '#1c1c1c',
           border: '3px solid #1c1c1c',
+          ':hover': {
+            backgroundColor: '#ffffff00',
+            color: '#083a96',
+            border: '3px solid #083a96',
+          },
         },
       },
     },

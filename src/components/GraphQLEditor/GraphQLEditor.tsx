@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { EditorView } from 'codemirror';
+import { Button } from '@mui/material';
 import cl from './graphQLEditor.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import GraphQLVariables from '../GraphQLVariables/GraphQLVariables';
@@ -35,7 +36,7 @@ const fixedHeightEditor = EditorView.theme({
 });
 
 export default function GraphQLEditor() {
-  const { isDarkMode } = useAppSelector((state) => state.theme);
+  // const { isDarkMode } = useAppSelector((state) => state.theme);
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
   const dispatch = useAppDispatch();
@@ -63,14 +64,16 @@ export default function GraphQLEditor() {
 
   return (
     <section className={cl.editor} id="graphql-editor">
-      <Codemirror
-        value={valueMonaco}
-        onChange={handlerChangeEditor}
-        extensions={[fixedHeightEditor]}
-      />
-      <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
-        GetResponse
-      </button>
+      <div className="editBlock">
+        <Codemirror
+          value={valueMonaco}
+          onChange={handlerChangeEditor}
+          extensions={[fixedHeightEditor]}
+        />
+        <Button className={cl.editor__button} onClick={handlerGetResponseBtn}>
+          Get Response
+        </Button>
+      </div>
       <div className={cl.editor__settingRow}>
         <GraphQLVariables />
         <GraphQLHeaders />
