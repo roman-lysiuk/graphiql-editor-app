@@ -3,14 +3,16 @@ import { basicSetup, EditorView } from 'codemirror';
 import { graphql } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
 import { useCallback, useEffect, useState } from 'react';
-import { useAppSelector } from './redux';
+import { useAppDispatch, useAppSelector } from './redux';
 import getSchema from '../helpers/getSchema';
+import { addMessage } from '../store/sysMessengerSlice';
 
 export default function useCodeMirror(extensions: Extension[], editor: boolean) {
   const { url } = useAppSelector((state) => state.graphQL);
   const [element, setElement] = useState<HTMLElement>();
   const [view, setView] = useState<EditorView>();
   const [schema, setSchema] = useState<GraphQLSchema>();
+  const dispatch = useAppDispatch();
 
   const ref = useCallback((node: HTMLElement | null) => {
     if (!node) return;
@@ -19,11 +21,23 @@ export default function useCodeMirror(extensions: Extension[], editor: boolean) 
 
   useEffect(() => {
     async function initializationSchema() {
-      const currentSchema = await getSchema(url);
-      setSchema(currentSchema);
+      try {
+        const currentSchema = await getSchema(url);
+        if (currentSchema instanceof GraphQLSchema) {
+          setSchema(currentSchema);
+        } else if (currentSchema instanceof Error) {
+          dispatch(addMessage({ type: 'error', message: 'Schema loading error' }));
+        }
+      } catch (err) {
+        if (err instanceof Error) {
+          dispatch(addMessage({ type: 'error', message: err.message }));
+        }
+      }
     }
-    initializationSchema();
-  }, [url]);
+    if (editor) {
+      initializationSchema();
+    }
+  }, [url, dispatch, editor]);
 
   useEffect(() => {
     if (!element) return;
