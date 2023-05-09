@@ -5,6 +5,7 @@ import graphQLSlice from './graphQLSlice';
 import themeSlice from './themeSlice';
 import spinnerSlice from './spinnerSlice';
 import multiLangSlice from './multiLangSlice';
+import docPanelSlice from './docPanelSlice';
 
 const rootReducer = combineReducers({
   user: userSlice,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   theme: themeSlice,
   multiLang: multiLangSlice,
   spinner: spinnerSlice,
+  docPanel: docPanelSlice,
 });
 
 export const setupStore = () =>

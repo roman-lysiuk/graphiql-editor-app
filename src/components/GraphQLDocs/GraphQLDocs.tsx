@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Button, Paper, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addMessage } from '../../store/sysMessengerSlice';
@@ -6,39 +6,49 @@ import { setOn, setOff } from '../../store/spinnerSlice';
 import DocFetchSchema, { IField, schemaParser } from '../../GraphQL/DocFetchSchema';
 import DocFetchRootTypes, { IRootJsonSchema } from '../../GraphQL/DocFetchRootTypes';
 import useDict from '../../hooks/useDict';
+import {
+  setIsDrawerVisible,
+  setMutationName,
+  setQueryName,
+  setSchemaName,
+  setSchemas,
+} from '../../store/docPanelSlice';
 
 export default function GraphQLDocs() {
   const getDictVal = useDict();
   const dispatch = useAppDispatch();
   const url = useAppSelector((state) => state.graphQL.url);
-  const [queryName, setQueryName] = useState('');
-  const [mutationName, setMutationName] = useState('');
-  const [schemas, setSchemas] = useState<IField[]>([]);
-  const [schemaName, setSchemaName] = useState('');
+
+  const { queryName, mutationName, schemaName, schemas } = useAppSelector(
+    (state) => state.docPanel,
+  );
 
   const fetchSchemeCache = useRef(new Map());
   const fetchRootCache = useRef(new Map());
 
-  const setRootSchema = (schema: IRootJsonSchema) => {
-    if (schema.queryType) {
-      setQueryName(schema.queryType.name);
-    } else {
-      setQueryName('');
-    }
-    if (schema.mutationType) {
-      setMutationName(schema.mutationType.name);
-    } else {
-      setMutationName('');
-    }
-    setSchemas([]);
-    setSchemaName('');
-  };
+  const setRootSchema = useCallback(
+    (schema: IRootJsonSchema) => {
+      if (schema.queryType) {
+        dispatch(setQueryName(schema.queryType.name));
+      } else {
+        dispatch(setQueryName(''));
+      }
+      if (schema.mutationType) {
+        dispatch(setMutationName(schema.mutationType.name));
+      } else {
+        dispatch(setMutationName(''));
+      }
+      dispatch(setSchemas([]));
+      dispatch(setSchemaName(''));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
-    setMutationName('');
-    setQueryName('');
-    setSchemaName('');
-    setSchemas([]);
+    dispatch(setMutationName(''));
+    dispatch(setQueryName(''));
+    dispatch(setSchemaName(''));
+    dispatch(setSchemas([]));
     if (fetchRootCache.current.has(url)) {
       setRootSchema(fetchRootCache.current.get(url));
     } else {
@@ -62,11 +72,11 @@ export default function GraphQLDocs() {
           dispatch(setOff());
         });
     }
-  }, [url, dispatch]);
+  }, [url, dispatch, setRootSchema]);
 
   useEffect(() => {
     if (fetchSchemeCache.current.has(url + schemaName)) {
-      setSchemas(fetchSchemeCache.current.get(url + schemaName));
+      dispatch(setSchemas(fetchSchemeCache.current.get(url + schemaName)));
     } else {
       dispatch(setOn());
       DocFetchSchema(url, schemaName)
@@ -76,7 +86,7 @@ export default function GraphQLDocs() {
           } else if (res.data.__type && res.data.__type.fields) {
             const arr = schemaParser(res.data.__type.fields);
             if (arr.length) {
-              setSchemas(arr);
+              dispatch(setSchemas(arr));
             }
             fetchSchemeCache.current.set(url + schemaName, arr);
           } else {
@@ -93,19 +103,35 @@ export default function GraphQLDocs() {
   }, [schemaName, dispatch, url]);
 
   return (
-    <div>
+    <div style={{ padding: 5 }}>
+      <Button
+        variant="contained"
+        sx={{ width: '100%' }}
+        color="error"
+        onClick={() => dispatch(setIsDrawerVisible(false))}
+      >
+        Close panel
+      </Button>
       <Typography variant="h5">{getDictVal('docTitle')}</Typography>
       <Typography variant="body1">{getDictVal('docDesc')}</Typography>
       <br />
       {!mutationName && !queryName && <Typography>{getDictVal('docNoData')}</Typography>}
       {queryName && (
-        <Button sx={{ m: 0.2 }} variant="contained" onClick={() => setSchemaName(queryName)}>
+        <Button
+          sx={{ m: 0.2 }}
+          variant="contained"
+          onClick={() => dispatch(setSchemaName(queryName))}
+        >
           {queryName}
         </Button>
       )}
       <br />
       {mutationName && (
-        <Button sx={{ m: 0.2 }} variant="contained" onClick={() => setSchemaName(mutationName)}>
+        <Button
+          sx={{ m: 0.2 }}
+          variant="contained"
+          onClick={() => dispatch(setSchemaName(mutationName))}
+        >
           {mutationName}
         </Button>
       )}
