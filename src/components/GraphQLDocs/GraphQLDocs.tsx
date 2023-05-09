@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Paper, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addMessage } from '../../store/sysMessengerSlice';
 import { setOn, setOff } from '../../store/spinnerSlice';
 import DocFetchSchema, { IField, schemaParser } from '../../GraphQL/DocFetchSchema';
-import DocFetchRootTypes from '../../GraphQL/DocFetchRootTypes';
+import DocFetchRootTypes, { IRootJsonSchema } from '../../GraphQL/DocFetchRootTypes';
 import useDict from '../../hooks/useDict';
 
 export default function GraphQLDocs() {
@@ -16,61 +16,81 @@ export default function GraphQLDocs() {
   const [schemas, setSchemas] = useState<IField[]>([]);
   const [schemaName, setSchemaName] = useState('');
 
-  useEffect(() => {
-    dispatch(setOn());
-    DocFetchSchema(url, schemaName)
-      .then((res) => {
-        if (res instanceof Error) {
-          dispatch(addMessage({ type: 'error', message: res.message }));
-        } else if (res.data.__type && res.data.__type.fields) {
-          const arr = schemaParser(res.data.__type.fields);
-          if (arr.length) {
-            setSchemas(arr);
-          }
-        }
-      })
-      .catch((err) => {
-        dispatch(addMessage({ type: 'error', message: err.message }));
-      })
-      .finally(() => {
-        dispatch(setOff());
-      });
-  }, [schemaName, dispatch, url]);
+  const fetchSchemeCache = useRef(new Map());
+  const fetchRootCache = useRef(new Map());
+
+  const setRootSchema = (schema: IRootJsonSchema) => {
+    if (schema.queryType) {
+      setQueryName(schema.queryType.name);
+    } else {
+      setQueryName('');
+    }
+    if (schema.mutationType) {
+      setMutationName(schema.mutationType.name);
+    } else {
+      setMutationName('');
+    }
+    setSchemas([]);
+    setSchemaName('');
+  };
 
   useEffect(() => {
     setMutationName('');
     setQueryName('');
     setSchemaName('');
     setSchemas([]);
-    dispatch(setOn());
-    DocFetchRootTypes(url)
-      .then((res) => {
-        if (res instanceof Error) {
-          dispatch(addMessage({ type: 'error', message: res.message }));
-        } else if (!res || !res.data || !res.data.__schema) {
-          dispatch(addMessage({ type: 'error', message: 'Bad JSON response' }));
-        } else if (res.data.__schema) {
-          if (res.data.__schema.queryType) {
-            setQueryName(res.data.__schema.queryType.name);
-          } else {
-            setQueryName('');
+    if (fetchRootCache.current.has(url)) {
+      setRootSchema(fetchRootCache.current.get(url));
+    } else {
+      dispatch(setOn());
+      DocFetchRootTypes(url)
+        .then((res) => {
+          if (res instanceof Error) {
+            dispatch(addMessage({ type: 'error', message: res.message }));
+          } else if (!res || !res.data || !res.data.__schema) {
+            dispatch(addMessage({ type: 'error', message: 'Bad JSON response' }));
+            fetchRootCache.current.set(url, {});
+          } else if (res.data.__schema) {
+            fetchRootCache.current.set(url, res.data.__schema);
+            setRootSchema(res.data.__schema);
           }
-          if (res.data.__schema.mutationType) {
-            setMutationName(res.data.__schema.mutationType.name);
-          } else {
-            setMutationName('');
-          }
-          setSchemas([]);
-          setSchemaName('');
-        }
-      })
-      .catch((err) => {
-        dispatch(addMessage({ type: 'error', message: err.message }));
-      })
-      .finally(() => {
-        dispatch(setOff());
-      });
+        })
+        .catch((err) => {
+          dispatch(addMessage({ type: 'error', message: err.message }));
+        })
+        .finally(() => {
+          dispatch(setOff());
+        });
+    }
   }, [url, dispatch]);
+
+  useEffect(() => {
+    if (fetchSchemeCache.current.has(url + schemaName)) {
+      setSchemas(fetchSchemeCache.current.get(url + schemaName));
+    } else {
+      dispatch(setOn());
+      DocFetchSchema(url, schemaName)
+        .then((res) => {
+          if (res instanceof Error) {
+            dispatch(addMessage({ type: 'error', message: res.message }));
+          } else if (res.data.__type && res.data.__type.fields) {
+            const arr = schemaParser(res.data.__type.fields);
+            if (arr.length) {
+              setSchemas(arr);
+            }
+            fetchSchemeCache.current.set(url + schemaName, arr);
+          } else {
+            fetchSchemeCache.current.set(url + schemaName, []);
+          }
+        })
+        .catch((err) => {
+          dispatch(addMessage({ type: 'error', message: err.message }));
+        })
+        .finally(() => {
+          dispatch(setOff());
+        });
+    }
+  }, [schemaName, dispatch, url]);
 
   return (
     <div>
