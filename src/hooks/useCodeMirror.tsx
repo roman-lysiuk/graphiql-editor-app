@@ -1,4 +1,4 @@
-import { Extension } from '@codemirror/state';
+import { EditorState, Extension } from '@codemirror/state';
 import { basicSetup, EditorView } from 'codemirror';
 import { graphql } from 'cm6-graphql';
 import { GraphQLSchema } from 'graphql';
@@ -11,6 +11,7 @@ export default function useCodeMirror(extensions: Extension[], editor: boolean) 
   const { url } = useAppSelector((state) => state.graphQL);
   const [element, setElement] = useState<HTMLElement>();
   const [view, setView] = useState<EditorView>();
+  const [state, setState] = useState<EditorState>();
   const [schema, setSchema] = useState<GraphQLSchema>();
   const dispatch = useAppDispatch();
 
@@ -41,20 +42,27 @@ export default function useCodeMirror(extensions: Extension[], editor: boolean) 
 
   useEffect(() => {
     if (!element) return;
+
+    const stateEditor = EditorState.create({
+      extensions: [basicSetup, ...extensions],
+    });
+    const stateEditorGraphQl = EditorState.create({
+      extensions: [basicSetup, graphql(schema), ...extensions],
+    });
     const viewEditor = new EditorView({
-      extensions: editor
-        ? [basicSetup, graphql(schema), ...extensions]
-        : [basicSetup, ...extensions],
+      state: editor ? stateEditorGraphQl : stateEditor,
       parent: element,
     });
     setView(viewEditor);
+    setState(editor ? stateEditorGraphQl : stateEditor);
     // eslint-disable-next-line consistent-return
     return () => {
       viewEditor.destroy();
       setView(undefined);
+      setState(undefined);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, schema]);
 
-  return { ref, view };
+  return { ref, view, state };
 }

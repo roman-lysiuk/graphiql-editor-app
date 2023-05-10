@@ -1,24 +1,27 @@
 import React from 'react';
 import { EditorView } from 'codemirror';
-import cl from './graphQLVariables.module.scss';
+import { linter } from '@codemirror/lint';
+import { json, jsonLanguage, jsonParseLinter } from '@codemirror/lang-json';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeVariables } from '../../store/graphQLSlice';
 import Codemirror from '../CodeMirror/Codemirror';
+import cl from './graphQLVariables.module.scss';
 
 const fixedHeightEditor = EditorView.theme({
   '&': { height: '10vh' },
   '.cm-scroller': { overflow: 'auto' },
 });
+const linterExtension = linter(jsonParseLinter());
 
 export default function GraphQLVariables() {
-  const { variables } = useAppSelector((state) => state.graphQL);
   const dispatch = useAppDispatch();
-
+  const { variables } = useAppSelector((state) => state.graphQL);
   const handlerClick = (value: string | undefined) => {
     if (value) {
       dispatch(changeVariables(value));
     }
   };
+
   return (
     <section className={cl.variables}>
       <h5 className={cl.variables__btn}>Query Variables</h5>
@@ -27,7 +30,7 @@ export default function GraphQLVariables() {
           editor={false}
           onChange={handlerClick}
           value={variables}
-          extensions={[fixedHeightEditor]}
+          extensions={[fixedHeightEditor, json(), jsonLanguage, linterExtension]}
         />
       </div>
     </section>

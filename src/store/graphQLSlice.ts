@@ -6,7 +6,7 @@ export interface IGraphQL {
   variables: string;
   headers: string;
   data: JSON | null;
-  error: string;
+  error: string | JSON;
   isLoading: boolean;
 }
 
@@ -55,8 +55,13 @@ const graphQLSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(sendQueryRequestGraphQL.rejected, (state, action: PayloadAction<unknown>) => {
-        state.error =
-          action.payload instanceof Error ? action.payload.message : 'API loading error ';
+        if (action.payload instanceof Error) {
+          state.error = action.payload.message;
+        } else if (typeof action.payload === 'object') {
+          state.error = action.payload as JSON;
+        } else {
+          state.error = 'API loading error ';
+        }
         state.isLoading = false;
       });
   },
