@@ -19,6 +19,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setUser } from '../../store/userSlice';
 import useDict from '../../hooks/useDict';
+import validationPassword from './validate';
 
 const SignPage: React.FC = () => {
   const navigate = useNavigate();
@@ -112,16 +113,7 @@ const SignPage: React.FC = () => {
           <InputBase
             className="input"
             type="text"
-            {...register('password', {
-              required: {
-                value: true,
-                message: getDictVal('enterPassword'),
-              },
-              pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*[0-9])(?=.{8,})/g,
-                message: getDictVal('correctPassword'),
-              },
-            })}
+            {...register('password', validationPassword())}
           />
         </label>
         <p className={`form-control ${errors.password ? 'errDis' : 'errMess'}`}>

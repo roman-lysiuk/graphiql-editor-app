@@ -37,6 +37,12 @@ const dictionary: IDictionary = {
     send: 'SEND',
     enterEmail: 'Please enter your Email',
     correctEmail: 'Please enter correct Email',
+    minLengthPassword: 'Password minimum 8 characters',
+    maxLengthPassword: 'Password maximum 15 characters',
+    minOneLetterPassword: 'Password must contain at least one letter',
+    minOneNumberPassword: 'Password must contain at least one number',
+    minOneSpecialCharPassword:
+      'At least one special character from the list : - # ! $ @ % ^ & * _ + ~ = : ; ? / ',
     enterPassword: 'Please enter your Password',
     correctPassword: 'Please enter correct Password',
 
@@ -83,6 +89,12 @@ const dictionary: IDictionary = {
     send: 'НАДIСЛАТИ',
     enterEmail: 'Будь ласка, введіть Email',
     correctEmail: 'Будь ласка, введіть валiдний Email',
+    minLengthPassword: 'Пароль щонайменше з 8 символів',
+    maxLengthPassword: 'Максимальна довжина паролю 15 символів',
+    minOneLetterPassword: 'Пароль повинен містити хоча б одну букву',
+    minOneNumberPassword: 'Пароль повинен містити хоча б одну цифру',
+    minOneSpecialCharPassword:
+      'Принаймні один спеціальний символ зі списку : - # ! $ @ % ^ & * _ + ~ = : ; ? / ',
     enterPassword: 'Будь ласка, введіть свій пароль',
     correctPassword: 'Будь ласка, введіть валiдний пароль',
 
