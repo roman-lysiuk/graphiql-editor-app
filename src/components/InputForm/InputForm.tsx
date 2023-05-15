@@ -50,7 +50,6 @@ export default function InputForm<T extends FieldValues>({
   );
 }
 InputForm.defaultProps = {
-  value: '',
   placeholder: '',
   validation: {},
 };

@@ -33,8 +33,12 @@ const dictionary: IDictionary = {
     signup2: 'Sign up',
     signin2: 'Sign in',
     email: 'Email',
+    requiredField: 'This field is required',
     password: 'Password',
+    repeatPassword: 'Repeat Password',
     send: 'SEND',
+    successLogin: 'Successful login',
+    successRegistration: 'Registration completed successfully',
     enterEmail: 'Please enter your Email',
     correctEmail: 'Please enter correct Email',
     minLengthPassword: 'Password minimum 8 characters',
@@ -43,6 +47,7 @@ const dictionary: IDictionary = {
     minOneNumberPassword: 'Password must contain at least one number',
     minOneSpecialCharPassword:
       'At least one special character from the list : - # ! $ @ % ^ & * _ + ~ = : ; ? / ',
+
     enterPassword: 'Please enter your Password',
     correctPassword: 'Please enter correct Password',
 
@@ -86,7 +91,10 @@ const dictionary: IDictionary = {
     signin2: 'Увiйти',
     email: 'Пошта',
     password: 'Пароль',
+    requiredField: "Це поле є обов'язковим для заповнення",
     send: 'НАДIСЛАТИ',
+    successLogin: 'Успішний вхід',
+    successRegistration: 'Реєстрація пройшла успішно',
     enterEmail: 'Будь ласка, введіть Email',
     correctEmail: 'Будь ласка, введіть валiдний Email',
     minLengthPassword: 'Пароль щонайменше з 8 символів',

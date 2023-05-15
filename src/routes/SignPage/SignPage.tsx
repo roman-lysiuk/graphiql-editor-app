@@ -9,17 +9,17 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Input, InputBase } from '@mui/material';
+import { Input } from '@mui/material';
 import { Sign } from '../../interfaces';
 import {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from '../../firebase';
+import { ValidationPassword, ValidateEmail } from './validate';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setUser } from '../../store/userSlice';
 import useDict from '../../hooks/useDict';
-import validationPassword from './validate';
+import InputForm from '../../components/InputForm/InputForm';
 
 const SignPage: React.FC = () => {
   const navigate = useNavigate();
@@ -30,21 +30,21 @@ const SignPage: React.FC = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
-  } = useForm<Sign>();
+  } = useForm<Sign>({ reValidateMode: 'onChange', mode: 'onChange' });
 
   const getDictVal = useDict();
 
   function onSubmit(data: Sign) {
     if (isUser) {
+      dispatch(setOn());
       logInWithEmailAndPassword(data.email, data.password).then((user) => {
-        dispatch(setUser(user));
         console.log(user);
         if (user.token) navigate('/main');
       });
     } else {
       registerWithEmailAndPassword(data.email, data.password).then((user) => {
-        dispatch(setUser(user));
         console.log(user);
         if (user.token) navigate('/main');
       });
@@ -88,38 +88,40 @@ const SignPage: React.FC = () => {
         <h2 className="formHead" style={theme.isDarkMode ? {} : { fontWeight: 600 }}>
           {isUser ? 'SIGN IN' : 'SIGN UP'}
         </h2>
-        <label className="label">
-          {getDictVal('email')}:
-          <InputBase
-            className="input"
-            type="text"
-            {...register('email', {
-              required: {
-                value: true,
-                message: getDictVal('enterEmail'),
-              },
-              pattern: {
-                value: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                message: getDictVal('correctEmail'),
-              },
-            })}
+
+        <InputForm
+          labelName={getDictVal('email')}
+          type="email"
+          register={register}
+          errors={errors}
+          name="email"
+          validation={ValidateEmail()}
+        />
+        <InputForm
+          labelName={getDictVal('password')}
+          type="password"
+          register={register}
+          errors={errors}
+          name="password"
+          validation={ValidationPassword()}
+        />
+        {!isUser && (
+          <InputForm
+            labelName={getDictVal('repeatPassword')}
+            type="password"
+            register={register}
+            errors={errors}
+            name="repeatPassword"
+            validation={{
+              required: { value: true, message: getDictVal('requiredField') },
+              validate: (value: string) =>
+                watch('password') === value || 'Your passwords do no match',
+            }}
           />
-        </label>
-        <p className={`form-control ${errors.email ? 'errDis' : 'errMess'}`}>
-          {errors.email?.message}
-        </p>
-        <label className="label">
-          {getDictVal('password')}:
-          <InputBase
-            className="input"
-            type="text"
-            {...register('password', validationPassword())}
-          />
-        </label>
-        <p className={`form-control ${errors.password ? 'errDis' : 'errMess'}`}>
-          {errors.password?.message}
-        </p>
+        )}
+
         <button className="googleBtn" onClick={googleAuth} />
+
         <Input className="submit" type="submit" value={getDictVal('send')} />
         <p
           className={theme.isDarkMode ? 'upLink' : 'linkLight'}

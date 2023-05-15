@@ -1,11 +1,25 @@
 import useDict from '../../hooks/useDict';
 
+const ValidateEmail = () => {
+  const getDictVal = useDict();
+  return {
+    required: {
+      value: true,
+      message: getDictVal('requiredField'),
+    },
+    pattern: {
+      value: /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g,
+      message: getDictVal('correctEmail'),
+    },
+  };
+};
+
 const ValidationPassword = () => {
   const getDictVal = useDict();
   return {
     required: {
       value: true,
-      message: getDictVal('enterPassword'),
+      message: getDictVal('requiredField'),
     },
     minLength: {
       value: 8,
@@ -24,4 +38,4 @@ const ValidationPassword = () => {
   };
 };
 
-export default ValidationPassword;
+export { ValidationPassword, ValidateEmail };

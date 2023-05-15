@@ -3,6 +3,7 @@ import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormReset } from 
 export interface Sign {
   email: string;
   password: string;
+  repeatPassword: string;
 }
 
 export interface RefTypes {
