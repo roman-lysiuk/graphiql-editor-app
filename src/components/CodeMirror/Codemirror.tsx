@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Extension } from '@codemirror/state';
+import { lintGutter } from '@codemirror/lint';
 import useCodeMirror from '../../hooks/useCodeMirror';
 import onUpdate from './on-update';
 
@@ -11,7 +12,10 @@ type CodeMirrorProps = {
 };
 
 function CodeMirror({ value, onChange, extensions, editor }: CodeMirrorProps) {
-  const { ref, view } = useCodeMirror([onUpdate(onChange), ...extensions], editor as boolean);
+  const { ref, view } = useCodeMirror(
+    [onUpdate(onChange), lintGutter(), ...extensions],
+    editor as boolean,
+  );
 
   useEffect(() => {
     if (view) {

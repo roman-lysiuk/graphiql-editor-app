@@ -5,6 +5,7 @@ import GraphQLEditor from '../../components/GraphQLEditor/GraphQLEditor';
 import GraphQLDocs from '../../components/GraphQLDocs/GraphQLDocs';
 import GraphQLResponse from '../../components/GraphQLResponse/GraphQLResponse';
 import { useAppSelector } from '../../hooks/redux';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function Main() {
   const theme = useAppSelector((state) => state.theme);
@@ -27,7 +28,7 @@ export default function Main() {
     >
       <GraphQLRoute />
       <GraphQLEditor />
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Spinner />}>
         <GraphQLResponse />
       </Suspense>
       <Drawer

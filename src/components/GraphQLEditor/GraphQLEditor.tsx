@@ -7,6 +7,8 @@ import GraphQLVariables from '../GraphQLVariables/GraphQLVariables';
 import sendQueryRequestGraphQL from '../../GraphQL/RequestGraphQL';
 import GraphQLHeaders from '../GraphQLHeaders/GraphQLHeaders';
 import Codemirror from '../CodeMirror/Codemirror';
+import { changeErrors } from '../../store/graphQLSlice';
+import { addMessage } from '../../store/sysMessengerSlice';
 
 const initialValueGraphQL = `
 #   Auto Complete:  Ctrl-Space (or just start typing)
@@ -51,15 +53,51 @@ export default function GraphQLEditor() {
     setValueMonaco(value);
   };
   const handlerGetResponseBtn = () => {
-    // TODO:validation
-    dispatch(
-      sendQueryRequestGraphQL({
-        url: GraphQLRoute,
-        queryRequest: valueMonaco as string,
-        variables: JSON.parse(variables),
-        headers: JSON.parse(headers),
-      }),
-    );
+    // TODO:validation(counting lint errors for codemirror)
+    let variablesValid: { [key: string]: string } | undefined;
+    let headersValid: { [key: string]: string } | undefined;
+
+    try {
+      variablesValid = JSON.parse(variables);
+    } catch (error) {
+      variablesValid = undefined;
+      if (error instanceof Error) {
+        dispatch(changeErrors(`${error.name} in Variables GraphQL:${error.message}`));
+        dispatch(addMessage({ type: 'error', message: `${error.name} in Variables GraphQL` }));
+      }
+    }
+
+    try {
+      headersValid = JSON.parse(headers);
+    } catch (error) {
+      headersValid = undefined;
+      if (error instanceof Error) {
+        dispatch(changeErrors(`${error.name} in Headers GraphQL:${error.message}`));
+        dispatch(addMessage({ type: 'error', message: `${error.name} in Headers GraphQL` }));
+      }
+    }
+
+    if (variablesValid && headersValid) {
+      dispatch(
+        sendQueryRequestGraphQL({
+          url: GraphQLRoute,
+          queryRequest: valueMonaco as string,
+          variables: variablesValid,
+          headers: headersValid,
+        }),
+      )
+        .then((data) => {
+          if (data.meta.requestStatus === 'rejected' && data.payload.extensions.code) {
+            dispatch(addMessage({ type: 'error', message: data.payload.extensions.code }));
+          }
+          if (data.meta.requestStatus === 'fulfilled') {
+            dispatch(addMessage({ type: 'success', message: 'Request fulfilled' }));
+          }
+        })
+        .catch(() => {
+          dispatch(addMessage({ type: 'error', message: 'Error writing headers' }));
+        });
+    }
   };
 
   return (
