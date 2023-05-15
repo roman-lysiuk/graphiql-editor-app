@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
 import { setIsDrawerVisible } from '../../store/docPanelSlice';
+import useDict from '../../hooks/useDict';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
-  const { queryName, mutationName } = useAppSelector((state) => state.docPanel);
+  const { isLoading, mutationName, queryName } = useAppSelector((state) => state.docPanel);
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
   const theme = useAppSelector((state) => state.theme);
+  const getDictVal = useDict();
 
   const handlerChangeRoute = () => {
     dispatch(changeRoute(route));
@@ -21,6 +23,33 @@ export default function GraphQLRoute() {
 }`),
     );
   };
+
+  const spinnerBtn = (
+    <Button
+      className={cl.routeRow__button}
+      disabled
+      color="secondary"
+      variant="contained"
+      sx={{ width: '10rem' }}
+      style={{ fontSize: '100%', opacity: '0.7' }}
+    >
+      <CircularProgress size={32} />
+    </Button>
+  );
+
+  const okBtn = (
+    <Button
+      className={cl.routeRow__button}
+      variant="contained"
+      color="secondary"
+      onClick={() => dispatch(setIsDrawerVisible(true))}
+      sx={{ width: '10rem' }}
+      style={{ fontSize: '100%' }}
+    >
+      {getDictVal('docs')}
+    </Button>
+  );
+
   return (
     <div className={cl.routeRow}>
       <label className={cl.routeRow__label} htmlFor="route-graphql">
@@ -42,14 +71,7 @@ export default function GraphQLRoute() {
       >
         CHANGE ROUTE
       </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => dispatch(setIsDrawerVisible(true))}
-        disabled={!mutationName && !queryName}
-      >
-        Docs
-      </Button>
+      {isLoading || (!mutationName && !queryName) ? spinnerBtn : okBtn}
     </div>
   );
 }

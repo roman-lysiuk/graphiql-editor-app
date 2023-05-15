@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, CircularProgress, Fade } from '@mui/material';
 
-export default function Spinner() {
+export default function SpinnerDoc() {
   return (
     <Fade in={!!true}>
       <Box
@@ -9,9 +9,8 @@ export default function Spinner() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          position: 'fixed',
-          top: '0px',
-          left: '0px',
+          position: 'absolute',
+          top: 0,
           width: '100%',
           height: '100%',
           zIndex: 1000,

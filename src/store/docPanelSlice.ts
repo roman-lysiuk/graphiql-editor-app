@@ -7,6 +7,7 @@ export interface IDocPanelState {
   schemas: IField[];
   schemaName: string;
   isDrawerVisible: boolean;
+  isLoading: boolean;
 }
 
 export const initialState: IDocPanelState = {
@@ -15,6 +16,7 @@ export const initialState: IDocPanelState = {
   schemas: [],
   schemaName: '',
   isDrawerVisible: false,
+  isLoading: false,
 };
 
 const docPanelSlice = createSlice({
@@ -36,9 +38,18 @@ const docPanelSlice = createSlice({
     setIsDrawerVisible(state, action: PayloadAction<boolean>) {
       return { ...state, isDrawerVisible: action.payload };
     },
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      return { ...state, isLoading: action.payload };
+    },
   },
 });
 
-export const { setQueryName, setMutationName, setSchemas, setSchemaName, setIsDrawerVisible } =
-  docPanelSlice.actions;
+export const {
+  setQueryName,
+  setMutationName,
+  setSchemas,
+  setSchemaName,
+  setIsDrawerVisible,
+  setIsLoading,
+} = docPanelSlice.actions;
 export default docPanelSlice.reducer;
