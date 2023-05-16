@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { Button } from '@mui/material';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
-import { setIsDrawerVisible } from '../../store/docPanelSlice';
-import useDict from '../../hooks/useDict';
+import DocButtonSpinner from '../DocButtons/DocButtonSpinner';
+import DocButtonOk from '../DocButtons/DocButtonOk';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
@@ -12,7 +12,6 @@ export default function GraphQLRoute() {
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
   const theme = useAppSelector((state) => state.theme);
-  const getDictVal = useDict();
 
   const handlerChangeRoute = () => {
     dispatch(changeRoute(route));
@@ -23,32 +22,6 @@ export default function GraphQLRoute() {
 }`),
     );
   };
-
-  const spinnerBtn = (
-    <Button
-      className={cl.routeRow__button}
-      disabled
-      color="secondary"
-      variant="contained"
-      sx={{ width: '10rem' }}
-      style={{ fontSize: '100%', opacity: '0.5' }}
-    >
-      <CircularProgress size={32} sx={{ color: 'rgb(255,255,255)' }} />
-    </Button>
-  );
-
-  const okBtn = (
-    <Button
-      className={cl.routeRow__button}
-      variant="contained"
-      color="secondary"
-      onClick={() => dispatch(setIsDrawerVisible(true))}
-      sx={{ width: '10rem' }}
-      style={{ fontSize: '100%' }}
-    >
-      {getDictVal('docs')}
-    </Button>
-  );
 
   return (
     <div className={cl.routeRow}>
@@ -71,7 +44,7 @@ export default function GraphQLRoute() {
       >
         CHANGE ROUTE
       </Button>
-      {!isLoading ? spinnerBtn : okBtn}
+      {!isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
     </div>
   );
 }

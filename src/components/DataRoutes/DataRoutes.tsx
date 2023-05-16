@@ -1,5 +1,6 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@mui/material';
 import { IRootJson } from '../../hooks/useFetchDocRoot';
 import useDict from '../../hooks/useDict';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -63,25 +64,73 @@ export default function DataRoutes(props: IProps) {
     if (!isLoading) dispatch(setIsLoading(true));
     return (
       <>
-        {querySchema && <h5>query: {querySchema.name}</h5>}
-        {querySchema?.description && <p>{querySchema?.description}</p>}
-        {queryFields.map((el: IField) => (
-          <Paper>
-            <p>{el.name}</p>
-            <p>{el.description}</p>
-            <p>{el.kind}</p>
-          </Paper>
-        ))}
+        {querySchema && (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography variant="h5">query: {querySchema.name}</Typography>
+              {querySchema?.description && (
+                <Typography variant="h6">{querySchema?.description}</Typography>
+              )}
+            </AccordionSummary>
+            <AccordionDetails>
+              {queryFields.map((el: IField) => (
+                <Paper sx={{ p: 1, m: 1 }} elevation={3}>
+                  <Typography variant="body1">
+                    <strong>name: </strong> {el.name}
+                  </Typography>
+                  {el.description && (
+                    <Typography variant="body1">
+                      <strong>description: </strong> {el.description}
+                    </Typography>
+                  )}
+                  {el.kind && (
+                    <Typography variant="body1">
+                      <strong>kind: </strong> {el.kind}
+                    </Typography>
+                  )}
+                </Paper>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        )}
 
-        {mutationsSchema && <h5>mutation: {mutationsSchema.name}</h5>}
-        {mutationsSchema?.description && <p>{mutationsSchema?.description}</p>}
-        {mutatuionsFields.map((el: IField) => (
-          <Paper>
-            <p>{el.name}</p>
-            <p>{el.description}</p>
-            <p>{el.kind}</p>
-          </Paper>
-        ))}
+        {mutationsSchema && (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography variant="h5">mutation: {mutationsSchema.name}</Typography>
+              {mutationsSchema?.description && (
+                <Typography variant="h6">{mutationsSchema?.description}</Typography>
+              )}
+            </AccordionSummary>
+            <AccordionDetails>
+              {mutatuionsFields.map((el: IField) => (
+                <Paper sx={{ p: 1, m: 1 }} elevation={3}>
+                  <Typography variant="body1">
+                    <strong>name: </strong> {el.name}
+                  </Typography>
+                  {el.description && (
+                    <Typography variant="body1">
+                      <strong>description: </strong> {el.description}
+                    </Typography>
+                  )}
+                  {el.kind && (
+                    <Typography variant="body1">
+                      <strong>kind: </strong> {el.kind}
+                    </Typography>
+                  )}
+                </Paper>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        )}
       </>
     );
   }
