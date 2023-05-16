@@ -7,7 +7,7 @@ export interface IDocPanelState {
 
 export const initialState: IDocPanelState = {
   isDrawerVisible: false,
-  isLoading: true,
+  isLoading: false,
 };
 
 const docPanelSlice = createSlice({

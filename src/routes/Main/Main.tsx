@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { Drawer } from '@mui/material';
 import GraphQLRoute from '../../components/GraphQLRoute/GraphQLRoute';
 import GraphQLEditor from '../../components/GraphQLEditor/GraphQLEditor';
@@ -10,6 +10,8 @@ import Spinner from '../../components/Spinner/Spinner';
 export default function Main() {
   const theme = useAppSelector((state) => state.theme);
   const { isDrawerVisible } = useAppSelector((state) => state.docPanel);
+  const graphqlDoc = useMemo(() => <GraphQLDocs />, []);
+
   return (
     <main
       className="main"
@@ -38,7 +40,7 @@ export default function Main() {
           keepMounted: true,
         }}
       >
-        <GraphQLDocs />
+        {graphqlDoc}
       </Drawer>
     </main>
   );

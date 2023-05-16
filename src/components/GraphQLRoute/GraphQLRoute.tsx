@@ -71,7 +71,7 @@ export default function GraphQLRoute() {
       >
         CHANGE ROUTE
       </Button>
-      {isLoading ? spinnerBtn : okBtn}
+      {!isLoading ? spinnerBtn : okBtn}
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import { Paper, Typography } from '@mui/material';
 import { IRootJson } from '../../hooks/useFetchDocRoot';
 import useDict from '../../hooks/useDict';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setIsLoading } from '../../store/docPanelSlice';
 
 interface IProps {
   data: {
@@ -17,6 +19,8 @@ interface IField {
 
 export default function DataRoutes(props: IProps) {
   const getDictVal = useDict();
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.docPanel);
   const { data } = props;
   const response = data.read();
   if (
@@ -56,7 +60,7 @@ export default function DataRoutes(props: IProps) {
         mutatuionsFields.push(el);
       }
     }
-
+    if (!isLoading) dispatch(setIsLoading(true));
     return (
       <>
         {querySchema && <h5>query: {querySchema.name}</h5>}
@@ -81,5 +85,6 @@ export default function DataRoutes(props: IProps) {
       </>
     );
   }
+  if (isLoading) dispatch(setIsLoading(false));
   return <Typography>{getDictVal('docNoData')}</Typography>;
 }
