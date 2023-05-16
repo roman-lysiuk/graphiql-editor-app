@@ -8,7 +8,7 @@ import useDict from '../../hooks/useDict';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
-  const { isLoading, mutationName, queryName } = useAppSelector((state) => state.docPanel);
+  const { isLoading } = useAppSelector((state) => state.docPanel);
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
   const theme = useAppSelector((state) => state.theme);
@@ -31,9 +31,9 @@ export default function GraphQLRoute() {
       color="secondary"
       variant="contained"
       sx={{ width: '10rem' }}
-      style={{ fontSize: '100%', opacity: '0.7' }}
+      style={{ fontSize: '100%', opacity: '0.5' }}
     >
-      <CircularProgress size={32} />
+      <CircularProgress size={32} sx={{ color: 'rgb(255,255,255)' }} />
     </Button>
   );
 
@@ -71,7 +71,7 @@ export default function GraphQLRoute() {
       >
         CHANGE ROUTE
       </Button>
-      {isLoading || (!mutationName && !queryName) ? spinnerBtn : okBtn}
+      {isLoading ? spinnerBtn : okBtn}
     </div>
   );
 }
