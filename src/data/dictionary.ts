@@ -61,6 +61,11 @@ const dictionary: IDictionary = {
     docModel: 'model',
     docDescription: 'description',
     docType: 'type',
+
+    // Firebase Error
+    emailAlreadyInUse: 'Email already in use',
+    IncorrectPassword: 'Incorrect password',
+    userNotFound: 'User is not found',
   },
   UA: {
     // header
@@ -116,6 +121,10 @@ const dictionary: IDictionary = {
     docModel: 'модель',
     docDescription: 'опис',
     docType: 'тип',
+    // Firebase Error
+    emailAlreadyInUse: 'Електронна пошта вже використовується',
+    IncorrectPassword: 'Неправильний пароль',
+    userNotFound: 'Користувач не знайдений',
   },
 };
 

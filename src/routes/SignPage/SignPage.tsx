@@ -8,23 +8,20 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { Input } from '@mui/material';
 import { Sign } from '../../interfaces';
 import {
-  logInWithEmailAndPassword,
-  registerWithEmailAndPassword,
+  useLogInWithEmailAndPassword,
+  useRegisterWithEmailAndPassword,
   signInWithGoogle,
 } from '../../firebase';
 import { ValidationPassword, ValidateEmail } from './validate';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import InputForm from '../../components/InputForm/InputForm';
 
 const SignPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [isUser, setIsUser] = useState(true);
-  const dispatch = useAppDispatch();
+  const [isSignIn, setIsSignIn] = useState(true);
   const theme = useAppSelector((state) => state.theme);
   const {
     register,
@@ -35,26 +32,21 @@ const SignPage: React.FC = () => {
   } = useForm<Sign>({ reValidateMode: 'onChange', mode: 'onChange' });
 
   const getDictVal = useDict();
+  const [registration] = useRegisterWithEmailAndPassword();
+  const [login] = useLogInWithEmailAndPassword();
 
   function onSubmit(data: Sign) {
-    if (isUser) {
-      dispatch(setOn());
-      logInWithEmailAndPassword(data.email, data.password).then((user) => {
-        console.log(user);
-        if (user.token) navigate('/main');
-      });
+    if (isSignIn) {
+      login(data.email, data.password);
     } else {
-      registerWithEmailAndPassword(data.email, data.password).then((user) => {
-        console.log(user);
-        if (user.token) navigate('/main');
-      });
+      registration(data.email, data.password);
     }
     reset();
   }
   function googleAuth() {
     signInWithGoogle();
   }
-  const toggleLink = () => (isUser ? setIsUser(false) : setIsUser(true));
+  const toggleLink = () => (isSignIn ? setIsSignIn(false) : setIsSignIn(true));
   return (
     <div
       className="formPage"
@@ -86,7 +78,7 @@ const SignPage: React.FC = () => {
         }
       >
         <h2 className="formHead" style={theme.isDarkMode ? {} : { fontWeight: 600 }}>
-          {isUser ? 'SIGN IN' : 'SIGN UP'}
+          {isSignIn ? 'SIGN IN' : 'SIGN UP'}
         </h2>
 
         <InputForm
@@ -105,7 +97,7 @@ const SignPage: React.FC = () => {
           name="password"
           validation={ValidationPassword()}
         />
-        {!isUser && (
+        {!isSignIn && (
           <InputForm
             labelName={getDictVal('repeatPassword')}
             type="password"
@@ -129,7 +121,7 @@ const SignPage: React.FC = () => {
             toggleLink();
           }}
         >
-          {isUser ? getDictVal('signup2') : getDictVal('signin2')}
+          {isSignIn ? getDictVal('signup2') : getDictVal('signin2')}
         </p>
       </form>
     </div>
