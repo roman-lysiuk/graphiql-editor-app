@@ -80,16 +80,16 @@ export default function DataRoutes(props: IProps) {
               {queryFields.map((el: IField) => (
                 <Paper sx={{ p: 1, m: 1 }} elevation={3}>
                   <Typography variant="body1">
-                    <strong>name: </strong> {el.name}
+                    <strong>{getDictVal('docName')}: </strong> {el.name}
                   </Typography>
                   {el.description && (
                     <Typography variant="body1">
-                      <strong>description: </strong> {el.description}
+                      <strong>{getDictVal('docDescription')}: </strong> {el.description}
                     </Typography>
                   )}
                   {el.kind && (
                     <Typography variant="body1">
-                      <strong>kind: </strong> {el.kind}
+                      <strong>{getDictVal('docType')}: </strong> {el.kind}
                     </Typography>
                   )}
                 </Paper>
@@ -114,16 +114,16 @@ export default function DataRoutes(props: IProps) {
               {mutatuionsFields.map((el: IField) => (
                 <Paper sx={{ p: 1, m: 1 }} elevation={3}>
                   <Typography variant="body1">
-                    <strong>name: </strong> {el.name}
+                    <strong>{getDictVal('docName')}: </strong> {el.name}
                   </Typography>
                   {el.description && (
                     <Typography variant="body1">
-                      <strong>description: </strong> {el.description}
+                      <strong>{getDictVal('docDescription')}: </strong> {el.description}
                     </Typography>
                   )}
                   {el.kind && (
                     <Typography variant="body1">
-                      <strong>kind: </strong> {el.kind}
+                      <strong>{getDictVal('docType')}: </strong> {el.kind}
                     </Typography>
                   )}
                 </Paper>

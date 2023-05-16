@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import { setIsDrawerVisible } from '../../store/docPanelSlice';
@@ -14,7 +14,7 @@ export default function GraphQLDocs() {
   const data = useFetchDocRoot(url);
 
   return (
-    <Container sx={{ p: 1, minWidth: '400px' }}>
+    <Container sx={{ p: 1 }} style={{ width: '30rem' }}>
       <Button
         variant="contained"
         sx={{ width: '100%', zIndex: 200 }}
@@ -24,6 +24,12 @@ export default function GraphQLDocs() {
         {getDictVal('docClosePanel')}
       </Button>
       <br />
+      <br />
+      <Typography sx={{ textAlign: 'center' }} variant="h5">
+        {getDictVal('docTitle')}
+      </Typography>
+      <br />
+      <Typography variant="h6">{getDictVal('docDesc')}</Typography>
       <br />
       <Suspense fallback={<SpinnerDoc />}>
         <DataRoutes data={data} />
