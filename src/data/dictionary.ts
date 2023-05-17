@@ -33,10 +33,21 @@ const dictionary: IDictionary = {
     signup2: 'Sign up',
     signin2: 'Sign in',
     email: 'Email',
+    requiredField: 'This field is required',
     password: 'Password',
+    repeatPassword: 'Repeat Password',
     send: 'SEND',
+    successLogin: 'Successful login',
+    successRegistration: 'Registration completed successfully',
     enterEmail: 'Please enter your Email',
     correctEmail: 'Please enter correct Email',
+    minLengthPassword: 'Password minimum 8 characters',
+    maxLengthPassword: 'Password maximum 15 characters',
+    minOneLetterPassword: 'Password must contain at least one letter',
+    minOneNumberPassword: 'Password must contain at least one number',
+    minOneSpecialCharPassword:
+      'At least one special character from the list : - # ! $ @ % ^ & * _ + ~ = : ; ? / ',
+
     enterPassword: 'Please enter your Password',
     correctPassword: 'Please enter correct Password',
 
@@ -50,6 +61,11 @@ const dictionary: IDictionary = {
     docModel: 'model',
     docDescription: 'description',
     docType: 'type',
+
+    // Firebase Error
+    emailAlreadyInUse: 'Email already in use',
+    IncorrectPassword: 'Incorrect password',
+    userNotFound: 'User is not found',
   },
   UA: {
     // header
@@ -80,9 +96,18 @@ const dictionary: IDictionary = {
     signin2: 'Увiйти',
     email: 'Пошта',
     password: 'Пароль',
+    requiredField: "Це поле є обов'язковим для заповнення",
     send: 'НАДIСЛАТИ',
+    successLogin: 'Успішний вхід',
+    successRegistration: 'Реєстрація пройшла успішно',
     enterEmail: 'Будь ласка, введіть Email',
     correctEmail: 'Будь ласка, введіть валiдний Email',
+    minLengthPassword: 'Пароль щонайменше з 8 символів',
+    maxLengthPassword: 'Максимальна довжина паролю 15 символів',
+    minOneLetterPassword: 'Пароль повинен містити хоча б одну букву',
+    minOneNumberPassword: 'Пароль повинен містити хоча б одну цифру',
+    minOneSpecialCharPassword:
+      'Принаймні один спеціальний символ зі списку : - # ! $ @ % ^ & * _ + ~ = : ; ? / ',
     enterPassword: 'Будь ласка, введіть свій пароль',
     correctPassword: 'Будь ласка, введіть валiдний пароль',
 
@@ -96,6 +121,10 @@ const dictionary: IDictionary = {
     docModel: 'модель',
     docDescription: 'опис',
     docType: 'тип',
+    // Firebase Error
+    emailAlreadyInUse: 'Електронна пошта вже використовується',
+    IncorrectPassword: 'Неправильний пароль',
+    userNotFound: 'Користувач не знайдений',
   },
 };
 

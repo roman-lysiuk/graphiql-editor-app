@@ -15,10 +15,10 @@
     "jest": true,
     "es6": true
   },
-  "plugins": [
-    "prettier"
-  ],
+  "plugins": ["prettier"],
   "rules": {
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/function-component-definition": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/explicit-function-return-type": "off",

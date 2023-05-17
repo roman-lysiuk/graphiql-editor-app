@@ -12,8 +12,13 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebase/firestore';
-import { IUserState, initialState } from './store/userSlice';
+import { addMessage } from './store/sysMessengerSlice';
+import useDict from './hooks/useDict';
+import { useAppDispatch } from './hooks/redux';
+import humanReadableErrorFirebase from './helpers/humanReadableErrorFirebase';
+import { setUser } from './store/userSlice';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -50,34 +55,72 @@ const signInWithGoogle = async () => {
     alert(e.message as string);
   }
 };
+const useLogInWithEmailAndPassword = () => {
+  const getDictVal = useDict();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-const logInWithEmailAndPassword = async (email: string, password: string) => {
-  let user: IUserState = initialState;
-  try {
-    await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      const usr = userCredential.user;
-      user = { id: usr.uid, token: usr.refreshToken, email: usr.email as string };
-    });
-  } catch (err) {
-    const e = err as Error;
-    alert(e.message as string);
-  }
-  return user;
+  const fetching = async (email: string, password: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = userCredential;
+      const usr = { id: user.uid, token: user.refreshToken, email: user.email as string };
+      dispatch(setUser(usr));
+      dispatch(addMessage({ type: 'success', message: getDictVal('successLogin') }));
+      navigate('/main');
+    } catch (err) {
+      const errMessage =
+        getDictVal(humanReadableErrorFirebase(err as Error)) === '?????'
+          ? humanReadableErrorFirebase(err as Error)
+          : getDictVal(humanReadableErrorFirebase(err as Error));
+      dispatch(
+        addMessage({
+          type: 'error',
+          message: errMessage,
+        }),
+      );
+    }
+  };
+
+  const login = (email: string, password: string) => {
+    fetching(email, password);
+  };
+
+  return [login];
 };
 
-const registerWithEmailAndPassword = async (email: string, password: string) => {
-  let user: IUserState = initialState;
-  try {
-    console.log(auth, email, password);
-    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      const usr = userCredential.user;
-      user = { id: usr.uid, token: usr.refreshToken, email: usr.email as string };
-    });
-  } catch (err) {
-    const e = err as Error;
-    alert(e.message as string);
-  }
-  return user;
+const useRegisterWithEmailAndPassword = () => {
+  const getDictVal = useDict();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const fetching = async (email: string, password: string) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = userCredential;
+      const newUser = { id: user.uid, token: user.refreshToken, email: user.email as string };
+      dispatch(setUser(newUser));
+      dispatch(addMessage({ type: 'success', message: getDictVal('successRegistration') }));
+      navigate('/main');
+    } catch (err) {
+      const errMessage =
+        getDictVal(humanReadableErrorFirebase(err as Error)) === '?????'
+          ? humanReadableErrorFirebase(err as Error)
+          : getDictVal(humanReadableErrorFirebase(err as Error));
+      dispatch(
+        addMessage({
+          type: 'error',
+          message: errMessage,
+        }),
+      );
+    }
+  };
+
+  const registration = (email: string, password: string) => {
+    fetching(email, password);
+  };
+
+  return [registration];
 };
 
 const sendPasswordReset = async (email: string) => {
@@ -97,8 +140,8 @@ export {
   auth,
   db,
   signInWithGoogle,
-  logInWithEmailAndPassword,
-  registerWithEmailAndPassword,
+  useLogInWithEmailAndPassword,
+  useRegisterWithEmailAndPassword,
   sendPasswordReset,
   logout,
 };
