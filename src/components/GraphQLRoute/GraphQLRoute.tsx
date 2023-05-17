@@ -3,11 +3,12 @@ import { Button } from '@mui/material';
 import cl from './graphQLRoute.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
-import { setIsDrawerVisible } from '../../store/docPanelSlice';
+import DocButtonSpinner from '../DocButtons/DocButtonSpinner';
+import DocButtonOk from '../DocButtons/DocButtonOk';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
-  const { queryName, mutationName } = useAppSelector((state) => state.docPanel);
+  const { isLoading } = useAppSelector((state) => state.docPanel);
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
   const theme = useAppSelector((state) => state.theme);
@@ -21,6 +22,7 @@ export default function GraphQLRoute() {
 }`),
     );
   };
+
   return (
     <div className={cl.routeRow}>
       <label className={cl.routeRow__label} htmlFor="route-graphql">
@@ -42,14 +44,7 @@ export default function GraphQLRoute() {
       >
         CHANGE ROUTE
       </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => dispatch(setIsDrawerVisible(true))}
-        disabled={!mutationName && !queryName}
-      >
-        Docs
-      </Button>
+      {!isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
     </div>
   );
 }

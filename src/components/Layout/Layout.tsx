@@ -6,7 +6,6 @@ import Header from '../Header/Header';
 import SysMessenger from '../SysMessenger/SysMessenger';
 import lightTheme from '../../styles/lightTheme';
 import darkTheme from '../../styles/darkTheme';
-import Spinner from '../Spinner/Spinner';
 import { useAppSelector } from '../../hooks/redux';
 
 export default function Layout() {
@@ -18,7 +17,6 @@ export default function Layout() {
       <Header />
       <Outlet />
       <Footer />
-      <Spinner />
       <SysMessenger />
     </ThemeProvider>
   );

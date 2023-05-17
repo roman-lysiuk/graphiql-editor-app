@@ -1,11 +1,9 @@
 import React from 'react';
 import { Box, CircularProgress, Fade } from '@mui/material';
-import { useAppSelector } from '../../hooks/redux';
 
 export default function Spinner() {
-  const { isProcess } = useAppSelector((state) => state.spinner);
   return (
-    <Fade in={isProcess}>
+    <Fade in={!!true}>
       <Box
         sx={{
           display: 'flex',

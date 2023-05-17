@@ -52,6 +52,8 @@ const dictionary: IDictionary = {
     correctPassword: 'Please enter correct Password',
 
     // Doc GraphQL Section
+    docs: 'Docs',
+    docClosePanel: 'Close Panel',
     docTitle: 'Documentation Explorer',
     docDesc: 'A GraphQL schema provides a root type for each kind of operation.',
     docGetRootSchema: 'Get root schema',
@@ -112,6 +114,8 @@ const dictionary: IDictionary = {
     correctPassword: 'Будь ласка, введіть валiдний пароль',
 
     // Doc GraphQL Section
+    docs: 'Документ',
+    docClosePanel: 'Закрити панель',
     docTitle: 'Провідник документації',
     docDesc: 'Схема GraphQL надає кореневий тип для кожного виду операції.',
     docGetRootSchema: 'Отримати кореневу схему',

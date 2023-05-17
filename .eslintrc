@@ -22,6 +22,8 @@
     "react/function-component-definition": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "no-throw-literal": "off",
+    "@typescript-eslint/no-throw-literal": "off",
     "no-underscore-dangle": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/prop-types": "off",
