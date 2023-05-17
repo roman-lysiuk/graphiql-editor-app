@@ -78,7 +78,7 @@ const SignPage: React.FC = () => {
         }
       >
         <h2 className="formHead" style={theme.isDarkMode ? {} : { fontWeight: 600 }}>
-          {isSignIn ? 'SIGN IN' : 'SIGN UP'}
+          {isSignIn ? getDictVal('signin') : getDictVal('signup')}
         </h2>
 
         <InputForm
@@ -107,7 +107,7 @@ const SignPage: React.FC = () => {
             validation={{
               required: { value: true, message: getDictVal('requiredField') },
               validate: (value: string) =>
-                watch('password') === value || 'Your passwords do no match',
+                watch('password') === value || getDictVal('incorrectPassword'),
             }}
           />
         )}

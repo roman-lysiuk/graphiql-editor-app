@@ -7,23 +7,16 @@ import {
   Link,
   Menu,
   MenuItem,
-  Switch,
   Toolbar,
   Tooltip,
   Typography,
 } from '@mui/material';
 import Logo from '@/assets/images/rs.svg';
-import UaLogo from '@/assets/images/ua_flag.png';
-import GbLogo from '@/assets/images/gb_flag.png';
-import { changeTheme } from '../../store/themeSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setLang } from '../../store/multiLangSlice';
+import { useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 
 export default function Footer() {
-  const dispatch = useAppDispatch();
   const { isDarkMode } = useAppSelector((state) => state.theme);
-  const { lang } = useAppSelector((state) => state.multiLang);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const getDictVal = useDict();
@@ -33,10 +26,6 @@ export default function Footer() {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const switchTheme = () => {
-    dispatch(changeTheme());
   };
 
   return (
@@ -136,37 +125,6 @@ export default function Footer() {
               alt="rsschool logo"
             />
           </Link>
-        </IconButton>
-        <div style={{ display: 'flex', margin: '0 30px', alignItems: 'center' }}>
-          <Switch
-            inputProps={{ 'aria-label': 'theme' }}
-            onChange={switchTheme}
-            checked={isDarkMode}
-            color="default"
-          />
-          <Typography variant="body1">
-            {isDarkMode ? getDictVal('dark') : getDictVal('light')}
-          </Typography>
-        </div>
-        <IconButton
-          size="small"
-          sx={{ ml: 2, opacity: lang !== 'UA' ? 0.5 : 1 }}
-          color="inherit"
-          onClick={() => dispatch(setLang('UA'))}
-        >
-          <img style={{ width: 28, height: 28, borderRadius: 14 }} src={UaLogo} alt="UA" />
-        </IconButton>
-        <IconButton
-          size="small"
-          sx={{ ml: 2, opacity: lang !== 'EN' ? 0.5 : 1 }}
-          color="inherit"
-          onClick={() => dispatch(setLang('EN'))}
-        >
-          <img
-            style={{ width: 28, height: 28, borderRadius: 14, padding: '0 -15%' }}
-            src={GbLogo}
-            alt="GB"
-          />
         </IconButton>
       </Toolbar>
     </AppBar>
