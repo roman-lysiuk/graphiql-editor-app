@@ -33,6 +33,9 @@
     .welcomeHeadline {
       font-size: 500%;
       margin-bottom: 20px;
+      @media(max-width: 500px){
+        font-size: 350%;
+      }
     }
 
     .devs {

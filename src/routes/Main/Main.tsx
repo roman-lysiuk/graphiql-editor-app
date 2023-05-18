@@ -20,6 +20,7 @@ export default function Main() {
           ? {
               background:
                 'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg")',
+              backgroundSize: 'cover',
             }
           : {
               background:
@@ -29,10 +30,12 @@ export default function Main() {
       }
     >
       <GraphQLRoute />
-      <GraphQLEditor />
-      <Suspense fallback={<Spinner />}>
-        <GraphQLResponse />
-      </Suspense>
+      <div className="mainWrap">
+        <GraphQLEditor />
+        <Suspense fallback={<Spinner />}>
+          <GraphQLResponse />
+        </Suspense>
+      </div>
       <Drawer
         anchor="right"
         open={isDrawerVisible}

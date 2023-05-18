@@ -13,6 +13,7 @@ export default function GraphQLResponse() {
     <>
       {isLoading && <Spinner />}
       <section className="response">
+        <h5 className="respHeader">Response</h5>
         <Codemirror
           editor={false}
           onChange={() => {}}
