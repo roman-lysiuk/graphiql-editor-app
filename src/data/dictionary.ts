@@ -9,6 +9,7 @@ const dictionary: IDictionary = {
     // Header
     menu: 'Menu',
     about: 'About',
+    logout: 'Logout',
 
     // Footer
     authors: 'Authors',
@@ -39,6 +40,7 @@ const dictionary: IDictionary = {
     send: 'SEND',
     successLogin: 'Successful login',
     successRegistration: 'Registration completed successfully',
+    incorrectPassword: 'Your passwords do no match',
     enterEmail: 'Please enter your Email',
     correctEmail: 'Please enter correct Email',
     minLengthPassword: 'Password minimum 8 characters',
@@ -73,6 +75,7 @@ const dictionary: IDictionary = {
     // header
     menu: 'Меню',
     about: 'Опис',
+    logout: 'Вихiд',
 
     // Footer
     authors: 'Автори',
@@ -98,10 +101,12 @@ const dictionary: IDictionary = {
     signin2: 'Увiйти',
     email: 'Пошта',
     password: 'Пароль',
+    repeatPassword: 'Повторiть пароль',
     requiredField: "Це поле є обов'язковим для заповнення",
     send: 'НАДIСЛАТИ',
     successLogin: 'Успішний вхід',
     successRegistration: 'Реєстрація пройшла успішно',
+    incorrectPassword: 'Пароль не співпадає',
     enterEmail: 'Будь ласка, введіть Email',
     correctEmail: 'Будь ласка, введіть валiдний Email',
     minLengthPassword: 'Пароль щонайменше з 8 символів',

@@ -1,12 +1,8 @@
-import Button from '@mui/material/Button';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 
 export default function WelcomePage() {
-  const user = useAppSelector((state) => state.user);
-  const signHandler = () => {};
   // const { lang } = useAppSelector((state) => state.multiLang);
   const theme = useAppSelector((state) => state.theme);
   const getDictVal = useDict();
@@ -27,11 +23,6 @@ export default function WelcomePage() {
             }
       }
     >
-      <NavLink to={user.id ? '/main' : '/sign'}>
-        <Button className="signButton" variant="contained" color="secondary" onClick={signHandler}>
-          {user.id ? getDictVal('main') : getDictVal('signin')}
-        </Button>
-      </NavLink>
       <div className="welcome" style={theme.isDarkMode ? { textShadow: '0 0 5px black' } : {}}>
         <h1 className="welcomeHeadline">GraphiQL</h1>
         <h3>{getDictVal('playgroundText')}</h3>
