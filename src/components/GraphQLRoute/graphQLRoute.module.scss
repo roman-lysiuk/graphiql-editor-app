@@ -10,7 +10,7 @@
 
   &__buttonsBlock{
     display: flex;
-    // min-width: 330px;
+    width: 330px;
     justify-content: space-between;
 
     @media(max-width: 1000px){

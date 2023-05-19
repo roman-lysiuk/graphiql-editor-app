@@ -2,6 +2,8 @@ import React from 'react';
 import { EditorView } from '@codemirror/view';
 import { json, jsonLanguage, jsonParseLinter } from '@codemirror/lang-json';
 import { linter } from '@codemirror/lint';
+import { javascript } from '@codemirror/lang-javascript';
+import { darcula } from '@uiw/codemirror-theme-darcula';
 import cl from './GraphQLHeaders.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeHeaders } from '../../store/graphQLSlice';
@@ -29,7 +31,14 @@ export default function GraphQLHeaders() {
         editor={false}
         onChange={handlerClick}
         value={headers}
-        extensions={[fixedHeightEditor, linterExtension, json(), jsonLanguage]}
+        extensions={[
+          fixedHeightEditor,
+          linterExtension,
+          json(),
+          jsonLanguage,
+          javascript({ jsx: true }),
+          darcula,
+        ]}
       />
     </section>
   );
