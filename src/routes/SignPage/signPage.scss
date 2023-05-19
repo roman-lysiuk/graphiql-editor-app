@@ -99,5 +99,51 @@
         color: #083a96;
       }
     }
+
+    @media(max-width: 750px){
+      width: 80vw;
+      left: 10vw;
+      margin: 0;
+
+      .label{
+        width: 80px;
+        left: 0;
+
+        .input{
+          width: calc(80vw - 150px);
+        }
+      }
+
+      .submit{
+        left: calc(70vw - 152px);
+      }
+
+      .googleBtn{
+        left: 5vw;
+      }
+
+      .upLink{
+        left: calc((80vw - 100px)/2);
+      }
+
+      .linkLight{
+        left: calc((80vw - 100px)/2);
+      }
+    }
+
+    @media(max-width: 500px){
+      .label{
+        text-align: left;
+        padding-left: 5vw;
+        margin-top: 10px;
+
+        .input{
+          left: -5vw;
+          bottom: 0;
+          width: calc(85vw - 70px);
+          margin-top: 5px;
+        }
+      }
+    }
   }
 }

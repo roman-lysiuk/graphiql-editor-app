@@ -2,6 +2,8 @@ import React from 'react';
 import { EditorView } from 'codemirror';
 import { linter } from '@codemirror/lint';
 import { json, jsonLanguage, jsonParseLinter } from '@codemirror/lang-json';
+import { javascript } from '@codemirror/lang-javascript';
+import { darcula } from '@uiw/codemirror-theme-darcula';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeVariables } from '../../store/graphQLSlice';
 import Codemirror from '../CodeMirror/Codemirror';
@@ -30,7 +32,14 @@ export default function GraphQLVariables() {
           editor={false}
           onChange={handlerClick}
           value={variables}
-          extensions={[fixedHeightEditor, json(), jsonLanguage, linterExtension]}
+          extensions={[
+            fixedHeightEditor,
+            json(),
+            jsonLanguage,
+            linterExtension,
+            javascript({ jsx: true }),
+            darcula,
+          ]}
         />
       </div>
     </section>

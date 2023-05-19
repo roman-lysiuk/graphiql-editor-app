@@ -26,7 +26,7 @@ export default function GraphQLRoute() {
   return (
     <div className={cl.routeRow}>
       <label className={cl.routeRow__label} htmlFor="route-graphql">
-        Route:
+        {/* Route: */}
         <input
           style={theme.isDarkMode ? { border: '3px solid white' } : {}}
           className={cl.routeRow__input}
@@ -37,14 +37,16 @@ export default function GraphQLRoute() {
           onChange={(e) => setRoute(e.target.value)}
         />
       </label>
-      <Button
-        className={cl.routeRow__button}
-        onClick={handlerChangeRoute}
-        style={{ fontSize: '100%' }}
-      >
-        CHANGE ROUTE
-      </Button>
-      {isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
+      <div className={cl.routeRow__buttonsBlock}>
+        <Button
+          className={cl.routeRow__button}
+          onClick={handlerChangeRoute}
+          style={{ fontSize: '100%' }}
+        >
+          CHANGE ROUTE
+        </Button>
+        {!isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
+      </div>
     </div>
   );
 }

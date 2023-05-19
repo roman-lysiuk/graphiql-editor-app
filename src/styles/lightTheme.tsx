@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material';
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
-    background: { default: '#d4d4d4' },
+    background: { default: '#e1e1e1' },
   },
   components: {
     MuiTab: {

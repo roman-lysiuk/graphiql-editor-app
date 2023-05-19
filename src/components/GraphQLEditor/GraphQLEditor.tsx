@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { EditorView } from 'codemirror';
-import { Button } from '@mui/material';
+import { javascript } from '@codemirror/lang-javascript';
+import { darcula } from '@uiw/codemirror-theme-darcula';
 import cl from './graphQLEditor.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import GraphQLVariables from '../GraphQLVariables/GraphQLVariables';
@@ -106,11 +107,11 @@ export default function GraphQLEditor() {
         <Codemirror
           value={valueMonaco}
           onChange={handlerChangeEditor}
-          extensions={[fixedHeightEditor]}
+          extensions={[fixedHeightEditor, javascript({ jsx: true }), darcula]}
         />
-        <Button className={cl.editor__button} onClick={handlerGetResponseBtn}>
+        <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
           Get Response
-        </Button>
+        </button>
       </div>
       <div className={cl.editor__settingRow}>
         <GraphQLVariables />
