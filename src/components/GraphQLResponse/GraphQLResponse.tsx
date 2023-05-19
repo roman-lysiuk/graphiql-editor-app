@@ -1,6 +1,8 @@
 import React from 'react';
 import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
+import { javascript } from '@codemirror/lang-javascript';
+import { darcula } from '@uiw/codemirror-theme-darcula';
 import { useAppSelector } from '../../hooks/redux';
 import normalizeData from '../../helpers/normalizeData';
 import Codemirror from '../CodeMirror/Codemirror';
@@ -13,8 +15,9 @@ export default function GraphQLResponse() {
     <>
       {isLoading && <Spinner />}
       <section className="response">
+        <h5 className="respHeader">Response</h5>
         <Codemirror
-          editor={false}
+          editor
           onChange={() => {}}
           value={error ? normalizeData(error) : normalizeData(data)}
           extensions={[
@@ -24,6 +27,8 @@ export default function GraphQLResponse() {
               '.cm-scroller': { overflow: 'auto' },
               '.cm-gutters': { display: 'none' },
             }),
+            javascript({ jsx: true }),
+            darcula,
           ]}
         />
       </section>

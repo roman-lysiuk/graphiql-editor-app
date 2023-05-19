@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: { default: 'rgb(30,30,30)' },
+    background: { default: '#000' },
   },
   components: {
     MuiTab: {
