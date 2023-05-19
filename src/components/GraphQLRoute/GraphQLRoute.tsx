@@ -45,7 +45,7 @@ export default function GraphQLRoute() {
         >
           CHANGE ROUTE
         </Button>
-        {!isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
+        {isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
       </div>
     </div>
   );

@@ -14,9 +14,12 @@ export default function SystemErrorPage(props: { msg: string }) {
           margin: '20% auto',
           display: 'flex',
           justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <Typography variant="h2">{getDictVal('errorSys')}</Typography>
+        <br />
         <Typography variant="body1">{msg}</Typography>
       </Container>
     </main>
