@@ -16,6 +16,11 @@ export interface IRootJsonSchema {
           name: string | null;
           kind: string | null;
         };
+        args: [
+          {
+            name: string;
+          },
+        ];
       },
     ];
   } | null;
@@ -30,6 +35,11 @@ export interface IRootJsonSchema {
           name: string | null;
           kind: string | null;
         };
+        args: [
+          {
+            name: string;
+          },
+        ];
       },
     ];
   } | null;
@@ -82,6 +92,9 @@ const fetchRoot = (url: string) => {
                 name
                 kind
               }
+              args {
+                name
+              }
             }
           }
           queryType {
@@ -93,6 +106,9 @@ const fetchRoot = (url: string) => {
               type {
                 name
                 kind
+              }
+              args {
+                name
               }
             }
           }

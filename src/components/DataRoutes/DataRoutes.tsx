@@ -3,8 +3,7 @@ import { ExpandMore } from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Paper, Typography } from '@mui/material';
 import { IRootJson } from '../../hooks/useFetchDocRoot';
 import useDict from '../../hooks/useDict';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setIsLoading } from '../../store/docPanelSlice';
+import NoData from '../NoData/NoData';
 
 interface IProps {
   data: {
@@ -16,14 +15,14 @@ interface IField {
   name: string;
   description: string;
   kind: string;
+  args: Array<string>;
 }
 
 export default function DataRoutes(props: IProps) {
   const getDictVal = useDict();
-  const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.docPanel);
   const { data } = props;
   const response = data.read();
+
   if (
     response &&
     response.data &&
@@ -38,19 +37,22 @@ export default function DataRoutes(props: IProps) {
 
     if (querySchema?.fields && querySchema.fields.length > 0) {
       for (let i = 0; i < querySchema.fields.length; i += 1) {
-        const el: IField = { name: '', description: '', kind: '' };
+        const el: IField = { name: '', description: '', kind: '', args: [] };
         if (querySchema.fields[i].name) el.name = querySchema.fields[i].name;
         if (querySchema.fields[i].description)
           el.description = querySchema.fields[i].description || '';
         if (querySchema.fields[i].type.name) el.name += `(${querySchema.fields[i].type.name})`;
         if (querySchema.fields[i].type.kind) el.kind = querySchema.fields[i].type.kind || '';
+        for (let z = 0; z < querySchema.fields[i].args.length; z += 1) {
+          el.args.push(querySchema.fields[i].args[z].name);
+        }
         queryFields.push(el);
       }
     }
 
     if (mutationsSchema?.fields && mutationsSchema.fields.length > 0) {
       for (let i = 0; i < mutationsSchema.fields.length; i += 1) {
-        const el: IField = { name: '', description: '', kind: '' };
+        const el: IField = { name: '', description: '', kind: '', args: [] };
         if (mutationsSchema.fields[i].name) el.name = mutationsSchema.fields[i].name;
         if (mutationsSchema.fields[i].description)
           el.description = mutationsSchema.fields[i].description || '';
@@ -58,10 +60,12 @@ export default function DataRoutes(props: IProps) {
           el.name += `(${mutationsSchema.fields[i].type.name})`;
         if (mutationsSchema.fields[i].type.kind)
           el.kind = mutationsSchema.fields[i].type.kind || '';
+        for (let z = 0; z < mutationsSchema.fields[i].args.length; z += 1) {
+          el.args.push(mutationsSchema.fields[i].args[z].name);
+        }
         mutatuionsFields.push(el);
       }
     }
-    if (!isLoading) dispatch(setIsLoading(true));
     return (
       <>
         {querySchema && (
@@ -78,7 +82,7 @@ export default function DataRoutes(props: IProps) {
             </AccordionSummary>
             <AccordionDetails>
               {queryFields.map((el: IField) => (
-                <Paper sx={{ p: 1, m: 1 }} elevation={3}>
+                <Paper sx={{ p: 1, m: 1 }} elevation={3} key={el.name}>
                   <Typography variant="body1">
                     <strong>{getDictVal('docName')}: </strong> {el.name}
                   </Typography>
@@ -92,6 +96,9 @@ export default function DataRoutes(props: IProps) {
                       <strong>{getDictVal('docType')}: </strong> {el.kind}
                     </Typography>
                   )}
+                  <Typography variant="body1">
+                    <strong>{getDictVal('docArgs')}: </strong> ({el.args.join(',')})
+                  </Typography>
                 </Paper>
               ))}
             </AccordionDetails>
@@ -112,7 +119,7 @@ export default function DataRoutes(props: IProps) {
             </AccordionSummary>
             <AccordionDetails>
               {mutatuionsFields.map((el: IField) => (
-                <Paper sx={{ p: 1, m: 1 }} elevation={3}>
+                <Paper sx={{ p: 1, m: 1 }} elevation={3} key={el.name}>
                   <Typography variant="body1">
                     <strong>{getDictVal('docName')}: </strong> {el.name}
                   </Typography>
@@ -126,6 +133,9 @@ export default function DataRoutes(props: IProps) {
                       <strong>{getDictVal('docType')}: </strong> {el.kind}
                     </Typography>
                   )}
+                  <Typography variant="body1">
+                    <strong>{getDictVal('docArgs')}: </strong> ({el.args.join(',')})
+                  </Typography>
                 </Paper>
               ))}
             </AccordionDetails>
@@ -134,6 +144,5 @@ export default function DataRoutes(props: IProps) {
       </>
     );
   }
-  if (isLoading) dispatch(setIsLoading(false));
-  return <Typography>{getDictVal('docNoData')}</Typography>;
+  return <NoData />;
 }

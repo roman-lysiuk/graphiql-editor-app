@@ -1,11 +1,11 @@
-import React, { Suspense, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Drawer } from '@mui/material';
 import GraphQLRoute from '../../components/GraphQLRoute/GraphQLRoute';
 import GraphQLEditor from '../../components/GraphQLEditor/GraphQLEditor';
 import GraphQLDocs from '../../components/GraphQLDocs/GraphQLDocs';
 import GraphQLResponse from '../../components/GraphQLResponse/GraphQLResponse';
 import { useAppSelector } from '../../hooks/redux';
-import Spinner from '../../components/Spinner/Spinner';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 
 export default function Main() {
   const theme = useAppSelector((state) => state.theme);
@@ -28,20 +28,20 @@ export default function Main() {
             }
       }
     >
-      <GraphQLRoute />
-      <GraphQLEditor />
-      <Suspense fallback={<Spinner />}>
+      <ErrorBoundary>
+        <GraphQLRoute />
+        <GraphQLEditor />
         <GraphQLResponse />
-      </Suspense>
-      <Drawer
-        anchor="right"
-        open={isDrawerVisible}
-        ModalProps={{
-          keepMounted: true,
-        }}
-      >
-        {graphqlDoc}
-      </Drawer>
+        <Drawer
+          anchor="right"
+          open={isDrawerVisible}
+          ModalProps={{
+            keepMounted: true,
+          }}
+        >
+          {graphqlDoc}
+        </Drawer>
+      </ErrorBoundary>
     </main>
   );
 }
