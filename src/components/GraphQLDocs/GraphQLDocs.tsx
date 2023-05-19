@@ -3,9 +3,10 @@ import { Button, Container, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import { setIsDrawerVisible } from '../../store/docPanelSlice';
-import DataRoutes from '../DataRoutes/DataRoutes';
 import { useFetchDocRoot } from '../../hooks/useFetchDocRoot';
 import SpinnerDoc from '../Spinner/SpinnerDoc';
+
+const DataRoutes = React.lazy(() => import('../DataRoutes/DataRoutes'));
 
 export default function GraphQLDocs() {
   const getDictVal = useDict();

@@ -28,6 +28,7 @@ const dictionary: IDictionary = {
 
     // 404
     error404: 'page not found...',
+    errorSys: 'System Error! Please contact with support...',
 
     // sign page
     signup: 'SIGN UP',
@@ -65,6 +66,7 @@ const dictionary: IDictionary = {
     docModel: 'model',
     docDescription: 'description',
     docType: 'type',
+    docArgs: 'Arguments',
 
     // Firebase Error
     emailAlreadyInUse: 'Email already in use',
@@ -94,6 +96,7 @@ const dictionary: IDictionary = {
 
     // 404
     error404: 'сторiнка не знайдена...',
+    errorSys: 'Системна помилка! Зверніться до служби підтримки...',
 
     // sign page
     signup: 'ЗАРЕЄСТРУВАТИСЬ',
@@ -130,6 +133,8 @@ const dictionary: IDictionary = {
     docModel: 'модель',
     docDescription: 'опис',
     docType: 'тип',
+    docArgs: 'Аргументи',
+
     // Firebase Error
     emailAlreadyInUse: 'Електронна пошта вже використовується',
     IncorrectPassword: 'Неправильний пароль',
