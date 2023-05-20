@@ -103,7 +103,7 @@ export default function GraphQLEditor() {
 
   return (
     <section className={cl.editor} id="graphql-editor">
-      <div className="editBlock">
+      <div className={cl.editor__editBlock}>
         <Codemirror
           value={valueMonaco}
           onChange={handlerChangeEditor}
