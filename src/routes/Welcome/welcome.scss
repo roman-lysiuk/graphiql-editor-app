@@ -2,23 +2,10 @@
   width: 100%;
   height: 100vh;
 
-  .signButton {
-    position: absolute;
-    top: 100px;
-    right: 50px;
-    height: 50px;
-    width: 120px;
-    line-height: 50px;
-    font-size: 120%;
-    font-weight: 600;
-    background-color: #ffffff00;
-    border-radius: 5px;
-  }
-
   .welcome {
     height: 60%;
     text-shadow: 0 0 5px white;
-    font-size: 120%;
+    @include adaptiv-value("font-size", 25, 17);
     font-weight: 600;
     position: absolute;
     bottom: 0;
@@ -31,11 +18,8 @@
     }
 
     .welcomeHeadline {
-      font-size: 500%;
+      @include adaptiv-value("font-size", 80, 60);
       margin-bottom: 20px;
-      @media(max-width: 500px){
-        font-size: 350%;
-      }
     }
 
     .devs {
@@ -62,9 +46,6 @@
           color: cornflowerblue;
         }
       }
-
     }
-
-
   }
 }

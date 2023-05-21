@@ -1,3 +1,4 @@
+@import "../../styles/mixins.scss";
 .nav {
   height: 70px;
   width: 100%;
@@ -6,6 +7,7 @@
   justify-content: flex-start;
   align-items: center;
   position: fixed;
+  padding: 5px;
   top: 0px;
   opacity: 98%;
 
@@ -22,7 +24,7 @@
         color: rgb(40, 40, 40);
         transition: all 250ms ease;
       }
-      a[class='active'] {
+      a[class="active"] {
         color: white;
         text-shadow: 0px 0px 3px #d9d9d9, 0px 0px 2px #000000;
       }
@@ -33,4 +35,13 @@
       }
     }
   }
+}
+.signButton {
+  @include adaptiv-value("line-height", 50, 40);
+  @include adaptiv-value("height", 50, 40);
+  @include adaptiv-value("width", 120, 80);
+  @include adaptiv-value("font-size", 25, 15);
+  font-weight: 600;
+  background-color: #ffffff00;
+  border-radius: 5px;
 }

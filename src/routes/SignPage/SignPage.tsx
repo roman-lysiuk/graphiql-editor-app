@@ -10,11 +10,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '@mui/material';
 import { Sign } from '../../interfaces';
-import {
-  useLogInWithEmailAndPassword,
-  useRegisterWithEmailAndPassword,
-  signInWithGoogle,
-} from '../../firebase';
+import { useLogInWithEmailAndPassword, useRegisterWithEmailAndPassword } from '../../firebase';
 import { ValidationPassword, ValidateEmail } from './validate';
 import { useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
@@ -43,9 +39,9 @@ const SignPage: React.FC = () => {
     }
     reset();
   }
-  function googleAuth() {
-    signInWithGoogle();
-  }
+  // function googleAuth() {
+  //   signInWithGoogle();
+  // }
   const toggleLink = () => (isSignIn ? setIsSignIn(false) : setIsSignIn(true));
   return (
     <div
@@ -112,7 +108,7 @@ const SignPage: React.FC = () => {
           />
         )}
 
-        <button className="googleBtn" onClick={googleAuth} />
+        {/* <button className="googleBtn" onClick={googleAuth} /> */}
 
         <Input className="submit" type="submit" value={getDictVal('send')} />
         <p

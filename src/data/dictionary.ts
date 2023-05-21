@@ -16,6 +16,20 @@ const dictionary: IDictionary = {
     dark: 'Dark',
     light: 'Light',
 
+    // graphQL Route section
+    changeRoute: 'Change Route',
+    placeholderRoute: 'Enter route graphQL',
+
+    // graphQL Editor section
+    btnGetResponse: 'Get Response',
+    descriptionEditors: '# Auto Complete: Ctrl-Space or just start typing',
+
+    // graphQL Query Variables section
+    titleQueryVariables: 'Query Variables',
+
+    // graphQL Headerssection
+    titleHeaders: 'Headers',
+
     // welcome page
     signin: 'SIGN IN',
     main: 'MAIN',
@@ -83,6 +97,20 @@ const dictionary: IDictionary = {
     authors: 'Автори',
     dark: 'Темна',
     light: 'Свiтла',
+
+    // graphQL Route section
+    changeRoute: 'Змінити адресу',
+    placeholderRoute: 'Введіть адресу GraphQL',
+
+    // graphQL Editor section
+    btnGetResponse: 'Отримати відповідь',
+    descriptionEditors: '# Автозаповнення: Ctrl-Пробіл або просто почніть вводити',
+
+    // graphQL Query Variables section
+    titleQueryVariables: 'Змінні запиту',
+
+    // graphQL Headerssection
+    titleHeaders: 'Заголовки',
 
     // welcome page
     signin: 'УВIЙТИ',

@@ -10,9 +10,16 @@ import GraphQLHeaders from '../GraphQLHeaders/GraphQLHeaders';
 import Codemirror from '../CodeMirror/Codemirror';
 import { changeErrors } from '../../store/graphQLSlice';
 import { addMessage } from '../../store/sysMessengerSlice';
+import useDict from '../../hooks/useDict';
 
-const initialValueGraphQL = `
-#   Auto Complete:  Ctrl-Space (or just start typing)
+const fixedHeightEditor = EditorView.theme({
+  '&': { height: '80vh' },
+  '.cm-scroller': { overflow: 'auto' },
+});
+
+export default function GraphQLEditor() {
+  const getDictVal = useDict();
+  const initialValueGraphQL = `${getDictVal('descriptionEditors')}
 query($page:Int,$name:String) {
   characters(page: $page, filter: { name: $name}) {
     info {
@@ -23,7 +30,7 @@ query($page:Int,$name:String) {
     }
   }
 }`;
-const defaultInitialValueGraphQL = `#   Auto Complete:  Ctrl-Space (or just start typing)
+  const defaultInitialValueGraphQL = `${getDictVal('descriptionEditors')}
 query{
   __schema {
     types {
@@ -33,12 +40,6 @@ query{
   }
 }
 `;
-const fixedHeightEditor = EditorView.theme({
-  '&': { height: '80vh' },
-  '.cm-scroller': { overflow: 'auto' },
-});
-
-export default function GraphQLEditor() {
   // const { isDarkMode } = useAppSelector((state) => state.theme);
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
@@ -47,8 +48,10 @@ export default function GraphQLEditor() {
   useEffect(() => {
     if (GraphQLRoute !== import.meta.env.VITE_API_DEFAULT_GRAPHQL) {
       setValueMonaco(defaultInitialValueGraphQL);
+    } else {
+      setValueMonaco(initialValueGraphQL);
     }
-  }, [GraphQLRoute]);
+  }, [GraphQLRoute, defaultInitialValueGraphQL, initialValueGraphQL]);
 
   const handlerChangeEditor = (value: string = '') => {
     setValueMonaco(value);
@@ -110,7 +113,7 @@ export default function GraphQLEditor() {
           extensions={[fixedHeightEditor, javascript({ jsx: true }), darcula]}
         />
         <button className={cl.editor__button} onClick={handlerGetResponseBtn}>
-          Get Response
+          {getDictVal('btnGetResponse')}
         </button>
       </div>
       <div className={cl.editor__settingRow}>
