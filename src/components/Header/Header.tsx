@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Button, Tab } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,14 +11,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { removeUser } from '../../store/userSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { logout } from '../../firebase';
+import { auth, useLogout } from '../../firebase';
 import { changeTheme } from '../../store/themeSlice';
 import useDict from '../../hooks/useDict';
 import UaLogo from '@/assets/images/ua_flag.png';
 import GbLogo from '@/assets/images/gb_flag.png';
 import { setLang } from '../../store/multiLangSlice';
+import { setUser } from '../../store/userSlice';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -25,7 +26,7 @@ export default function Header() {
   const navigate = useNavigate();
   const getDictVal = useDict();
   const { lang } = useAppSelector((state) => state.multiLang);
-
+  const [logout] = useLogout();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -44,10 +45,23 @@ export default function Header() {
   const signHandler = () => {
     if (user.id) {
       logout();
-      dispatch(removeUser());
       navigate('/');
     }
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (userCreds) => {
+      if (userCreds && userCreds.uid) {
+        dispatch(
+          setUser({
+            id: userCreds.uid,
+            token: userCreds.refreshToken,
+            email: userCreds.email as string,
+          }),
+        );
+      }
+    });
+  }, [dispatch]);
 
   return (
     <header>
