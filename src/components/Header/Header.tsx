@@ -18,6 +18,7 @@ import useDict from '../../hooks/useDict';
 import UaLogo from '@/assets/images/ua_flag.png';
 import GbLogo from '@/assets/images/gb_flag.png';
 import { setLang } from '../../store/multiLangSlice';
+import cl from './Header.module.scss';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -153,7 +154,7 @@ export default function Header() {
             </IconButton>
             <NavLink to={user.id ? '/main' : '/sign'}>
               <Button
-                className="signButton"
+                className={cl.signButton}
                 variant="contained"
                 color="secondary"
                 onClick={signHandler}

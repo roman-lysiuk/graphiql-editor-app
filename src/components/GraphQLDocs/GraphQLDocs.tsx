@@ -15,7 +15,7 @@ export default function GraphQLDocs() {
   const data = useFetchDocRoot(url);
 
   return (
-    <Container sx={{ p: 1 }} style={{ width: '30rem' }}>
+    <Container maxWidth="sm" sx={{ p: 1 }}>
       <Button
         variant="contained"
         sx={{ width: '100%', zIndex: 200 }}

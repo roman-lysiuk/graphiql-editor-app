@@ -6,6 +6,7 @@ import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlic
 import DocButtonSpinner from '../DocButtons/DocButtonSpinner';
 import DocButtonOk from '../DocButtons/DocButtonOk';
 import useDict from '../../hooks/useDict';
+import cleanVisibleRoute from '../../helpers/cleanVisibleRoute';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
@@ -35,16 +36,12 @@ export default function GraphQLRoute() {
           id="route-graphql"
           type="text"
           placeholder={getDictVal('placeholderRoute')}
-          value={route}
+          value={cleanVisibleRoute(route)}
           onChange={(e) => setRoute(e.target.value)}
         />
       </label>
       <div className={cl.routeRow__buttonsBlock}>
-        <Button
-          className={cl.routeRow__button}
-          onClick={handlerChangeRoute}
-          style={{ fontSize: '100%' }}
-        >
+        <Button className={cl.routeRow__button} onClick={handlerChangeRoute}>
           {getDictVal('changeRoute')}
         </Button>
         {isLoading ? <DocButtonSpinner /> : <DocButtonOk />}

@@ -30,9 +30,11 @@ export default function InputForm<T extends FieldValues>({
   validation,
 }: InputFormProps<T>) {
   return (
-    <div>
-      <label htmlFor={name} className="label">
-        {labelName}:
+    <>
+      <div className="input-wrap">
+        <label htmlFor={name} className="label">
+          {labelName}:
+        </label>
         <InputBase
           className="input"
           type={type}
@@ -40,13 +42,13 @@ export default function InputForm<T extends FieldValues>({
           placeholder={placeholder}
           {...register(name, validation)}
         />
-      </label>
+      </div>
       {errors[name] && (
         <p className={`form-control ${errors.password ? 'errDis' : 'errMess'}`}>
           {errors[name]?.message?.toString()}
         </p>
       )}
-    </div>
+    </>
   );
 }
 InputForm.defaultProps = {
