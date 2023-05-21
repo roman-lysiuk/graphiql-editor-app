@@ -8,16 +8,6 @@ import SpinnerDoc from '../Spinner/SpinnerDoc';
 
 const DataRoutes = React.lazy(() => import('../DataRoutes/DataRoutes'));
 
-const mobileStyle = {
-  width: '316px',
-  padding: '1px',
-};
-
-const defaultStyle = {
-  width: '450px',
-  padding: '5px',
-};
-
 export default function GraphQLDocs() {
   const getDictVal = useDict();
   const dispatch = useAppDispatch();
@@ -39,7 +29,7 @@ export default function GraphQLDocs() {
   }, []);
 
   return (
-    <Container style={isMobile ? mobileStyle : defaultStyle}>
+    <Container sx={{ p: 1 }} maxWidth="sm">
       <Button
         variant="contained"
         sx={{ width: '100%', zIndex: 200 }}
@@ -57,7 +47,7 @@ export default function GraphQLDocs() {
       <Typography variant="h6">{getDictVal('docDesc')}</Typography>
       <br />
       <Suspense fallback={<SpinnerDoc />}>
-        <DataRoutes data={data} style={{ height: isMobile ? '74vh' : '77vh', overflowY: 'auto' }} />
+        <DataRoutes data={data} style={{ height: isMobile ? '73vh' : '76vh', overflowY: 'auto' }} />
       </Suspense>
     </Container>
   );
