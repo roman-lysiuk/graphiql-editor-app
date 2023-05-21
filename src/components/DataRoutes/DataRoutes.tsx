@@ -9,6 +9,7 @@ interface IProps {
   data: {
     read(): IRootJson;
   };
+  style: React.CSSProperties;
 }
 
 interface IField {
@@ -20,7 +21,7 @@ interface IField {
 
 export default function DataRoutes(props: IProps) {
   const getDictVal = useDict();
-  const { data } = props;
+  const { data, style } = props;
   const response = data.read();
 
   if (
@@ -66,8 +67,9 @@ export default function DataRoutes(props: IProps) {
         mutatuionsFields.push(el);
       }
     }
+
     return (
-      <>
+      <div style={style}>
         {querySchema && (
           <Accordion>
             <AccordionSummary
@@ -141,7 +143,7 @@ export default function DataRoutes(props: IProps) {
             </AccordionDetails>
           </Accordion>
         )}
-      </>
+      </div>
     );
   }
   return <NoData />;
