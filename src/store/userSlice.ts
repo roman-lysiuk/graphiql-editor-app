@@ -17,9 +17,11 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<IUserState>) {
+      localStorage.setItem('fireBaseToken', action.payload.token);
       return { ...action.payload };
     },
     removeUser() {
+      localStorage.setItem('fireBaseToken', '');
       return initialState;
     },
   },
