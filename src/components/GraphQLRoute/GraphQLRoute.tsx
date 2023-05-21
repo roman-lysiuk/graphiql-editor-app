@@ -5,10 +5,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlice';
 import DocButtonSpinner from '../DocButtons/DocButtonSpinner';
 import DocButtonOk from '../DocButtons/DocButtonOk';
+import useDict from '../../hooks/useDict';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
   const { isLoading } = useAppSelector((state) => state.docPanel);
+  const getDictVal = useDict();
   const dispatch = useAppDispatch();
   const [route, setRoute] = useState<string>(url);
   const theme = useAppSelector((state) => state.theme);
@@ -32,7 +34,7 @@ export default function GraphQLRoute() {
           className={cl.routeRow__input}
           id="route-graphql"
           type="text"
-          placeholder="Enter route graphQL"
+          placeholder={getDictVal('placeholderRoute')}
           value={route}
           onChange={(e) => setRoute(e.target.value)}
         />
@@ -43,7 +45,7 @@ export default function GraphQLRoute() {
           onClick={handlerChangeRoute}
           style={{ fontSize: '100%' }}
         >
-          CHANGE ROUTE
+          {getDictVal('changeRoute')}
         </Button>
         {isLoading ? <DocButtonSpinner /> : <DocButtonOk />}
       </div>

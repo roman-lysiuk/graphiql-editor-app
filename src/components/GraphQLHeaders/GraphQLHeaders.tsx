@@ -8,6 +8,7 @@ import cl from './GraphQLHeaders.module.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeHeaders } from '../../store/graphQLSlice';
 import Codemirror from '../CodeMirror/Codemirror';
+import useDict from '../../hooks/useDict';
 
 const fixedHeightEditor = EditorView.theme({
   '&': { height: '10vh' },
@@ -17,6 +18,7 @@ const linterExtension = linter(jsonParseLinter());
 export default function GraphQLHeaders() {
   const { headers } = useAppSelector((state) => state.graphQL);
   const dispatch = useAppDispatch();
+  const getDictVal = useDict();
 
   const handlerClick = (value: string | undefined) => {
     if (value) {
@@ -26,7 +28,7 @@ export default function GraphQLHeaders() {
 
   return (
     <section className={cl.headers}>
-      <h5 className={cl.headers__btn}>Headers</h5>
+      <h5 className={cl.headers__btn}>{getDictVal('titleHeaders')}</h5>
       <Codemirror
         editor={false}
         onChange={handlerClick}
