@@ -18,7 +18,7 @@ import { addMessage } from './store/sysMessengerSlice';
 import useDict from './hooks/useDict';
 import { useAppDispatch } from './hooks/redux';
 import humanReadableErrorFirebase from './helpers/humanReadableErrorFirebase';
-import { setUser } from './store/userSlice';
+import { removeUser, setUser } from './store/userSlice';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -93,7 +93,6 @@ const useRegisterWithEmailAndPassword = () => {
   const getDictVal = useDict();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const fetching = async (email: string, password: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -132,8 +131,19 @@ const sendPasswordReset = async (email: string) => {
   }
 };
 
-const logout = () => {
-  signOut(auth);
+const useLogout = () => {
+  const dispatch = useAppDispatch();
+  const out = async () => {
+    signOut(auth).then(() => {
+      dispatch(removeUser());
+    });
+  };
+
+  const logout = () => {
+    out();
+  };
+
+  return [logout];
 };
 
 export {
@@ -143,5 +153,5 @@ export {
   useLogInWithEmailAndPassword,
   useRegisterWithEmailAndPassword,
   sendPasswordReset,
-  logout,
+  useLogout,
 };
