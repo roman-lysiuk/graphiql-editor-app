@@ -34,12 +34,11 @@ query{
 }
 `;
 const fixedHeightEditor = EditorView.theme({
-  '&': { height: '80vh' },
+  '&': { height: '75vh' },
   '.cm-scroller': { overflow: 'auto' },
 });
 
 export default function GraphQLEditor() {
-  // const { isDarkMode } = useAppSelector((state) => state.theme);
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
   const dispatch = useAppDispatch();

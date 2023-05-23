@@ -1,7 +1,6 @@
 .headers {
   display: block;
   margin: 10px 0;
-  // background-color: #a92a2a88;
   &__headWrap {
     height: 20px;
     padding: 0 20px;
@@ -18,5 +17,7 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    transform: rotate(0);
+    transition: 1s;
   }
 }

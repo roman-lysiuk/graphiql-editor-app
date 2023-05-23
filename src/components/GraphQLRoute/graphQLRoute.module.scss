@@ -1,6 +1,4 @@
 .routeRow {
-    // grid-column-start: 1;
-    // grid-column-end: 4;
     display: flex;
     justify-content:flex-start;
     gap: 20px;
@@ -14,7 +12,6 @@
     justify-content: space-between;
 
     @media(max-width: 1000px){
-      // padding: 0 1.5%;
       margin-left: 20px;
       width: 95%;
     }

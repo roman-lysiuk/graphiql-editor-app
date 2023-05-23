@@ -34,7 +34,7 @@ export default function GraphQLHeaders() {
       <div className={cl.headers__headWrap}>
         <h5 className={cl.headers__header}>Headers</h5>
         <button className={cl.headers__btn} onClick={click}>
-          ▽
+          {hide ? '▲' : '▼'}
         </button>
       </div>
       {!hide ? (

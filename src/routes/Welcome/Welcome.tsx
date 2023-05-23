@@ -3,7 +3,6 @@ import { useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 
 export default function WelcomePage() {
-  // const { lang } = useAppSelector((state) => state.multiLang);
   const theme = useAppSelector((state) => state.theme);
   const getDictVal = useDict();
 

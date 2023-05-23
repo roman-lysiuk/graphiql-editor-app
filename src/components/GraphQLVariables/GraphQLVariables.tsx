@@ -34,7 +34,7 @@ export default function GraphQLVariables() {
       <div className={cl.variables__headWrap}>
         <h5 className={cl.variables__header}>Query Variables</h5>
         <button className={cl.variables__btn} onClick={click}>
-          ▽
+          {hide ? '▲' : '▼'}
         </button>
       </div>
       {!hide ? (
