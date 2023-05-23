@@ -36,6 +36,7 @@
           text-shadow: 0 0 5px white;
         }
       }
+
       .LinkDark {
         color: white;
         text-decoration: none;
@@ -46,6 +47,16 @@
           color: cornflowerblue;
         }
       }
+    }
+
+  .signButton {
+      @include adaptiv-value("line-height", 50, 40);
+      @include adaptiv-value("height", 50, 40);
+      @include adaptiv-value("width", 140, 120);
+      @include adaptiv-value("font-size", 25, 15);
+      font-weight: 600;
+      background-color: #ffffff00;
+      border-radius: 5px;
     }
   }
 }

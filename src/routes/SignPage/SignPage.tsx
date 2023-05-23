@@ -6,18 +6,20 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-console */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '@mui/material';
 import { Sign } from '../../interfaces';
 import { useLogInWithEmailAndPassword, useRegisterWithEmailAndPassword } from '../../firebase';
 import { ValidationPassword, ValidateEmail } from './validate';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import InputForm from '../../components/InputForm/InputForm';
+import { setSignIn, setSignUp } from '../../store/signSlice';
 
 const SignPage: React.FC = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
+  const dispatch = useAppDispatch();
+  const { isSignIn } = useAppSelector((state) => state.sign);
   const theme = useAppSelector((state) => state.theme);
   const {
     register,
@@ -42,7 +44,7 @@ const SignPage: React.FC = () => {
   // function googleAuth() {
   //   signInWithGoogle();
   // }
-  const toggleLink = () => (isSignIn ? setIsSignIn(false) : setIsSignIn(true));
+  const toggleLink = () => (isSignIn ? dispatch(setSignUp()) : dispatch(setSignIn()));
   return (
     <div
       className="formPage"

@@ -8,8 +8,8 @@ const dictionary: IDictionary = {
   EN: {
     // Header
     menu: 'Menu',
-    about: 'About',
-    logout: 'Logout',
+    welcome: 'Welcome',
+    signout: 'Sign out',
 
     // Footer
     authors: 'Authors',
@@ -90,8 +90,8 @@ const dictionary: IDictionary = {
   UA: {
     // header
     menu: 'Меню',
-    about: 'Опис',
-    logout: 'Вихiд',
+    welcome: 'Ласкаво просимо',
+    signout: 'Вихід',
 
     // Footer
     authors: 'Автори',
