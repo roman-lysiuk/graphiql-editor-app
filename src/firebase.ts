@@ -19,6 +19,7 @@ import useDict from './hooks/useDict';
 import { useAppDispatch } from './hooks/redux';
 import humanReadableErrorFirebase from './helpers/humanReadableErrorFirebase';
 import { removeUser, setUser } from './store/userSlice';
+import { setOff, setOn } from './store/spinnerSlice';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -62,6 +63,7 @@ const useLogInWithEmailAndPassword = () => {
 
   const fetching = async (email: string, password: string) => {
     try {
+      dispatch(setOn());
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const { user } = userCredential;
       const usr = { id: user.uid, token: user.refreshToken, email: user.email as string };
@@ -79,6 +81,8 @@ const useLogInWithEmailAndPassword = () => {
           message: errMessage,
         }),
       );
+    } finally {
+      dispatch(setOff());
     }
   };
 
@@ -95,6 +99,7 @@ const useRegisterWithEmailAndPassword = () => {
   const navigate = useNavigate();
   const fetching = async (email: string, password: string) => {
     try {
+      dispatch(setOn());
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const { user } = userCredential;
       const newUser = { id: user.uid, token: user.refreshToken, email: user.email as string };
@@ -112,6 +117,8 @@ const useRegisterWithEmailAndPassword = () => {
           message: errMessage,
         }),
       );
+    } finally {
+      dispatch(setOff());
     }
   };
 
@@ -134,9 +141,14 @@ const sendPasswordReset = async (email: string) => {
 const useLogout = () => {
   const dispatch = useAppDispatch();
   const out = async () => {
-    signOut(auth).then(() => {
-      dispatch(removeUser());
-    });
+    dispatch(setOn());
+    signOut(auth)
+      .then(() => {
+        dispatch(removeUser());
+      })
+      .finally(() => {
+        dispatch(setOff());
+      });
   };
 
   const logout = () => {

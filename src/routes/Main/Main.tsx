@@ -6,11 +6,13 @@ import GraphQLDocs from '../../components/GraphQLDocs/GraphQLDocs';
 import GraphQLResponse from '../../components/GraphQLResponse/GraphQLResponse';
 import { useAppSelector } from '../../hooks/redux';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function Main() {
   const theme = useAppSelector((state) => state.theme);
   const { isDrawerVisible } = useAppSelector((state) => state.docPanel);
   const graphqlDoc = useMemo(() => <GraphQLDocs />, []);
+  const { isProcess } = useAppSelector((state) => state.spinner);
 
   return (
     <main
@@ -29,6 +31,7 @@ export default function Main() {
             }
       }
     >
+      {isProcess && <Spinner />}
       <ErrorBoundary>
         <GraphQLRoute />
         <div className="mainWrap">
