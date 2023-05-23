@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Button, Tab } from '@mui/material';
@@ -24,6 +24,7 @@ import { setUser } from '../../store/userSlice';
 export default function Header() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate();
   const getDictVal = useDict();
   const { lang } = useAppSelector((state) => state.multiLang);
@@ -50,6 +51,22 @@ export default function Header() {
     }
   };
 
+  const scrollHandler = () => {
+    const { scrollY } = window;
+    const defaultStickyPosition = 50;
+
+    if (scrollY >= defaultStickyPosition) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+    return () => window.removeEventListener('scroll', scrollHandler);
+  }, []);
+
   useEffect(() => {
     onAuthStateChanged(auth, (userCreds) => {
       if (userCreds && userCreds.uid) {
@@ -65,124 +82,123 @@ export default function Header() {
   }, [dispatch]);
 
   return (
-    <header>
-      <AppBar
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          zIndex: 500,
-        }}
-        color="inherit"
-      >
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {user.id && (
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Tab
-                      color="default"
-                      label={getDictVal('main')}
-                      value="/"
-                      to={user.id ? '/main' : '/'}
-                      component={NavLink}
-                    />
-                  </MenuItem>
-                )}
+    <AppBar
+      color="inherit"
+      sx={{
+        backgroundColor: isSticky ? 'rgb(99, 96, 96)' : 'grey',
+        height: isSticky ? 55 : 70,
+        top: 0,
+        left: 0,
+        zIndex: 500,
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {user.id && (
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Tab
                     color="default"
-                    label={getDictVal('welcome')}
-                    value="/about"
-                    to="/"
+                    label={getDictVal('main')}
+                    value="/"
+                    to={user.id ? '/main' : '/'}
                     component={NavLink}
                   />
                 </MenuItem>
-              </Menu>
-            </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {user.id && (
+              )}
+              <MenuItem onClick={handleCloseNavMenu}>
                 <Tab
-                  // color="default"
-                  label={getDictVal('main')}
-                  value="/"
-                  to={user.id ? '/main' : '/'}
+                  color="default"
+                  label={getDictVal('welcome')}
+                  value="/about"
+                  to="/"
                   component={NavLink}
                 />
-              )}
+              </MenuItem>
+            </Menu>
+          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {user.id && (
               <Tab
-                color="default"
-                label={getDictVal('welcome')}
-                value="/about"
-                to="/"
+                // color="default"
+                label={getDictVal('main')}
+                value="/"
+                to={user.id ? '/main' : '/'}
                 component={NavLink}
               />
-              {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}
-            </Box>
-            <IconButton sx={{ ml: 1 }} onClick={switchTheme} color="inherit">
-              {isDarkMode ? <Brightness4 color="inherit" /> : <Brightness7 color="inherit" />}
-            </IconButton>
-            <IconButton
-              size="small"
-              sx={{ ml: 2, opacity: lang !== 'UA' ? 0.5 : 1 }}
-              color="inherit"
-              onClick={() => dispatch(setLang('UA'))}
-            >
-              <img style={{ width: 28, height: 28, borderRadius: 14 }} src={UaLogo} alt="UA" />
-            </IconButton>
-            <IconButton
-              size="small"
-              sx={{ ml: 2, mr: 2, opacity: lang !== 'EN' ? 0.5 : 1 }}
-              color="inherit"
-              onClick={() => dispatch(setLang('EN'))}
-            >
-              <img
-                style={{ width: 28, height: 28, borderRadius: 14, padding: '0 -15%' }}
-                src={GbLogo}
-                alt="GB"
-              />
-            </IconButton>
-            {user.id && (
-              <Button
-                className={cl.signButton}
-                variant="contained"
-                color="secondary"
-                onClick={signHandler}
-              >
-                {getDictVal('signout')}
-              </Button>
             )}
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </header>
+            <Tab
+              color="default"
+              label={getDictVal('welcome')}
+              value="/about"
+              to="/"
+              component={NavLink}
+            />
+            {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}
+          </Box>
+          <IconButton sx={{ ml: 1 }} onClick={switchTheme} color="inherit">
+            {isDarkMode ? <Brightness4 color="inherit" /> : <Brightness7 color="inherit" />}
+          </IconButton>
+          <IconButton
+            size="small"
+            sx={{ ml: 2, opacity: lang !== 'UA' ? 0.5 : 1 }}
+            color="inherit"
+            onClick={() => dispatch(setLang('UA'))}
+          >
+            <img style={{ width: 28, height: 28, borderRadius: 14 }} src={UaLogo} alt="UA" />
+          </IconButton>
+          <IconButton
+            size="small"
+            sx={{ ml: 2, mr: 2, opacity: lang !== 'EN' ? 0.5 : 1 }}
+            color="inherit"
+            onClick={() => dispatch(setLang('EN'))}
+          >
+            <img
+              style={{ width: 28, height: 28, borderRadius: 14, padding: '0 -15%' }}
+              src={GbLogo}
+              alt="GB"
+            />
+          </IconButton>
+          {user.id && (
+            <Button
+              className={cl.signButton}
+              variant="contained"
+              color="secondary"
+              onClick={signHandler}
+            >
+              {getDictVal('signout')}
+            </Button>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }

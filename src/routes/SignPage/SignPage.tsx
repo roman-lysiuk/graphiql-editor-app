@@ -15,6 +15,7 @@ import { ValidationPassword, ValidateEmail } from './validate';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import InputForm from '../../components/InputForm/InputForm';
+import Spinner from '../../components/Spinner/Spinner';
 import { setSignIn, setSignUp } from '../../store/signSlice';
 
 const SignPage: React.FC = () => {
@@ -30,6 +31,7 @@ const SignPage: React.FC = () => {
   } = useForm<Sign>({ reValidateMode: 'onChange', mode: 'onChange' });
 
   const getDictVal = useDict();
+  const { isProcess } = useAppSelector((state) => state.spinner);
   const [registration] = useRegisterWithEmailAndPassword();
   const [login] = useLogInWithEmailAndPassword();
 
@@ -61,6 +63,7 @@ const SignPage: React.FC = () => {
             }
       }
     >
+      {isProcess && <Spinner />}
       <form
         className="form"
         onSubmit={handleSubmit(onSubmit)}
