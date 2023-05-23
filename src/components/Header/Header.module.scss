@@ -1,14 +1,10 @@
 @import "../../styles/mixins.scss";
 .nav {
-  height: 70px;
   width: 100%;
-  background: grey;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: fixed;
   padding: 5px;
-  top: 0px;
   opacity: 98%;
 
   &__list {
