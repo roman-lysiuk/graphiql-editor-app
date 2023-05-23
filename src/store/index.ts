@@ -6,6 +6,7 @@ import themeSlice from './themeSlice';
 import spinnerSlice from './spinnerSlice';
 import multiLangSlice from './multiLangSlice';
 import docPanelSlice from './docPanelSlice';
+import signSlice from './signSlice';
 
 const rootReducer = combineReducers({
   user: userSlice,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   multiLang: multiLangSlice,
   spinner: spinnerSlice,
   docPanel: docPanelSlice,
+  sign: signSlice,
 });
 
 export const setupStore = () =>

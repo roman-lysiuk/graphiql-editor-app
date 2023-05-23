@@ -123,19 +123,21 @@ export default function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              {user.id && (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Tab
+                    color="default"
+                    label={getDictVal('main')}
+                    value="/"
+                    to={user.id ? '/main' : '/'}
+                    component={NavLink}
+                  />
+                </MenuItem>
+              )}
               <MenuItem onClick={handleCloseNavMenu}>
                 <Tab
                   color="default"
-                  label={getDictVal('menu')}
-                  value="/"
-                  to={user.id ? '/main' : '/'}
-                  component={NavLink}
-                />
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Tab
-                  color="default"
-                  label={getDictVal('about')}
+                  label={getDictVal('welcome')}
                   value="/about"
                   to="/"
                   component={NavLink}
@@ -144,16 +146,18 @@ export default function Header() {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Tab
-              // color="default"
-              label={getDictVal('menu')}
-              value="/"
-              to={user.id ? '/main' : '/'}
-              component={NavLink}
-            />
+            {user.id && (
+              <Tab
+                // color="default"
+                label={getDictVal('main')}
+                value="/"
+                to={user.id ? '/main' : '/'}
+                component={NavLink}
+              />
+            )}
             <Tab
               color="default"
-              label={getDictVal('about')}
+              label={getDictVal('welcome')}
               value="/about"
               to="/"
               component={NavLink}
@@ -183,16 +187,16 @@ export default function Header() {
               alt="GB"
             />
           </IconButton>
-          <NavLink to={user.id ? '/main' : '/sign'}>
+          {user.id && (
             <Button
               className={cl.signButton}
               variant="contained"
               color="secondary"
               onClick={signHandler}
             >
-              {user.id ? getDictVal('logout') : getDictVal('signin')}
+              {getDictVal('signout')}
             </Button>
-          </NavLink>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
