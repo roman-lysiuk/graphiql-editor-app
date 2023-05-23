@@ -12,11 +12,6 @@ import { changeErrors } from '../../store/graphQLSlice';
 import { addMessage } from '../../store/sysMessengerSlice';
 import useDict from '../../hooks/useDict';
 
-const fixedHeightEditor = EditorView.theme({
-  '&': { height: '80vh' },
-  '.cm-scroller': { overflow: 'auto' },
-});
-
 export default function GraphQLEditor() {
   const getDictVal = useDict();
   const initialValueGraphQL = `${getDictVal('descriptionEditors')}
@@ -40,12 +35,11 @@ query{
   }
 }
 `;
-const fixedHeightEditor = EditorView.theme({
-  '&': { height: '75vh' },
-  '.cm-scroller': { overflow: 'auto' },
-});
+  const fixedHeightEditor = EditorView.theme({
+    '&': { height: '75vh' },
+    '.cm-scroller': { overflow: 'auto' },
+  });
 
-export default function GraphQLEditor() {
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
   const dispatch = useAppDispatch();
