@@ -6,22 +6,21 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-console */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '@mui/material';
 import { Sign } from '../../interfaces';
-import {
-  useLogInWithEmailAndPassword,
-  useRegisterWithEmailAndPassword,
-  signInWithGoogle,
-} from '../../firebase';
+import { useLogInWithEmailAndPassword, useRegisterWithEmailAndPassword } from '../../firebase';
 import { ValidationPassword, ValidateEmail } from './validate';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import InputForm from '../../components/InputForm/InputForm';
+import Spinner from '../../components/Spinner/Spinner';
+import { setSignIn, setSignUp } from '../../store/signSlice';
 
 const SignPage: React.FC = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
+  const dispatch = useAppDispatch();
+  const { isSignIn } = useAppSelector((state) => state.sign);
   const theme = useAppSelector((state) => state.theme);
   const {
     register,
@@ -32,6 +31,7 @@ const SignPage: React.FC = () => {
   } = useForm<Sign>({ reValidateMode: 'onChange', mode: 'onChange' });
 
   const getDictVal = useDict();
+  const { isProcess } = useAppSelector((state) => state.spinner);
   const [registration] = useRegisterWithEmailAndPassword();
   const [login] = useLogInWithEmailAndPassword();
 
@@ -43,10 +43,10 @@ const SignPage: React.FC = () => {
     }
     reset();
   }
-  function googleAuth() {
-    signInWithGoogle();
-  }
-  const toggleLink = () => (isSignIn ? setIsSignIn(false) : setIsSignIn(true));
+  // function googleAuth() {
+  //   signInWithGoogle();
+  // }
+  const toggleLink = () => (isSignIn ? dispatch(setSignUp()) : dispatch(setSignIn()));
   return (
     <div
       className="formPage"
@@ -63,6 +63,7 @@ const SignPage: React.FC = () => {
             }
       }
     >
+      {isProcess && <Spinner />}
       <form
         className="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -112,7 +113,7 @@ const SignPage: React.FC = () => {
           />
         )}
 
-        <button className="googleBtn" onClick={googleAuth} />
+        {/* <button className="googleBtn" onClick={googleAuth} /> */}
 
         <Input className="submit" type="submit" value={getDictVal('send')} />
         <p

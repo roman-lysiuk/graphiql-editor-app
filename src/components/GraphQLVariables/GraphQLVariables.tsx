@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { changeVariables } from '../../store/graphQLSlice';
 import Codemirror from '../CodeMirror/Codemirror';
 import cl from './graphQLVariables.module.scss';
+import useDict from '../../hooks/useDict';
 
 const fixedHeightEditor = EditorView.theme({
   '&': { height: '10vh' },
@@ -17,6 +18,7 @@ const linterExtension = linter(jsonParseLinter());
 
 export default function GraphQLVariables() {
   const [hide, setHide] = useState(false);
+  const getDictVal = useDict();
   const dispatch = useAppDispatch();
   const { variables } = useAppSelector((state) => state.graphQL);
   const handlerClick = (value: string | undefined) => {
@@ -32,7 +34,7 @@ export default function GraphQLVariables() {
   return (
     <section className={cl.variables}>
       <div className={cl.variables__headWrap}>
-        <h5 className={cl.variables__header}>Query Variables</h5>
+        <h5 className={cl.variables__header}>{getDictVal('titleQueryVariables')}</h5>
         <button className={cl.variables__btn} onClick={click}>
           {hide ? '▲' : '▼'}
         </button>

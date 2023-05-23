@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Button, Container, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
@@ -13,9 +13,23 @@ export default function GraphQLDocs() {
   const dispatch = useAppDispatch();
   const { url } = useAppSelector((state) => state.graphQL);
   const data = useFetchDocRoot(url);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    if (window.innerWidth < 450) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <Container sx={{ p: 1 }} style={{ width: '30rem' }}>
+    <Container sx={{ p: 1 }} maxWidth="sm">
       <Button
         variant="contained"
         sx={{ width: '100%', zIndex: 200 }}
@@ -33,7 +47,7 @@ export default function GraphQLDocs() {
       <Typography variant="h6">{getDictVal('docDesc')}</Typography>
       <br />
       <Suspense fallback={<SpinnerDoc />}>
-        <DataRoutes data={data} />
+        <DataRoutes data={data} style={{ height: isMobile ? '73vh' : '76vh', overflowY: 'auto' }} />
       </Suspense>
     </Container>
   );
