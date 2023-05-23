@@ -6,7 +6,6 @@ import { clearData, changeRoute, changeVariables } from '../../store/graphQLSlic
 import DocButtonSpinner from '../DocButtons/DocButtonSpinner';
 import DocButtonOk from '../DocButtons/DocButtonOk';
 import useDict from '../../hooks/useDict';
-import cleanVisibleRoute from '../../helpers/cleanVisibleRoute';
 
 export default function GraphQLRoute() {
   const { url } = useAppSelector((state) => state.graphQL);
@@ -36,7 +35,7 @@ export default function GraphQLRoute() {
           id="route-graphql"
           type="text"
           placeholder={getDictVal('placeholderRoute')}
-          value={cleanVisibleRoute(route)}
+          value={route}
           onChange={(e) => setRoute(e.target.value)}
         />
       </label>
