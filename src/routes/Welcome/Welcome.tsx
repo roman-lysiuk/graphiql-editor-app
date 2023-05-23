@@ -6,7 +6,6 @@ import useDict from '../../hooks/useDict';
 import { setSignIn, setSignUp } from '../../store/signSlice';
 
 export default function WelcomePage() {
-  // const { lang } = useAppSelector((state) => state.multiLang);
   const theme = useAppSelector((state) => state.theme);
   const getDictVal = useDict();
   const user = useAppSelector((state) => state.user);

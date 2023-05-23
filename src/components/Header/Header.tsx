@@ -148,7 +148,6 @@ export default function Header() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {user.id && (
               <Tab
-                // color="default"
                 label={getDictVal('main')}
                 value="/"
                 to={user.id ? '/main' : '/'}

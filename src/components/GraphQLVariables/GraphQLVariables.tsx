@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { EditorView } from 'codemirror';
 import { linter } from '@codemirror/lint';
 import { json, jsonLanguage, jsonParseLinter } from '@codemirror/lang-json';
@@ -17,6 +17,7 @@ const fixedHeightEditor = EditorView.theme({
 const linterExtension = linter(jsonParseLinter());
 
 export default function GraphQLVariables() {
+  const [hide, setHide] = useState(false);
   const getDictVal = useDict();
   const dispatch = useAppDispatch();
   const { variables } = useAppSelector((state) => state.graphQL);
@@ -26,10 +27,21 @@ export default function GraphQLVariables() {
     }
   };
 
+  function click() {
+    setHide(!hide);
+  }
+
   return (
     <section className={cl.variables}>
-      <h5 className={cl.variables__btn}>{getDictVal('titleQueryVariables')}</h5>
-      <div className="wrapVar">
+      <div className={cl.variables__headWrap}>
+        <h5 className={cl.variables__header}>{getDictVal('titleQueryVariables')}</h5>
+        <button className={cl.variables__btn} onClick={click}>
+          {hide ? '▲' : '▼'}
+        </button>
+      </div>
+      {!hide ? (
+        <div />
+      ) : (
         <Codemirror
           editor={false}
           onChange={handlerClick}
@@ -43,7 +55,7 @@ export default function GraphQLVariables() {
             darcula,
           ]}
         />
-      </div>
+      )}
     </section>
   );
 }

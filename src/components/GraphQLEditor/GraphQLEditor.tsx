@@ -40,7 +40,12 @@ query{
   }
 }
 `;
-  // const { isDarkMode } = useAppSelector((state) => state.theme);
+const fixedHeightEditor = EditorView.theme({
+  '&': { height: '75vh' },
+  '.cm-scroller': { overflow: 'auto' },
+});
+
+export default function GraphQLEditor() {
   const { url: GraphQLRoute, variables, headers } = useAppSelector((state) => state.graphQL);
   const [valueMonaco, setValueMonaco] = useState<string>(initialValueGraphQL);
   const dispatch = useAppDispatch();
@@ -106,7 +111,7 @@ query{
 
   return (
     <section className={cl.editor} id="graphql-editor">
-      <div className="editBlock">
+      <div className={cl.editor__editBlock}>
         <Codemirror
           value={valueMonaco}
           onChange={handlerChangeEditor}

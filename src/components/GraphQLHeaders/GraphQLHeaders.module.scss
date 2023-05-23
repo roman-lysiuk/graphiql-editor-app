@@ -1,16 +1,23 @@
 .headers {
-  height: 12vh;
   display: block;
   margin: 10px 0;
-  // background-color: #319d3f8c;
+  &__headWrap {
+    height: 20px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+  }
   &__btn {
-    padding-left: 20px;
-    position: relative;
+    padding: 0;
     border: none;
     z-index: 1;
-    width: 50%;
+    line-height: 20px;
+    text-align: center;
+    background-color: #ffffff00;
+    width: 20px;
     height: 20px;
-    text-align: start;
     cursor: pointer;
+    transform: rotate(0);
+    transition: 1s;
   }
 }
