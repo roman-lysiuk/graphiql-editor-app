@@ -6,32 +6,18 @@ import GraphQLDocs from '../../components/GraphQLDocs/GraphQLDocs';
 import GraphQLResponse from '../../components/GraphQLResponse/GraphQLResponse';
 import { useAppSelector } from '../../hooks/redux';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
-import Spinner from '../../components/Spinner/Spinner';
 
 export default function Main() {
   const theme = useAppSelector((state) => state.theme);
   const { isDrawerVisible } = useAppSelector((state) => state.docPanel);
   const graphqlDoc = useMemo(() => <GraphQLDocs />, []);
-  const { isProcess } = useAppSelector((state) => state.spinner);
+
+  const backgroundUrl = theme.isDarkMode
+    ? 'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg")'
+    : 'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpeg")';
 
   return (
-    <main
-      className="main"
-      style={
-        theme.isDarkMode
-          ? {
-              background:
-                'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/back_GraphQL.jpg")',
-              backgroundSize: 'cover',
-            }
-          : {
-              background:
-                'url("https://raw.githubusercontent.com/Sedric14/assets/main/graphQL/wall-light.jpeg")',
-              backgroundSize: 'cover',
-            }
-      }
-    >
-      {isProcess && <Spinner />}
+    <main className="main" style={{ background: backgroundUrl }}>
       <ErrorBoundary>
         <GraphQLRoute />
         <div className="mainWrap">

@@ -15,7 +15,6 @@ import { ValidationPassword, ValidateEmail } from './validate';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import useDict from '../../hooks/useDict';
 import InputForm from '../../components/InputForm/InputForm';
-import Spinner from '../../components/Spinner/Spinner';
 import { setSignIn, setSignUp } from '../../store/signSlice';
 
 const SignPage: React.FC = () => {
@@ -43,9 +42,7 @@ const SignPage: React.FC = () => {
     }
     reset();
   }
-  // function googleAuth() {
-  //   signInWithGoogle();
-  // }
+
   const toggleLink = () => (isSignIn ? dispatch(setSignUp()) : dispatch(setSignIn()));
   return (
     <div
@@ -63,10 +60,10 @@ const SignPage: React.FC = () => {
             }
       }
     >
-      {isProcess && <Spinner />}
       <form
         className="form"
         onSubmit={handleSubmit(onSubmit)}
+        hidden={isProcess}
         style={
           theme.isDarkMode
             ? {}
@@ -112,8 +109,6 @@ const SignPage: React.FC = () => {
             }}
           />
         )}
-
-        {/* <button className="googleBtn" onClick={googleAuth} /> */}
 
         <Input className="submit" type="submit" value={getDictVal('send')} />
         <p

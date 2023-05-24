@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { Box, CircularProgress } from '@mui/material';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setIsLoading } from '../../store/docPanelSlice';
 
 export default function SpinnerDoc() {
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((store) => store.docPanel);
   useEffect(() => {
     dispatch(setIsLoading(true));
     return () => {
       dispatch(setIsLoading(false));
     };
-  }, [dispatch]);
+  }, [dispatch, isLoading]);
 
   return (
     <Box
