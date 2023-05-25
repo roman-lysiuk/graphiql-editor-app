@@ -31,6 +31,11 @@
     border: 3px solid aliceblue;
     border-radius: 5px;
     background-color: #ffffff00;
+    transition: 0.3s;
+    &:hover{
+      color: #296ded;
+      border: 3px solid #296ded;
+    }
   }
   &__settingRow {
     display: flex;
