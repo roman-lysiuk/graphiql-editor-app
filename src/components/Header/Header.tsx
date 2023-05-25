@@ -86,9 +86,10 @@ export default function Header() {
 
   return (
     <AppBar
+      className={cl.appBar}
       color="inherit"
       sx={{
-        backgroundColor: isSticky ? 'rgb(99, 96, 96)' : 'grey',
+        backgroundColor: isSticky ? 'rgb(99, 96, 96)' : '#ffffff50',
         height: isSticky ? 55 : 70,
         top: 0,
         left: 0,
