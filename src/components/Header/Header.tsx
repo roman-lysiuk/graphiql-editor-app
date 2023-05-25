@@ -18,8 +18,9 @@ import useDict from '../../hooks/useDict';
 import UaLogo from '@/assets/images/ua_flag.png';
 import GbLogo from '@/assets/images/gb_flag.png';
 import { setLang } from '../../store/multiLangSlice';
-import cl from './Header.module.scss';
+import { setOn, setOff } from '../../store/spinnerSlice';
 import { setUser } from '../../store/userSlice';
+import cl from './Header.module.scss';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -68,6 +69,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    dispatch(setOn());
     onAuthStateChanged(auth, (userCreds) => {
       if (userCreds && userCreds.uid) {
         dispatch(
@@ -78,6 +80,7 @@ export default function Header() {
           }),
         );
       }
+      dispatch(setOff());
     });
   }, [dispatch]);
 
