@@ -31,7 +31,6 @@ function CodeMirror({ value, onChange, extensions, editor }: CodeMirrorProps) {
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, view]);
 
   return <div ref={ref} />;

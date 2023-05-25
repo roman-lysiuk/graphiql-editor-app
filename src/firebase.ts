@@ -1,7 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable no-console */
 /* eslint-disable no-alert */
-
 import { initializeApp } from 'firebase/app';
 import {
   GoogleAuthProvider,
