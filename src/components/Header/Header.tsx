@@ -165,7 +165,6 @@ export default function Header() {
               to="/"
               component={NavLink}
             />
-            {/* <Tab color="default" label="Sign" value="/sign" to="/sign" component={NavLink} /> */}
           </Box>
           <IconButton sx={{ ml: 1 }} onClick={switchTheme} color="inherit">
             {isDarkMode ? <Brightness4 color="inherit" /> : <Brightness7 color="inherit" />}
