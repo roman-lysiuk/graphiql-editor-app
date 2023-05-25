@@ -5,7 +5,17 @@
   flex-direction: column;
   justify-content: space-between;
   width: 50vw;
+  // height: 50vh;
   max-height: 75vh;
+
+  &__editBlock{
+    position: relative;
+    height: 45vh;
+    flex-grow: 1;
+    background-color: hsl(0, 0%, 14%);
+    border-radius: 10px;
+    overflow: hidden;
+  }
 
   &__button {
     color: aliceblue;
@@ -28,15 +38,6 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-
-    &__editBlock{
-      position: relative;
-      height: 45vh;
-      flex-grow: 1;
-      background-color: hsl(0, 0%, 14%);
-      border-radius: 10px;
-      overflow: hidden;
-    }
   }
 
   @media (max-width: 1000px) {
@@ -44,6 +45,7 @@
 
     &__button {
       left: calc(90vw - 170px);
+      // bottom: 60px;
     }
   }
 }

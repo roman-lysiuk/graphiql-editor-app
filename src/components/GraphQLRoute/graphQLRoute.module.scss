@@ -1,7 +1,5 @@
 @import "../../styles//mixins.scss";
 .routeRow {
-  // grid-column-start: 1;
-  // grid-column-end: 4;
   display: flex;
   justify-content: flex-start;
   gap: 20px;
@@ -29,6 +27,9 @@
     height: 50px;
     padding: 0 10px;
     font-size: 120%;
+    @media(max-width: 1000px){
+      font-size: 100%;
+    }
   }
   &__label {
     flex-grow: 1;
