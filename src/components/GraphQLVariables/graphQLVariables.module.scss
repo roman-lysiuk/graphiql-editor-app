@@ -17,5 +17,9 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+    transition: 0.3s;
+    &:hover{
+      color: #296ded;
+    }
   }
 }

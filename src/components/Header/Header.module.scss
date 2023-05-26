@@ -42,3 +42,16 @@
   border-radius: 5px;
   line-height: 1.1 !important;
 }
+.appBar {
+  animation: slideDown 0.35s ease-out;
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+

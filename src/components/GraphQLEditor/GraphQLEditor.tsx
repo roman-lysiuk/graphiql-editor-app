@@ -56,7 +56,6 @@ query{
     setValueMonaco(value);
   };
   const handlerGetResponseBtn = () => {
-    // TODO:validation(counting lint errors for codemirror)
     let variablesValid: { [key: string]: string } | undefined;
     let headersValid: { [key: string]: string } | undefined;
 

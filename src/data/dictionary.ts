@@ -30,6 +30,9 @@ const dictionary: IDictionary = {
     // graphQL Headerssection
     titleHeaders: 'Headers',
 
+    // graphQL Responsessection
+    titleResponse: 'Response',
+
     // welcome page
     signin: 'SIGN IN',
     main: 'MAIN',
@@ -111,6 +114,9 @@ const dictionary: IDictionary = {
 
     // graphQL Headerssection
     titleHeaders: 'Заголовки',
+
+    // graphQL Responsessection
+    titleResponse: 'Відповідь',
 
     // welcome page
     signin: 'УВIЙТИ',

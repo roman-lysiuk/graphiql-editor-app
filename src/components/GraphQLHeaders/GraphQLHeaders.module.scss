@@ -18,6 +18,9 @@
     height: 20px;
     cursor: pointer;
     transform: rotate(0);
-    transition: 1s;
+    transition: 0.3s;
+    &:hover{
+      color: #296ded;
+    }
   }
 }

@@ -7,15 +7,17 @@ import { useAppSelector } from '../../hooks/redux';
 import normalizeData from '../../helpers/normalizeData';
 import Codemirror from '../CodeMirror/Codemirror';
 import Spinner from '../Spinner/Spinner';
+import useDict from '../../hooks/useDict';
 
 export default function GraphQLResponse() {
   const { error, data, isLoading } = useAppSelector((state) => state.graphQL);
+  const getDictVal = useDict();
 
   return (
     <>
       {isLoading && <Spinner />}
       <section className="response">
-        <h5 className="respHeader">Response</h5>
+        <h5 className="respHeader">{getDictVal('titleResponse')}</h5>
         <Codemirror
           editor
           onChange={() => {}}

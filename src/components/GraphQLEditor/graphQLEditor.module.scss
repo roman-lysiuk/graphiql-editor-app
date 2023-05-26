@@ -5,14 +5,13 @@
   flex-direction: column;
   justify-content: space-between;
   width: 50vw;
-  // height: 50vh;
   max-height: 75vh;
 
   &__editBlock{
     position: relative;
     height: 45vh;
     flex-grow: 1;
-    background-color: hsl(0, 0%, 14%);
+    background-color: rgba(36, 36, 36, 0);
     border-radius: 10px;
     overflow: hidden;
   }
@@ -32,6 +31,11 @@
     border: 3px solid aliceblue;
     border-radius: 5px;
     background-color: #ffffff00;
+    transition: 0.3s;
+    &:hover{
+      color: #296ded;
+      border: 3px solid #296ded;
+    }
   }
   &__settingRow {
     display: flex;
@@ -45,7 +49,6 @@
 
     &__button {
       left: calc(90vw - 170px);
-      // bottom: 60px;
     }
   }
 }

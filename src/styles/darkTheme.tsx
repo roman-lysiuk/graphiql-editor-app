@@ -9,8 +9,9 @@ const darkTheme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          fontWeight: '600',
           ':hover': {
-            color: 'white',
+            color: '#b0c9fa',
           },
         },
       },
