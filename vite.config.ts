@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
 import path from 'path';
@@ -15,6 +16,14 @@ export default defineConfig({
   plugins: [
     eslint({ cache: false }),
     react(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: './src/assets/favicon.ico',
+          dest: './'
+        }
+      ]
+    })
   ],
   test: {
     globals: true,
