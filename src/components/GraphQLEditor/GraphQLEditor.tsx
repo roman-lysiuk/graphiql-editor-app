@@ -65,7 +65,9 @@ query{
       variablesValid = undefined;
       if (error instanceof Error) {
         dispatch(changeErrors(`${error.name} in Variables GraphQL:${error.message}`));
-        dispatch(addMessage({ type: 'error', message: `${error.name} in Variables GraphQL` }));
+        dispatch(
+          addMessage({ type: 'error', message: `Variables GraphQL ERROR: ${error.message}` }),
+        );
       }
     }
 
@@ -75,7 +77,7 @@ query{
       headersValid = undefined;
       if (error instanceof Error) {
         dispatch(changeErrors(`${error.name} in Headers GraphQL:${error.message}`));
-        dispatch(addMessage({ type: 'error', message: `${error.name} in Headers GraphQL` }));
+        dispatch(addMessage({ type: 'error', message: `Headers GraphQL ERROR: ${error.message}` }));
       }
     }
 
@@ -89,15 +91,16 @@ query{
         }),
       )
         .then((data) => {
-          if (data.meta.requestStatus === 'rejected' && data.payload.extensions.code) {
+          if (data.meta.requestStatus === 'rejected' && data.payload.message) {
+            dispatch(addMessage({ type: 'error', message: data.payload.message }));
+          } else if (data.meta.requestStatus === 'rejected' && data.payload.extensions.code) {
             dispatch(addMessage({ type: 'error', message: data.payload.extensions.code }));
-          }
-          if (data.meta.requestStatus === 'fulfilled') {
+          } else if (data.meta.requestStatus === 'fulfilled') {
             dispatch(addMessage({ type: 'success', message: 'Request fulfilled' }));
           }
         })
-        .catch(() => {
-          dispatch(addMessage({ type: 'error', message: 'Error writing headers' }));
+        .catch((err) => {
+          dispatch(addMessage({ type: 'error', message: `Request ERROR: ${err.message}` }));
         });
     }
   };
