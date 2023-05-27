@@ -1,3 +1,6 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { EditorView } from 'codemirror';
 import { linter } from '@codemirror/lint';
@@ -33,11 +36,9 @@ export default function GraphQLVariables() {
 
   return (
     <section className={cl.variables}>
-      <div className={cl.variables__headWrap}>
+      <div className={cl.variables__headWrap} onClick={click}>
         <h5 className={cl.variables__header}>{getDictVal('titleQueryVariables')}</h5>
-        <button className={cl.variables__btn} onClick={click}>
-          {hide ? '▲' : '▼'}
-        </button>
+        <button className={cl.variables__btn}>{hide ? '▲' : '▼'}</button>
       </div>
       {!hide ? (
         <div />

@@ -7,6 +7,7 @@ import {
   RegisterOptions,
   UseFormRegister,
 } from 'react-hook-form';
+import { useAppSelector } from '../../hooks/redux';
 
 interface InputFormProps<Type extends FieldValues> {
   labelName: string;
@@ -29,6 +30,7 @@ export default function InputForm<T extends FieldValues>({
   register,
   validation,
 }: InputFormProps<T>) {
+  const theme = useAppSelector((state) => state.theme);
   return (
     <>
       <div className="input-wrap">
@@ -44,7 +46,11 @@ export default function InputForm<T extends FieldValues>({
         />
       </div>
       {errors[name] && (
-        <p className={`form-control ${errors.password ? 'errDis' : 'errMess'}`}>
+        <p
+          className={`${errors.password ? 'errDis' : 'errMess'} ${
+            theme.isDarkMode ? 'form-control' : 'form-control-light'
+          }`}
+        >
           {errors[name]?.message?.toString()}
         </p>
       )}

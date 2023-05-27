@@ -50,6 +50,12 @@
       text-align: center;
     }
 
+    .form-control-light{
+      width: 100%;
+      color: rgb(90, 30, 8);
+      text-align: center;
+    }
+
     .submit {
       display: block;
       height: 50px;
@@ -76,7 +82,7 @@
     .upLink {
       cursor: pointer;
       color: aliceblue;
-      width: 100px;
+      width: 100%;
       text-align: center;
 
       &:hover {
@@ -88,10 +94,10 @@
       font-weight: 600;
       cursor: pointer;
       position: relative;
-      top: 20px;
-      left: 250px;
+      // top: 20px;
+      // left: 250px;
       color: black;
-      width: 100px;
+      width: 100%;
       text-align: center;
 
       &:hover {
@@ -109,10 +115,6 @@
       }
       .label {
         margin-bottom: 5px;
-      }
-
-      .linkLight {
-        left: calc((80vw - 100px) / 2);
       }
     }
   }

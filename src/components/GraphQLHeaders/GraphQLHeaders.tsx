@@ -1,3 +1,6 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { EditorView } from '@codemirror/view';
 import { json, jsonLanguage, jsonParseLinter } from '@codemirror/lang-json';
@@ -33,11 +36,9 @@ export default function GraphQLHeaders() {
 
   return (
     <section className={cl.headers}>
-      <div className={cl.headers__headWrap}>
+      <div className={cl.headers__headWrap} onClick={click}>
         <h5 className={cl.headers__header}>{getDictVal('titleHeaders')}</h5>
-        <button className={cl.headers__btn} onClick={click}>
-          {hide ? '▲' : '▼'}
-        </button>
+        <button className={cl.headers__btn}>{hide ? '▲' : '▼'}</button>
       </div>
       {!hide ? (
         <div />
