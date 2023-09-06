@@ -57,19 +57,23 @@ export default function WelcomePage() {
         {/* <p>{getDictVal('projectText')}</p> */}
         <p>{getDictVal('developers')}:</p>
         <div className="devs">
+          
           <a
+            target="_blank"
             className={theme.isDarkMode ? 'LinkDark' : 'GitLink'}
             href="https://github.com/Folganoid/"
           >
             {getDictVal('andriiholubkov')}
           </a>
           <a
+            target="_blank"
             className={theme.isDarkMode ? 'LinkDark' : 'GitLink'}
             href="https://github.com/roman-lysiuk/"
           >
             {getDictVal('romanlysiuk')}
           </a>
           <a
+            target="_blank"
             className={theme.isDarkMode ? 'LinkDark' : 'GitLink'}
             href="https://github.com/sedric14/"
           >
