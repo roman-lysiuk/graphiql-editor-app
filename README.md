@@ -7,6 +7,7 @@
 
 # GraphiQL Playground for graphQL requests
 #### Video Demo :  https://youtu.be/iR2-v1h2-mw
+#### Deploy link: https://graphql-editor-clone.netlify.app/
 #### Description: 
 The GraphiQL Playground project for executing graphQL queries is made by three developers. It supports autocomplete
 
