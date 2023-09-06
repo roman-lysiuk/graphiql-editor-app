@@ -5,6 +5,52 @@
   <br>
 </p>
 
+# GraphiQL Playground for graphQL requests
+#### Video Demo :  https://youtu.be/iR2-v1h2-mw
+#### Description: 
+The GraphiQL Playground project for executing graphQL queries is made by three developers. It supports autocomplete
+
+ #### Technical Requirements
+Localization: The application supports at least two languages, and users can switch between them by clicking on the language toggler/select in the header.
+Semantic Layout: The application follows a semantic layout structure to ensure accessibility and clarity.
+Browser Compatibility: The application is designed to work seamlessly in the latest version of the Google Chrome browser.
+Private Routes and Error Handling: Private routes are implemented, and a 404 error boundary is in place to handle unhandled errors gracefully.
+React 18 + Suspense: React version 18 and the suspense feature are used.
+TypeScript: TypeScript is used throughout the application.
+
+
+#### Application Design Requirements
+Detail-Oriented Design: The application emphasizes attention to detail, typography, and content selection, with a maximum of three fonts per page, a font size of at least 14px, and optimal font and background contrast.
+Adaptive Layout: The application is responsive and adapts to different screen sizes, with a minimum page width of 320px.
+Interactivity: Interactive elements are incorporated throughout the application, including element hover effects, distinct styles for active and inactive states, and smooth animations.
+Consistent Styling: All pages of the application maintain a consistent style, including fonts, button styles, and spacing. While colors and background images may vary, they should come from the same palette or collection.
+Description of Function Blocks
+#### General Requirements
+Errors from the API side (e.g., Not found, unhandled rejection) are displayed to users in a user-friendly format, such as a toast or pop-up notification.
+##### Welcome Page
+If the user is not authorized, the welcome page contains links to the Sign In and Sign Up pages.
+If the user is authorized, the welcome page contains a link to the Main page.
+##### Header
+All private routes have a sticky header. The header becomes sticky with a smooth animation, which may involve a change in color or a reduction in height.
+The "Sign Out" button allows users to sign out.
+##### Sign In / Sign Up
+Firebase with the email option is used for authentication.
+Client-side validation is implemented for email and password strength, requiring a minimum of 8 characters, at least one letter, one digit, and one special character.
+Upon successful login, users are redirected to the Main page.
+If a user is already logged in and attempts to access these routes, they are redirected to the Main page.
+
+##### Main Page - GraphiQL
+The main page includes a GraphiQL editor.
+A Variables section can be opened or closed.
+Headers for CORS requests are supported and can be added.
+
+##### The Documentation section
+The Documentation section Documentation section is visible only when the app receives a successful response with the schema definition from the API.
+
+##### Response section 
+The Response section displays query responses.
+
+
 # Viterts
 
 ## Features
@@ -140,7 +186,3 @@ The project has a strong linter configuration to ensure consistency and maintain
 
 All components in the project are created as functional component. Continuity should be ensured by not using class components unless needed.
 
-## Contributors
-
-[Erdoğan BULUT](https://github.com/erdoganbulut/)
-[Ömer AYYILDIZ](https://github.com/omerayyildiz)
