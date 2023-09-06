@@ -65,7 +65,7 @@ export default function WelcomePage() {
           </a>
           <a
             className={theme.isDarkMode ? 'LinkDark' : 'GitLink'}
-            href="https://github.com/gekalo1025/"
+            href="https://github.com/roman-lysiuk/"
           >
             {getDictVal('romanlysiuk')}
           </a>
