@@ -41,7 +41,7 @@ const dictionary: IDictionary = {
     romanlysiuk: 'Roman Lysiuk',
     olehsadrytskyi: 'Oleh Sadrytskyi',
     playgroundText: 'Playground for graphQL requests',
-    projectText: 'This project was created as the final task of the RSSchool React',
+    projectText: '',
 
     // 404
     error404: 'page not found...',
@@ -126,7 +126,7 @@ const dictionary: IDictionary = {
     romanlysiuk: 'Роман Лисюк',
     olehsadrytskyi: 'Oлeг Садрицький',
     playgroundText: 'Майданчик для запитів graphQL',
-    projectText: 'Цей проект був створений як фінальне завдання RSSchool React',
+    projectText: '',
 
     // 404
     error404: 'сторiнка не знайдена...',
