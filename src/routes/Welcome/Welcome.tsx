@@ -54,7 +54,7 @@ export default function WelcomePage() {
       <div className="welcome" style={theme.isDarkMode ? { textShadow: '0 0 5px black' } : {}}>
         <h1 className="welcomeHeadline">GraphiQL</h1>
         <h3>{getDictVal('playgroundText')}</h3>
-        <p>{getDictVal('projectText')}</p>
+        {/* <p>{getDictVal('projectText')}</p> */}
         <p>{getDictVal('developers')}:</p>
         <div className="devs">
           <a
