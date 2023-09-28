@@ -55,7 +55,7 @@ export default function WelcomePage() {
         <h1 className="welcomeHeadline">GraphiQL</h1>
         <h3>{getDictVal('playgroundText')}</h3>
         {/* <p>{getDictVal('projectText')}</p> */}
-        <p>{getDictVal('developers')}:</p>
+        {/* <p>{getDictVal('developers')}:</p> */}
         {/* <div className="devs">
           
           <a
