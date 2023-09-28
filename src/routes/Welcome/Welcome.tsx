@@ -56,7 +56,7 @@ export default function WelcomePage() {
         <h3>{getDictVal('playgroundText')}</h3>
         {/* <p>{getDictVal('projectText')}</p> */}
         <p>{getDictVal('developers')}:</p>
-        <div className="devs">
+        {/* <div className="devs">
           
           <a
             target="_blank"
@@ -79,7 +79,7 @@ export default function WelcomePage() {
           >
             {getDictVal('olehsadrytskyi')}
           </a>
-        </div>
+        </div> */}
       </div>
     </main>
   );
